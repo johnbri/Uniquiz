@@ -7,6 +7,10 @@
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
     "eslint-plugin-prettier": "^3.1.4",
+<<<<<<< HEAD
+=======
+    "firebase": "^8.0.2",
+>>>>>>> c9b28cdb07cba9cbb01854947704dbb36624f9f2
     "prettier": "^2.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
