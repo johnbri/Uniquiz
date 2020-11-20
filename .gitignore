@@ -4,7 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
-.spotifyaccounts.js
+services/
 
 # testing
 /coverage
