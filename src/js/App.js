@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import '../App.css';
+import '../css/App.css';
 import Login from "./Login";
 import { getTokenFromUrl } from "./spotify";
 import {database} from '../services/firebase.js';
