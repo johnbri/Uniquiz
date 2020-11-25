@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../css/App.css';
-import Login from "./Login";
+import Login from "./Login.js";
 import { getTokenFromUrl } from "./spotify";
 import {database} from '../services/firebase.js';
 import SpotifyWebApi from "spotify-web-api-js";
