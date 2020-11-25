@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import '../css/App.css';
 import Login from "./Login";
-import { getTokenFromUrl } from "./spotify";
-import {database} from '../services/firebase.js';
+import { getTokenFromUrl, getUser } from "./spotify";
+/*import {database} from '../services/firebase.js';*/
 
 /*database.ref('users/' + "erik").set({
   username: "Mikaela xD",
@@ -26,7 +26,7 @@ function App() {
     console.log("token", token);
   }, [token]);
 
-  return <div className="app">{token ? <h1>Logged in</h1> : <Login />}</div>;
+  return <div className="app">{token ? <h1>{getUser(token)}</h1>: <Login />}</div>;
 }
 
 export default App;
