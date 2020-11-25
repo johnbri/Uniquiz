@@ -1,5 +1,5 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize";
-const redirectUri = "http://localhost:3000/";
+const redirectUri = "http://localhost:3000/login";
 const clientId = "41ee13f3c2d945ddb590fd2a99e1167e";
 
 const scopes = [
@@ -37,5 +37,7 @@ function apiCall(token) {
 }
 
 export function getUser(token) {
-  return apiCall(token).then(jsonResponse => jsonResponse.id).catch(er => console.log(er))
+  let hej = apiCall(token).then(jsonResponse => console.log(jsonResponse)).catch(er => console.log(er))
+  console.log(hej)
+  return hej
 }
