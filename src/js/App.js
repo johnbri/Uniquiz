@@ -4,6 +4,7 @@ import Login from "./Login";
 import { getTokenFromUrl, getUser } from "./spotify";
 /*import {database} from '../services/firebase.js';*/
 
+
 /*database.ref('users/' + "erik").set({
   username: "Mikaela xD",
   email: "test",

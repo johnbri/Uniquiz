@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/Login.css";
 import { loginUrl } from "./spotify";
-import { LoginView } from "./view/loginView";
+import { LoginView } from "../js/View/loginView";
 
 function Login() {
   return React.createElement(LoginView, {
