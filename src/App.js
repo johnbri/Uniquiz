@@ -18,7 +18,7 @@ function App() {
     console.log("token", token);
   }, [token]);
 
-  return <div className="app">{token ? <h1>Logged in {token}</h1> : <Login />}</div>;
+  return <div className="app">{token ? <h1>Logged in</h1> : <Login />}</div>;
 }
 
 export default App;
