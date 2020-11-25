@@ -3,6 +3,9 @@ import '../App.css';
 import Login from "./Login";
 import { getTokenFromUrl } from "./spotify";
 import {database} from '../services/firebase.js';
+import SpotifyWebApi from "spotify-web-api-js";
+
+const spotify = new SpotifyWebApi();
 
 /*database.ref('users/' + "erik").set({
   username: "Mikaela xD",
@@ -21,6 +24,7 @@ function App() {
 
     if (_token) {
       setToken(_token);
+      spotify.setAccessToken(_token);
     }
 
     console.log("token", token);
