@@ -24,3 +24,18 @@ export const getTokenFromUrl = () => {
 export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
 "%20"
 )}&response_type=token&show_dialog=true`;
+
+function apiCall(token) {
+  console.log("hajhaj",token);
+  return fetch("https://api.spotify.com/v1/me", {
+    "method": "GET",
+    "headers": {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + token
+    }}).then(data => data.json())
+}
+
+export function getUser(token) {
+  return apiCall(token).then(jsonResponse => jsonResponse.id).catch(er => console.log(er))
+}
