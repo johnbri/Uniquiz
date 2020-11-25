@@ -2,8 +2,6 @@ import React from "react";
 import "../Login.css";
 import { loginUrl } from "./spotify";
 
-console.log({loginUrl})
-
 function Login() {
   return  (
     <div className="login">
@@ -15,12 +13,4 @@ function Login() {
     </div>
   );
 }
-/*
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}*/
 export default Login;

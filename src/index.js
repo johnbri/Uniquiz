@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
-//import { signup } from "./helpers/auth.js";
 
 ReactDOM.render(
   <React.StrictMode>
