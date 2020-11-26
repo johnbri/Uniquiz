@@ -2,37 +2,19 @@ import React, { useEffect, useState } from "react";
 import "../css/Login.css";
 import { loginUrl, getTokenFromUrl} from "./spotify";
 import { SpotifyConnectView } from "./view/spotifyConnectView";
-import { SignupView } from "./view/signupView";
+import { StartView } from "./view/startView";
 import {auth, database} from '../services/firebase.js';
 
 function Start(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState();
-  const [user, setUser] = useState();
 
-  useEffect(() => {
-    const hash = getTokenFromUrl();
-    window.location.hash = "";
-    const _token = hash.access_token;
-    
-    if (_token) {
-      setToken(_token);
-
-    }
-  }, [token]);
-
-  return user ? React.createElement(SpotifyConnectView, {
-    url: loginUrl
-  }) : React.createElement(SignupView, {
+  return React.createElement(StartView, {
     onEmail: (txt) => setEmail(txt),
-    onName: (txt) => setName(txt),
-    onPassword: (txt) => setPassword(txt),
-    onSignup: () => { 
-      setUser(signupFirebase(email, name, password));
-      
-    }
-  });
+    onPassword: (txt) => setPassword (txt),
+    onLogin: () => console.log("Login"),
+    onSignUp: () => props.history.push("/signup")
+    });
 }
 
 function setUrl() {
@@ -49,4 +31,4 @@ function signupFirebase(email, name, password) {
   return user;
 }
 
-export default Signup;
+export default Start;

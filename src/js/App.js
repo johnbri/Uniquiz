@@ -4,6 +4,7 @@ import Signup from "./signup";
 import { getTokenFromUrl, getUser } from "./spotify";
 import  usePromise  from "./usePromise";
 import Home from "./home";
+import Start from "./start.js";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,8 +17,8 @@ function App() {
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={Signup} />
-          <Route exact path="/login" component={Signup} />
+          <Route exact path="/" component={Start} />
+          <Route exact path="/signup" component={Signup} />
           <Route exact path="/home" component={Home} />
         </Switch> 
       </div>
