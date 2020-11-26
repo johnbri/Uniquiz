@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from "react";
 import '../css/App.css';
 import Signup from "./signup";
 import Home from "./home";
@@ -8,7 +7,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 function App() {
