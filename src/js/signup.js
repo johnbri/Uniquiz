@@ -8,23 +8,9 @@ function Signup(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const hash = getTokenFromUrl();
-    window.location.hash = "";
-    const _token = hash.access_token;
-    
-    if (_token) {
-      setToken(_token);
-
-    }
-  }, [token]);
-
-  return user ? React.createElement(SpotifyConnectView, {
-    url: loginUrl
-  }) : React.createElement(SignupView, {
+  return user ? setPath(props, user) : React.createElement(SignupView, {
     onEmail: (txt) => setEmail(txt),
     onName: (txt) => setName(txt),
     onPassword: (txt) => setPassword(txt),
@@ -34,14 +20,20 @@ function Signup(props) {
   });
 }
 
+function setPath(props, user) {
+  console.log("user", user);
+  props.history.push("/spotifyConnect");
+  return null;
+}
+
 function signupFirebase(email, name, password) {
-  auth().createUserWithEmailAndPassword(email, password)
-  .then(userRecord => console.log("Successfully created new user")).catch((er) => console.log(er));
-  let user = auth().currentUser;
-  database.ref('users/' + user.uid).set({
+  return auth().createUserWithEmailAndPassword(email, password)
+  .then(userRecord => console.log("Successfully created new user")).then(() =>  {
+    database.ref('users/' + auth().currentUser.uid).set({
     displayName: name
-  }); 
-  return user;
+    })
+  }).catch((er) => console.log(er));
+  //Ska vi verkligen returnera en promise?????
 }
 
 export default Signup;
