@@ -2,6 +2,7 @@ import '../css/App.css';
 import Signup from "./signup";
 import Home from "./home";
 import Start from "./start.js";
+import Room from "./room.js";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" component={Start} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/home" component={Home} />
+          <Route exact path="/room" component={Room} />
         </Switch> 
       </div>
     </Router>

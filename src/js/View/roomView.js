@@ -1,16 +1,19 @@
 const RoomView = ({
-    players, setNumberOfSongs, setPlayTime, onStart
+    roomName, players, onStart, onExit
 }) =>
     <div>
-        <button onClick={() =>
-            this.props.history.push("/home")}>
+        <button onClick={() => onExit()}>
                 Exit room
         </button>
+        
+        <h1>
+            {roomName}
+        </h1>
 
         <h1>
             Example Quiz
         </h1>
-
+        
         <div>{
             players.map(player=>
                 <div>
@@ -18,20 +21,11 @@ const RoomView = ({
                 </div>
                 )}
         </div>
-
-        <input type="text" id="playtime" onChange={(event)=>setNumberOfSongs(event.target.value)}>
-                -
-        </input>
-        <input type="text" id="playtime" onChange={(event)=>setPlayTime(event.target.value)}>
-                -
-        </input>
         
-        <button onClick={() =>
-            this.props.history.push("/quiz")}>
+        <button onClick={() => onStart()}>
                 Start quiz!
-        </button>
-        <button onClick={(event)=>onStart(event.target.value)}>
-            Start quiz!
         </button>
 
     </div>
+
+export {RoomView};

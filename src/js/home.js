@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { loginUrl } from "./spotify";
-import { homeView, LoginView } from "../js/view/homeView";
+import React, { useState } from "react";
+import { homeView } from "../js/view/homeView";
 import  usePromise  from "./usePromise"
 
 function Home() {
@@ -8,7 +7,7 @@ function Home() {
     React.useEffect(()=>setApiPromise(),
     []);
 
-    const [data, error]= usePromise(apiPromise);
+    const [data]= usePromise(apiPromise);
 
     return React.createElement(homeView, {
         txt: data
