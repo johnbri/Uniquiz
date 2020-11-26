@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import '../css/App.css';
 import Signup from "./signup";
-import { getTokenFromUrl, getUser } from "./spotify";
-import  usePromise  from "./usePromise";
 import Home from "./home";
 import Start from "./start.js";
 import {

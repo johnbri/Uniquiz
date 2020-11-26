@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "../css/Login.css";
 import { loginUrl, getTokenFromUrl} from "./spotify";
 import { SpotifyConnectView } from "./view/spotifyConnectView";
 import { SignupView } from "./view/signupView";
@@ -31,13 +30,8 @@ function Signup(props) {
     onPassword: (txt) => setPassword(txt),
     onSignup: () => { 
       setUser(signupFirebase(email, name, password));
-      
     }
   });
-}
-
-function setUrl() {
-  window.location = "/home";
 }
 
 function signupFirebase(email, name, password) {
