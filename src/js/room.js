@@ -3,14 +3,15 @@ import { RoomView } from "./view/roomView";
 import {auth, database} from '../services/firebase.js';
 
 function Room(props){
-    let user = auth.currentUser;
-    console.log(user)
-    //let roomName = database.ref('rooms/' + user.uid)
-    
-    //let players = database.ref('rooms/' + user.uid).set({
-       // players: [user]})
 
-    const [promise, setPromise]= React.useState();
+
+    auth().onAuthStateChanged(()=> {
+        let user = auth().currentUser;
+        console.log(user.uid)
+        database.ref('rooms/' + "rum1").set({
+            players: user.uid})
+        })
+    
     /*
     useEffect(()=>
         setPromise(currentDish && DishSource.getDishDetails(currentDish)),

@@ -33,7 +33,6 @@ function signupFirebase(email, name, password) {
     displayName: name
     })
   }).catch((er) => console.log(er));
-  //Ska vi verkligen returnera en promise?????
 }
 
 export default Signup;
