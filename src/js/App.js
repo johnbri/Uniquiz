@@ -9,8 +9,9 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import UserModel from "./userModel"
 
-
+export let userModel = new UserModel()
 
 function App() {
   return <div className="app">

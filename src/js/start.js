@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { StartView } from "./view/startView";
 import {auth, database} from '../services/firebase.js';
+import {userModel} from "./App";
 
 function Start(props) {
   const [email, setEmail] = useState("");
@@ -16,8 +17,9 @@ function Start(props) {
 
 function Login (props, email, password) {
   auth().signInWithEmailAndPassword(email, password)
-  .then((user) => {
-    props.history.push("/spotifyConnect")
+  .then(() => {
+    userModel.setUser(auth().currentUser);
+    props.history.push("/spotifyConnect");
   })
   .catch((error) => {
     var errorCode = error.code;

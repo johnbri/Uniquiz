@@ -1,25 +1,27 @@
 const RoomView = ({
-    roomName, players, onStart, onExit
+    onText, players, onStart, onExit
 }) =>
     <div>
+        {console.log("hej")}
         <button onClick={() => onExit()}>
                 Exit room
         </button>
         
-        <h1>
-            {roomName}
-        </h1>
+        <input type="text" id="searchbar" onChange={(event)=>onText(event.target.value)}>
+
+        </input>
 
         <h1>
             Example Quiz
         </h1>
         
-        <div>{
-            players.map(player=>
+        <div>
+            {players
+            /*players.map(player=>
                 <div>
                 {player.name}
                 </div>
-                )}
+            )*/}
         </div>
         
         <button onClick={() => onStart()}>

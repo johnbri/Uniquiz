@@ -3,26 +3,20 @@ import { RoomView } from "./view/roomView";
 import {auth, database} from '../services/firebase.js';
 
 function Room(props){
-
-
+    const [user,setUser] = React.setState("")
     auth().onAuthStateChanged(()=> {
-        let user = auth().currentUser;
-        console.log(user.uid)
-        database.ref('rooms/' + "rum1").set({
-            players: user.uid})
+        user = auth().currentUser;
+        database.ref('rooms/' + user.uid).set({
+            players: [user.uid],
+            name: "Example quiz"})
         })
-    
-    /*
-    useEffect(()=>
-        setPromise(currentDish && DishSource.getDishDetails(currentDish)),
-        [currentDish]);*/
-
-    return React.createElement(RoomView, {
-        //roomName: roomName,
-        players: [],
-        onExit: () => props.history.push("/home"),
-        onStart: () => props.history.push("/quiz")
-        });
+        return React.createElement(RoomView,{
+            onText: text => database.ref(
+                'rooms/'+ user.uid + "/name").set(text),
+            players: database.ref('rooms/' + user.uid + "/players"),
+            onExit: () => props.history.push("/home"),
+            onStart: () => props.history.push("/quiz")
+            });
 }
 
 export default Room;
