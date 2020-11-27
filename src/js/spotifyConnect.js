@@ -4,19 +4,17 @@ import { SpotifyConnectView } from "./view/spotifyConnectView";
 import {auth, database} from '../services/firebase.js';
 
 function SpotifyConnect(props) {
-  const [token, setToken] = useState(null);
-
     const hash = getTokenFromUrl();
     window.location.hash = "";
-    const _token = hash.access_token;
+    const token = hash.access_token;
     
-    if (_token){
-        addTokenDB(_token);
+    if (token){
+        addTokenDB(token);
     }
 
-    console.log("tokkken", _token);
+    console.log("tokkken", token);
     
-  return _token ? setPath(props) : React.createElement(SpotifyConnectView, {
+  return token ? setPath(props) : React.createElement(SpotifyConnectView, {
     url: loginUrl
   });
 }

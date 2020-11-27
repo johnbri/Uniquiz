@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { loginUrl, getTokenFromUrl} from "./spotify";
-import { SpotifyConnectView } from "./view/spotifyConnectView";
 import { SignupView } from "./view/signupView";
 import {auth, database} from '../services/firebase.js';
 
