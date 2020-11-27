@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StartView } from "./view/startView";
+import {auth, database} from '../services/firebase.js';
 
 function Start(props) {
   const [email, setEmail] = useState("");
@@ -8,8 +9,19 @@ function Start(props) {
   return React.createElement(StartView, {
     onEmail: (txt) => setEmail(txt),
     onPassword: (txt) => setPassword (txt),
-    onLogin: () => console.log("Login"),
+    onLogin: () => Login(props, email, password), //ev. byta namn på funktionen
     onSignUp: () => props.history.push("/signup")
     });
+}
+
+function Login (props, email, password) {
+  auth().signInWithEmailAndPassword(email, password)
+  .then((user) => {
+    props.history.push("/spotifyConnect")
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
 }
 export default Start;

@@ -1,16 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { homeView } from "./view/homeView.js";
-import  usePromise  from "./usePromise"
-
-function Home() {
-    const [apiPromise, setApiPromise] = useState(null);
-    React.useEffect(()=>setApiPromise(),
-    []);
-
-    const [data]= usePromise(apiPromise);
-
+function Home(props) {
     return React.createElement(homeView, {
-        txt: data
+        onCreate: () => props.history.push("/room"),
+        onJoin: () => props.history.push("/join")
     });
 }
 export default Home;

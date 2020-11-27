@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SignupView } from "./view/signupView";
 import {auth, database} from '../services/firebase.js';
 
@@ -19,7 +19,6 @@ function Signup(props) {
 }
 
 function setPath(props, user) {
-  console.log("user", user);
   props.history.push("/spotifyConnect");
   return null;
 }

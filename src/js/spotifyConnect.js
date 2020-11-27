@@ -28,7 +28,7 @@ function addTokenDB(token) {
   auth().onAuthStateChanged(function(userObj) {
     if (userObj) {
       let user = auth().currentUser;
-      database.ref('users/' + user.uid).set({
+      database.ref('users/' + user.uid).update({
         token: token
       }).then( res => console.log("successfully added token to user in database")).catch(console.log("Error adding token to firebase DB"));
     } else {
