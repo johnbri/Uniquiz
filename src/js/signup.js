@@ -27,13 +27,13 @@ function setPath(props, user) {
 }
 
 function signupFirebase(email, name, password) {
-  return auth().createUserWithEmailAndPassword(email, password)
-  .then(userRecord => console.log("Successfully created new user")).then(() =>  {
-    database.ref('users/' + auth().currentUser.uid).set({
-    displayName: name
-    })
-  }).catch((er) => console.log(er));
-  //Ska vi verkligen returnera en promise?????
+    return auth().createUserWithEmailAndPassword(email, password)
+    .then(userRecord => console.log("Successfully created new user"))
+    .then(() =>  {
+      database.ref('users/' + auth().currentUser.uid).set({
+      displayName: name
+      })
+    }).catch((er) => console.log("Error i firebase: " + er));
 }
 
 export default Signup;
