@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { loginUrl, getTokenFromUrl} from "./spotify";
-import { SpotifyConnectView } from "./view/spotifyConnectView";
 import { SignupView } from "./view/signupView";
 import {auth, database} from '../services/firebase.js';
 
@@ -27,12 +25,13 @@ function setPath(props, user) {
 }
 
 function signupFirebase(email, name, password) {
-  return auth().createUserWithEmailAndPassword(email, password)
-  .then(userRecord => console.log("Successfully created new user")).then(() =>  {
-    database.ref('users/' + auth().currentUser.uid).set({
-    displayName: name
-    })
-  }).catch((er) => console.log(er));
+    return auth().createUserWithEmailAndPassword(email, password)
+    .then(userRecord => console.log("Successfully created new user"))
+    .then(() =>  {
+      database.ref('users/' + auth().currentUser.uid).set({
+      displayName: name
+      })
+    }).catch((er) => console.log("Error i firebase: " + er));
 }
 
 export default Signup;

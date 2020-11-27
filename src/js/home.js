@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { homeView } from "../js/view/homeView";
+import { homeView } from "./view/homeView.js";
 import  usePromise  from "./usePromise"
 
 function Home() {
