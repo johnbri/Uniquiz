@@ -27,31 +27,28 @@ class UserModel {
     }
 
     setToken() {
-        database()
+        database
         .ref('/users/' + this.uid + "/token")
         .on('value', (snapshot) => {
-            this.token =snapshot.val();
+            console.log(snapshot.val());
         })
         this.notifyObservers()
     }
 
-    setDisplayName() {
-        return database
-        .ref('/users/' + this.uid + "/displayName")
-        .on('value', (snapshot) => {
-            this.displayName =snapshot.val();
-            this.notifyObservers()
-        })
-        
-        
+    setDisplayName(displayName) {
+        this.displayName = displayName;
+    }
+
+    getDisplayName() {
+        return this.displayName;
+    }
+
+    setuid() {
+        this.uid = this.user.uid;
     }
 
     setUser(currentUser) {
-        this.user  = currentUser;
-        this.uid = this.user.uid;
-       
-        this.displayName = this.setDisplayName();
-        console.log(this.displayName)
+        this.user = currentUser;
     }
 
 }

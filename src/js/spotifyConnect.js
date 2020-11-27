@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { loginUrl, getTokenFromUrl} from "./spotify";
 import { SpotifyConnectView } from "./view/spotifyConnectView";
 import {auth, database} from '../services/firebase.js';
+import {userModel} from "./App";
 
 function SpotifyConnect(props) {
     const hash = getTokenFromUrl();
     window.location.hash = "";
     const token = hash.access_token;
-    
     if (token){
         addTokenDB(token);
     }
 
-    console.log("tokkken", token);
+    //console.log("tokkken", token);
     
   return token ? setPath(props) : React.createElement(SpotifyConnectView, {
     url: loginUrl

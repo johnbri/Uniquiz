@@ -5,7 +5,7 @@ import {userModel} from "./App";
 
 function Home(props) {
     return React.createElement(homeView, {
-        userName: userModel,
+        userName: userModel.getDisplayName(),
         onCreate: () => props.history.push("/room"),
         onJoin: () => props.history.push("/join")
     });
