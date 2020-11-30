@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { loginUrl, getTokenFromUrl} from "./spotify";
 import { SpotifyConnectView } from "./view/spotifyConnectView";
 import {auth, database} from '../services/firebase.js';
-import {userModel} from "./App";
 
 function SpotifyConnect(props) {
     const hash = getTokenFromUrl();

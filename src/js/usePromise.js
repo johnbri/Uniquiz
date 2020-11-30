@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 function usePromise(promise) {
-    const [data, setData] = React.useState(null);
-    const [error, setError] = React.useState(null);
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
     
-    React.useEffect(function(){ 
+    useEffect(function(){ 
         setData(null); 
         setError(null);
         promise && promise.then(dt => setData(dt)).catch(er => setError(er));    

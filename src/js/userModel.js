@@ -1,13 +1,13 @@
-
-import {auth, database} from '../services/firebase.js';
-
 class UserModel {
-    constructor(uid){
-    this.uid=uid
-    this.subscribers =[]
-    this.token = ""
-    this.user = ""
-    this.displayName = ""
+    constructor(uid = "", token = "", displayName = ""){
+        this.uid=uid;
+        this.subscribers = [];
+        this.token = token;
+        this.displayName = displayName;
+    }
+
+    getDisplayName() {
+        return this.displayName;
     }
     
     addObserver(obs){
@@ -26,29 +26,24 @@ class UserModel {
         })
     }
 
-    setToken() {
-        database
-        .ref('/users/' + this.uid + "/token")
-        .on('value', (snapshot) => {
-            console.log(snapshot.val());
-        })
-        this.notifyObservers()
+    setToken(token) {
+        this.token = token;
+        this.notifyObservers();
     }
 
     setDisplayName(displayName) {
         this.displayName = displayName;
+        this.notifyObservers();
     }
 
-    getDisplayName() {
-        return this.displayName;
-    }
-
-    setuid() {
-        this.uid = this.user.uid;
+    setUid(uid) {
+        this.uid = uid;
+        this.notifyObservers();
     }
 
     setUser(currentUser) {
         this.user = currentUser;
+        this.notifyObservers();
     }
 
 }
