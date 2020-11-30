@@ -6,7 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import ReadModel from './js/readModel.js'
 
 let userModel = ReadModel();
-console.log("jek");
 
 export default userModel;
 ReactDOM.render(
