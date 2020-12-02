@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
-import ReadModel from './js/readModel.js'
+import ReadUserModel from './js/readUserModel.js'
 
-let userModel = ReadModel();
+let userModel = ReadUserModel();
 
 export default userModel;
 ReactDOM.render(

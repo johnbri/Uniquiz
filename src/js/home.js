@@ -11,11 +11,11 @@ function Home(props) {
         userName: displayName,
         onCreate: () => props.history.push({
             pathname: '/createJoin',
-            newRoom: true
+            createRoom: true
         }),
         onJoin: () => props.history.push({
             pathname: '/createJoin',
-            newRoom: false
+            createRoom: false
         })
     });
 }

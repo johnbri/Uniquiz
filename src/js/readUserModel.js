@@ -1,7 +1,7 @@
 import {database, auth} from '../services/firebase.js';
 import UserModel from './userModel.js';
 
-function ReadModel() {
+function ReadUserModel() {
     let dbDataObject = {}; 
     const model = new UserModel();
     auth().onAuthStateChanged((userObject)=> {
@@ -33,4 +33,4 @@ function ReadModel() {
     return model;
 }
 
-export default ReadModel;
+export default ReadUserModel;

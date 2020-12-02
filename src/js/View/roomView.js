@@ -1,11 +1,18 @@
-const RoomView = ({
-    onText, players, onStart, onExit
+/*const RoomView = ({
+    roomName, players, onStart, onExit
 }) =>
     <div>
-        {console.log("hej")}
-        <button onClick={() => onExit()}>Exit room</button>
-        <input type="text" id="searchbar" onChange={(event)=>onText(event.target.value)}></input>
-        <h1>Example Quiz</h1>
+        <button onClick={() => onExit()}>
+                Exit room
+        </button>
+        
+        <h1>
+            Example Quiz
+        </h1>
+
+        <h1>
+            {roomName}
+        </h1>
         
         <div>
             {players
@@ -13,13 +20,13 @@ const RoomView = ({
                 <div>
                 {player.name}
                 </div>
-            )*/}
+            )}
         </div>
         
         <button onClick={() => onStart()}>Start quiz!</button>
     </div>
 
-const 
-
 
 export {RoomView};
+
+*/
