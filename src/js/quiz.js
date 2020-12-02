@@ -3,7 +3,7 @@ import {getUserPlaylists} from './spotify.js';
 
 
 function playlistPresenter () {
-    let arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2", "cv4yGGhfXoWKfIueyQdP1BNMPT43"];
+    let arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2", "V05aqMM400QN4xbOvfH3G2vWOQh1"];
     let roomPlaylist = quizPlaylist(arrayuid);
     console.log("loop");
     // step 1: get tokens from each player

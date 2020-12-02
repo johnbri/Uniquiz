@@ -57,10 +57,10 @@ export async function getUserPlaylists(token) {
         }
         else {
             allTracks = allTracks.filter(track => track[1] !== currentTrack[1]); // tar bort alla duplicates från arrayen, detta kan nog göras bättre för om den redan tagits bort äre onödigt
-            if (acc.filter(track => track[1] === currentTrack[1]).length === 0) { //kollar om currentTrack inte finns, då lägger vi in den
+            if (acc.filter(track => track[1] === currentTrack[1]).length === 0) { // kollar om currentTrack inte finns, då lägger vi in den
               return ([...acc, currentTrack]);
             }
-            else { // annars så betyder det att vi lagt in currentTrack redan, o då lägger vi aldrig in något
+            else { // annars så betyder det att vi lagt in currentTrack redan, o då lägger vi aldrig in något. Detta görs för vi kmr ju gå igenom alla currentTracks så vi kan inte lägga in alla
               return acc; 
             }
         }
