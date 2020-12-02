@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firebase from 'firebase';
+
   var firebaseConfig = {
     apiKey: "AIzaSyALuzAm03buerT-oxeALHaQ37KJ3-mlWwU",
     authDomain: "uniquiz-e9d1f.firebaseapp.com",

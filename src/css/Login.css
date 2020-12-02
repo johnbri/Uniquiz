@@ -1,9 +1,9 @@
 
-.login {
-    display: grid;
-    place-items: center;
-    height: 100vh;
-    background-color:#ffffff;
+.login h1{
+    color: #ffffff;
+    font-size: 70px;
+    font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
   }
   
   .login > img {
