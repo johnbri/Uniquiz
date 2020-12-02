@@ -7,7 +7,7 @@ function ReadModel() {
     auth().onAuthStateChanged((userObject)=> {
         if(userObject) {
             dbDataObject["uid"] = userObject.uid;
-            database.ref('users/' + auth().currentUser.uid).on('value', (snapshot) => { 
+            database.ref('users/' + auth().currentUser.uid).once('value', (snapshot) => { 
                 snapshot.forEach((child) => {
                     dbDataObject[child.key] = child.val() || "";
                     

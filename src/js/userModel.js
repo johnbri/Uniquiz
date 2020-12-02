@@ -16,7 +16,7 @@ class UserModel {
     }
 
     removeObserver(obs){
-        this.subscribers= this.subscribers.filter(o=> o!= obs); 
+        this.subscribers= this.subscribers.filter(o=> o!== obs); 
     }
 
     notifyObservers(){
