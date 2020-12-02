@@ -10,8 +10,6 @@ function SpotifyConnect(props) {
     if (token){
         addTokenDB(token);
     }
-
-    //console.log("tokkken", token);
     
   return token ? setPath(props) : React.createElement(SpotifyConnectView, {
     url: loginUrl

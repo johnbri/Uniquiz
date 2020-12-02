@@ -1,33 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { RoomView } from "./view/roomView";
 import {auth, database} from '../services/firebase.js';
-import { CreateJoinRoomView }from './view/joinCreateRoomView';
+import { CreateJoinRoomView }from './view/createJoinRoomView';
+import userModel from "../index.js";
+import useModelProp from "./useModelProp";
+import roomName from "./home"
 
 function Room(props){
-    const [user,setUser] = React.useState();
-    auth().onAuthStateChanged((userObject) => {
-        if(userObject) {
-            const user = auth().currentUser;
-            database.ref('rooms/' + user.uid).set({
-                players: [user.uid],
-                name: "Example quiz"})
-        } else {
-            console.log("hej");
-        }
-    });
-    return React.createElement(CreateJoinRoomView, {
-        newRoom: false,
-        createRoom: console.log("hej"),
-        joinRoom: console.log("hej"),
-        onText: console.log("hej")
-    });
-    /*return React.createElement(RoomView,{
-        onText: text => database.ref(
-            'rooms/'+ user.uid + "/name").set(text),
-        players: "hej",
+    /*let playerNames = []
+    roomName = "hej"
+    console.log(userModel.uid)
+
+    database.ref('rooms/').set(
+        {roomName: {
+            playerNames: [userModel.displayName],
+            name: "Example quiz"}
+        })
+    
+    database.ref('rooms/' + userModel.uid + "/players")
+                 .on('value', (snapshot) => { 
+                    playerNames = snapshot.val()})
+    console.log(playerNames)
+    let players = {}
+
+    playerNames.forEach(player => {
+        database.ref('users/' + {player})
+        .on('value', (snapshot) => { 
+            players = snapshot.val()})})
+    
+    console.log(players)
+            */
+    return React.createElement(RoomView,{
+        roomName: "hej",
+        playerNames: "hej",
         onExit: () => props.history.push("/home"),
         onStart: () => props.history.push("/quiz")
-    });*/
+    });
 }
 
 
