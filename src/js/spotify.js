@@ -8,6 +8,7 @@ const scopes = [
   "user-read-playback-state",
   "user-top-read",
   "user-modify-playback-state",
+  "playlist-read-private"
 ];
 
 export const getTokenFromUrl = () => {
@@ -25,9 +26,8 @@ export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${re
 "%20"
 )}&response_type=token&show_dialog=true`;
 
-function apiCall(token) {
-  console.log("hajhaj",token);
-  return fetch("https://api.spotify.com/v1/me", {
+function apiCall(token, URL) {
+  return fetch(URL, {
     "method": "GET",
     "headers": {
       'Accept': 'application/json',
@@ -36,8 +36,35 @@ function apiCall(token) {
     }}).then(data => data.json())
 }
 
-export function getUser(token) {
-  let hej = apiCall(token).then(jsonResponse => console.log(jsonResponse)).catch(er => console.log(er))
-  console.log(hej)
-  return hej
+export function getUserTopPlaylist(token) {
+  let apiObj = apiCall(token, "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term");
+  return apiObj
+}
+
+export async function getUserPlaylists(token) {
+  let apiObj = await apiCall(token, "https://api.spotify.com/v1/me/playlists?limit=50");
+  let allTracks = [];
+  for (let i = 0; i < apiObj.items.length; i++) {
+    const playListsObj = await apiCall(token, apiObj.items[i].tracks.href)
+    playListsObj.items.forEach(trackObj => allTracks.push([trackObj.track.name, trackObj.track.id]));
+    
+  }
+  const allTracksUnique = allTracks.reduce((acc, currentTrack) => {
+        //console.log((allTracks.filter(track => track[1] === currentTrack[1]).length === 1));
+        //console.log(allTracks.filter(track => track[1] === currentTrack[1]).length);
+        if (allTracks.filter(track => track[1] === currentTrack[1]).length === 1) {
+          return ([...acc, currentTrack]);
+        }
+        else {
+            allTracks = allTracks.filter(track => track[1] !== currentTrack[1]); // tar bort alla duplicates från arrayen, detta kan nog göras bättre för om den redan tagits bort äre onödigt
+            if (acc.filter(track => track[1] === currentTrack[1]).length === 0) { //kollar om currentTrack inte finns, då lägger vi in den
+              return ([...acc, currentTrack]);
+            }
+            else { // annars så betyder det att vi lagt in currentTrack redan, o då lägger vi aldrig in något
+              return acc; 
+            }
+        }
+    }, []);
+  //console.log(allTracksUnique);
+  return allTracksUnique;
 }
