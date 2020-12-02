@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StartView } from "./view/startView";
 import {auth, database} from '../services/firebase.js';
-import userModel from "../index.js";
 
 function Start(props) {
   const [email, setEmail] = useState("");
