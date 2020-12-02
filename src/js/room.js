@@ -16,10 +16,11 @@ function Room(props){
         }
     });
     return React.createElement(CreateJoinRoomView, {
-        newRoom: false,
+        newRoom: props.location.newRoom,
         createRoom: console.log("hej"),
         joinRoom: console.log("hej"),
-        onText: console.log("hej")
+        onText: console.log("hej"),
+        onBack: () => props.history.push("/home")
     });
     /*return React.createElement(RoomView,{
         onText: text => database.ref(

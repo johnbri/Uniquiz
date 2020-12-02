@@ -7,10 +7,17 @@ import useModelProp from "./useModelProp";
 function Home(props) {
     const displayName = useModelProp(userModel, "displayName");
 
-    return React.createElement(homeView, {
+    return  React.createElement(homeView, {
         userName: displayName,
-        onCreate: () => props.history.push("/room"),
-        onJoin: () => props.history.push("/join")
+        onCreate: () => props.history.push({
+            pathname: '/createJoin',
+            newRoom: true
+        }),
+        onJoin: () => props.history.push({
+            pathname: '/createJoin',
+            newRoom: false
+        })
     });
 }
+
 export default Home;
