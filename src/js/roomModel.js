@@ -1,7 +1,8 @@
 class roomModel {
-    constructor(roomName=""){
+    constructor(roomName){
         this.roomName=roomName;
-        this.player= {}
+        this.players= []
+        this.subscribers = []
     }
 
     addObserver(obs){
@@ -20,8 +21,18 @@ class roomModel {
         })
     }
 
-    setPlayers(players) {
-        this.players = players;
+    addPlayers(newPlayer) {
+        this.players = this.players.filter(player => {
+            if (player.uid === newPlayer.uid){
+                throw ("Player is already in room!")}
+            else {
+                return newPlayer
+            }}).concat(newPlayer);
+        this.notifyObservers();
+    }
+
+    setPlayers(players){
+        this.players = players
         this.notifyObservers();
     }
 

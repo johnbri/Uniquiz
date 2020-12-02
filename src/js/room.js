@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { RoomView } from "./view/roomView";
 import {auth, database} from '../services/firebase.js';
-import { CreateJoinRoomView }from './view/joinCreateRoomView';
+import { CreateJoinRoomView }from './view/createJoinRoomView';
 import userModel from "../index.js";
 import useModelProp from "./useModelProp";
 import roomName from "./home"
 
 function Room(props){
-    let playerNames = []
+    /*let playerNames = []
     roomName = "hej"
     console.log(userModel.uid)
 
@@ -29,10 +29,10 @@ function Room(props){
             players = snapshot.val()})})
     
     console.log(players)
-
+            */
     return React.createElement(RoomView,{
-        roomName: roomName,
-        playerNames: playerNames,
+        roomName: "hej",
+        playerNames: "hej",
         onExit: () => props.history.push("/home"),
         onStart: () => props.history.push("/quiz")
     });

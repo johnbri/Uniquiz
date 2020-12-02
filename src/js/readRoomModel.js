@@ -1,36 +1,58 @@
-import {database, auth} from '../services/firebase.js';
-import UserModel from './userModel.js';
+import {database} from '../services/firebase.js';
+import RoomModel from './roomModel.js';
 
-function ReadModel() {
-    let dbDataObject = {}; 
-    const model = new UserModel();
-    auth().onAuthStateChanged((userObject)=> {
-        if(userObject) {
-            dbDataObject["uid"] = userObject.uid;
-            database.ref('users/' + auth().currentUser.uid).once('value', (snapshot) => { 
-                snapshot.forEach((child) => {
-                    dbDataObject[child.key] = child.val() || "";
-                    
-                });
-                model.setUid(dbDataObject.uid);
-                model.setDisplayName(dbDataObject.displayName);
-                model.setToken(dbDataObject.token);
-            });    
-        } else {
-            console.log("User not logged in");
-        }        
-    });
-    //console.log("HEJ", model);
-    /*const modelString = localStorage.getItem("dinnerModel");
-    let modelObject = modelString && JSON.parse(modelString) || {} ;
-    const model = new DinnerModel(modelObject.guests, modelObject.dishes, modelObject.currentDish);
-    model.addObserver(() => localStorage.setItem("dinnerModel",JSON.stringify({
-        guests: model.getNumberOfGuests(), 
-        dishes: model.getMenu(),
-        currentDish: model.getCurrentDish()
-    })));*/
+async function ReadRoomModel(createRoom, roomName) {
     
-    return model;
+    let model;
+    let dbDataObject = {}; 
+    if (createRoom){
+        let room = (await getRoomFB(roomName)).forEach((child) => {
+            dbDataObject[child.key] = child.val()})
+        }
+        
+   
+    /*
+    if (createRoom){
+        if (getRoomFB(roomName) !== {}) {
+            console.log("Name already in use!")
+        } else{
+            model = new RoomModel(roomName);
+            database.ref("rooms/").set({roomName})
+        }
+    } else{
+        if (database.ref("rooms/" + roomName)){
+            await getRoomFB(roomName)
+        }else{
+            console.log("Rooms does not exist!")
+        }
+    }*/
+
+    model.addObserver(()=> {
+        database.ref("rooms/" + roomName).update(
+            {"players": model.players})
+        })
+
+    return "HEJ";
+}
+export default ReadRoomModel;
+
+
+async function getRoomFB(roomName){
+    return database.ref('rooms/' + roomName)
+    .once('value', (snapshot) => snapshot);
 }
 
-export default ReadModel;
+
+    /*
+  unction getRoomFB(roomName){
+    let FBobject={};
+    if (database.ref("rooms/" + roomName)){
+        database.ref('rooms/' + roomName)
+        .on('value', (snapshot) => {
+            snapshot.forEach((child) => {
+                FBobject[child.key] = child.val() || "";
+            })})
+    } else{
+        console.log("Rooms does not exist!")
+    }
+    return FBobject;*/
