@@ -3,7 +3,7 @@ import Signup from "./signup";
 import Home from "./home";
 import Start from "./start.js";
 import Room from "./room.js";
-import playlistPresenter from "./quiz.js";
+import PlaylistPresenter from "./quiz.js";
 import CreateJoinRoom from "./createJoinRoom.js";
 import  SpotifyConnect from "./spotifyConnect";
 import {
@@ -22,8 +22,7 @@ function App() {
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/room" component={Room} />
-          <Route exact path="/quiz" component={playlistPresenter} />
-
+          <Route exact path="/quiz" component={PlaylistPresenter} />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
         </Switch> 
       </div>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function usePromise(promise) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
-    
+    console.log(promise);
     useEffect(function(){ 
         setData(null); 
         setError(null);
