@@ -4,28 +4,32 @@ import RoomModel from './roomModel.js';
 async function ReadRoomModel(createRoom, roomName) {
     
     let model;
-    let roomDataDB; 
+    let roomDataDB = {}; 
 
     (await getRoomFB(roomName)).forEach((child) => {
-        roomDataDB = child.val();
+        roomDataDB[child.key]= child.val();
+
     });
     if (createRoom) {
-        if (roomDataDB) {
+        if (Object.keys(roomDataDB).length !== 0) {
             console.log("A room with the name already exists");
         } else {
             console.log("hellooj")
             model = new RoomModel(roomName);
+            await setRoomFB(roomName)
+
         }
     } else {
-        if (roomDataDB) {
+        if (Object.keys(roomDataDB).length !== 0) {
             model = new RoomModel(roomName, roomDataDB.players);
             console.log(model.players);
         } else {
-            console.log("Room does nor exist!");
+            console.log("Room does not exist!");
         }    
     }
     
-    //model.addObserver(()=> updateRoomFB(roomName));
+    syncRoomsFB(model,roomName)
+    model.addObserver(()=> updateRoomFB(model, roomName));
 
     return model;
 }
@@ -37,42 +41,27 @@ async function getRoomFB(roomName){
     .once('value', (snapshot) => snapshot);
 }
 
-async function updateRoomFB(roomName){
-    database.ref('rooms/' + roomName).update({
+async function setRoomFB(roomName){
+    database.ref('rooms/' + roomName).set({
         players: "hejhej",
         score: 3000
     });
 }
 
-   
-    /*
-    if (createRoom){
-        if (getRoomFB(roomName) !== {}) {
-            console.log("Name already in use!")
-        } else{
-            model = new RoomModel(roomName);
-            database.ref("rooms/").set({roomName})
-        }
-    } else{
-        if (database.ref("rooms/" + roomName)){
-            await getRoomFB(roomName)
-        }else{
-            console.log("Rooms does not exist!")
-        }
-    }*/
+async function updateRoomFB(model, roomName){
+    database.ref('rooms/' + roomName).update({
+        "players": model.players
+    })
+}
 
-
-
-    /*
-  unction getRoomFB(roomName){
-    let FBobject={};
-    if (database.ref("rooms/" + roomName)){
+function syncRoomsFB(model, roomName){
+    try {
         database.ref('rooms/' + roomName)
-        .on('value', (snapshot) => {
-            snapshot.forEach((child) => {
-                FBobject[child.key] = child.val() || "";
-            })})
-    } else{
-        console.log("Rooms does not exist!")
+        .on('value', (snapshot) => { 
+            const values = snapshot.val();
+            console.log(values);
+        })
+    } catch (error) {
+        console.log(error);
     }
-    return FBobject;*/
+}
