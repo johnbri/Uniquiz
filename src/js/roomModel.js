@@ -23,8 +23,8 @@ class roomModel {
 
     addPlayers(newPlayer) {
         this.players = this.players.filter(player => {
-            if (player.uid === newPlayer.uid){
-                throw ("Player is already in room!")}
+            if (player === newPlayer){
+                console.log("Player is already in room!")}
             else {
                 return newPlayer
             }}).concat(newPlayer);
