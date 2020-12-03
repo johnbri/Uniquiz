@@ -15,6 +15,7 @@ async function ReadRoomModel(createRoom, roomName) {
         } else {
             console.log("hellooj")
             model = new RoomModel(roomName);
+            await setRoomFB(roomName);
         }
     } else {
         if (roomDataDB) {
@@ -37,8 +38,8 @@ async function getRoomFB(roomName){
     .once('value', (snapshot) => snapshot);
 }
 
-async function updateRoomFB(roomName){
-    database.ref('rooms/' + roomName).update({
+async function setRoomFB(roomName){
+    database.ref('rooms/' + roomName).push({
         players: "hejhej",
         score: 3000
     });
