@@ -42,11 +42,11 @@ export function getUserTopPlaylist(token) {
 }
 
 export async function getUserPlaylists(token) {
-  let apiObj = await apiCall(token, "https://api.spotify.com/v1/me/playlists?limit=50");
+  let apiObj = await apiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20");
   let allTracks = [];
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await apiCall(token, apiObj.items[i].tracks.href)
-    playListsObj.items.forEach(trackObj => allTracks.push([trackObj.track.name, trackObj.track.id]));
+    playListsObj.items.forEach(trackObj => allTracks.push([trackObj.track.name, trackObj.track.id, trackObj.track.preview_url]));
     
   }
   const allTracksUnique = allTracks.reduce((acc, currentTrack) => {

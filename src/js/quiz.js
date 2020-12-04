@@ -1,16 +1,28 @@
 import {database} from '../services/firebase.js';
 import {getUserPlaylists} from './spotify.js';
+import QuizView from './view/quizView.js';
+import React, { useState, useEffect} from "react";
+import usePromise from './usePromise.js';
+import PromiseNoData from './view/promiseNoData.js';
 
 
-function playlistPresenter () {
-    let arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2", "V05aqMM400QN4xbOvfH3G2vWOQh1"];
-    let roomPlaylist = quizPlaylist(arrayuid);
-    console.log("loop");
-    // step 1: get tokens from each player
-    // step 2: get the top 100 playlist from each player
-    // step 3: combine the playlists
-    // step 4: return the new playlist
-    return null;
+function PlaylistPresenter () {
+    const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
+    //const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [promise, setPromise] = useState(null);
+
+    useEffect(() =>  {
+        setPromise(quizPlaylist(arrayuid))
+    }, []);
+    
+    const [data, error] = usePromise(promise);
+    //console.log(data);
+
+    return PromiseNoData(promise, data, error) // cases 0, 1, 3
+    || React.createElement(QuizView, {
+        //timeLeft: timeLeft,
+        onPlay: () => new Audio(data[0].url).play()
+        });
 }
 
 async function quizPlaylist (arrayuid) {
@@ -23,6 +35,7 @@ async function quizPlaylist (arrayuid) {
     }
     //console.log("hej");
     combinedPlaylist = combinedPlaylist.flat();
+    //console.log(combinedPlaylist);
     let combinedPlaylistUnique = combinedPlaylist.reduce((acc, currentTrack) => {
         //console.log(combinedPlaylist.filter(track => track[1] === currentTrack[1]).length);
         if (combinedPlaylist.filter(track => track[1] === currentTrack[1]).length === arrayuid.length) { // använder filter för att se om det finns mer än ett track
@@ -34,8 +47,9 @@ async function quizPlaylist (arrayuid) {
         }
     }, []);
 
-    console.log(combinedPlaylistUnique);
-    return combinedPlaylistUnique;
+    //console.log(combinedPlaylistUnique);
+    const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
+    return combinedPlaylistUniqueDict;
 }
 async function getUserToken (uid) {
     return database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
@@ -43,7 +57,38 @@ async function getUserToken (uid) {
     });
 }
 
-export default playlistPresenter;
+function listWithObj (list) {
+    let newList = [];
+    for (let i = 0; i < list.length; i++) {
+        newList[i] = {name: list[i][0], url: list[i][2]};
+    }
+    return newList;
+}
+export default PlaylistPresenter;
+
+const calculateTimeLeft = () => {
+    let year = new Date().getFullYear();
+    let difference = +new Date(`10/01/${year}`) - +new Date();
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60)
+    };
+  }
+
+  return timeLeft;
+
+}
+
+
+
+
+
+
 
 /*arrayuid.forEach(uid => {
     database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
@@ -63,3 +108,10 @@ export default playlistPresenter;
         combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
     }
 */
+
+/*useEffect(() => {
+    const timer = setTimeout(() => {
+    setTimeLeft(calculateTimeLeft());
+    }, 1000);
+    return () => clearTimeout(timer);
+});*/
