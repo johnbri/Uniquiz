@@ -7,29 +7,7 @@ import useModelProp from "./useModelProp";
 import roomName from "./home"
 
 function Room(props){
-    /*let playerNames = []
-    roomName = "hej"
-    console.log(userModel.uid)
 
-    database.ref('rooms/').set(
-        {roomName: {
-            playerNames: [userModel.displayName],
-            name: "Example quiz"}
-        })
-    
-    database.ref('rooms/' + userModel.uid + "/players")
-                 .on('value', (snapshot) => { 
-                    playerNames = snapshot.val()})
-    console.log(playerNames)
-    let players = {}
-
-    playerNames.forEach(player => {
-        database.ref('users/' + {player})
-        .on('value', (snapshot) => { 
-            players = snapshot.val()})})
-    
-    console.log(players)
-            */
     return React.createElement(RoomView,{
         roomName: "hej",
         playerNames: "hej",

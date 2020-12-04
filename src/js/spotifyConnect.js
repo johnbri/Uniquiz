@@ -3,6 +3,7 @@ import { loginUrl, getTokenFromUrl} from "./spotify";
 import { SpotifyConnectView } from "./view/spotifyConnectView";
 import {auth, database} from '../services/firebase.js';
 
+
 function SpotifyConnect(props) {
     const hash = getTokenFromUrl();
     window.location.hash = "";
