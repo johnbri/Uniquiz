@@ -1,5 +1,7 @@
+import '../../css/Home.css';
+
 const CreateJoinRoomView = ({onSubmit, onText, onBack, title}) =>
-    <div>
+    <div class="createjoin">
         <button onClick={() => onBack()}>Back</button>
         <h1>{title} quiz</h1>
 
