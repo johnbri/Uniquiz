@@ -20,8 +20,7 @@ function CreateJoinRoom(props){
 }
 export default CreateJoinRoom;
 
-function CreateJoin(createRoom, roomName){
-    let room = ReadRoomModel(createRoom, roomName);
-    console.log(room); //VARFÖR BLIR DET EN PROMISE??
-    //room.addPlayers(userModel.uid);
+async function CreateJoin(createRoom, roomName){
+    let roomModel = await ReadRoomModel(createRoom, roomName);
+    roomModel.addPlayers(userModel.uid);
 }
