@@ -1,7 +1,7 @@
 class roomModel {
-    constructor(roomName, players = []){
+    constructor(roomName){
         this.roomName = roomName;
-        this.players = players;
+        this.players = [];
         this.subscribers = [];
     }
 
@@ -22,7 +22,6 @@ class roomModel {
     }
 
     addPlayers(newPlayer) {
-        console.log(this.players)//players är undefined???
         this.players = this.players.filter(player => {
             if (player === newPlayer){
                 console.log("Player is already in room!")}

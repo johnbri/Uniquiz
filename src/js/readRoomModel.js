@@ -14,8 +14,6 @@ async function ReadRoomModel(createRoom, roomName) {
             console.log("A room with the name already exists");
         } else {
             model = new RoomModel(roomName);
-            await setRoomFB(roomName)
-
         }
     } else {
         if (Object.keys(roomDataDB).length !== 0) {
@@ -25,7 +23,7 @@ async function ReadRoomModel(createRoom, roomName) {
             console.log("Room does not exist!");
         }    
     }
-    
+
     syncRoomsFB(model,roomName)
     model.addObserver(()=> updateRoomFB(model, roomName));
 
@@ -39,13 +37,6 @@ async function getRoomFB(roomName){
     .once('value', (snapshot) => snapshot);
 }
 
-async function setRoomFB(roomName){
-    database.ref('rooms/' + roomName).set({
-        players: [],
-        score: 0
-    });
-}
-
 async function updateRoomFB(model, roomName){
     database.ref('rooms/' + roomName).update({
         "players": model.players
@@ -56,8 +47,10 @@ function syncRoomsFB(model, roomName){
     try {
         database.ref('rooms/' + roomName)
         .on('value', (snapshot) => { 
-            model.setPlayers(snapshot.val().players)
-            console.log("korv", model.players)
+            snapshot.forEach((player) => {
+                model.setPlayers(player.val())
+                
+            })
         })
     } catch (error) {
         console.log(error);
