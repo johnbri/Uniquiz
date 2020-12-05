@@ -7,14 +7,12 @@ async function ReadRoomModel(createRoom, roomName) {
     let roomDataDB = {}; 
 
     (await getRoomFB(roomName)).forEach((child) => {
-        roomDataDB[child.key]= child.val();
+        roomDataDB[child.key]= child.val()})
 
-    });
     if (createRoom) {
         if (Object.keys(roomDataDB).length !== 0) {
             console.log("A room with the name already exists");
         } else {
-            console.log("hellooj")
             model = new RoomModel(roomName);
             await setRoomFB(roomName)
 
@@ -43,8 +41,8 @@ async function getRoomFB(roomName){
 
 async function setRoomFB(roomName){
     database.ref('rooms/' + roomName).set({
-        players: "hejhej",
-        score: 3000
+        players: [],
+        score: 0
     });
 }
 
@@ -58,8 +56,8 @@ function syncRoomsFB(model, roomName){
     try {
         database.ref('rooms/' + roomName)
         .on('value', (snapshot) => { 
-            const values = snapshot.val();
-            console.log(values);
+            model.setPlayers(snapshot.val().players)
+            console.log("korv", model.players)
         })
     } catch (error) {
         console.log(error);
