@@ -13,7 +13,7 @@ function CreateJoinRoom(props){
     return React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {CreateJoin(createRoom, roomName)
-            props.history.push("/rooms/" + roomName)},
+            props.history.push("/room")},
         onText: name => setRoomName(name),
         onBack: () => props.history.push("/home")
     });
