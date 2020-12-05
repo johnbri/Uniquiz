@@ -1,8 +1,7 @@
-const QuizView= ({onPlay, timeLeft}) =>
+import '../../css/quiz.css';
+const QuizView= ({onPlay}) =>
     <div className="quiz">
         <h1>Welcome to the Quiz!</h1>
-        <h2>{timeLeft}</h2>
-        <button onClick={() => onPlay()}>Play song</button>
+        <button onClick={() => onPlay()}>Start</button>
     </div>;
-
 export default QuizView;
