@@ -24,6 +24,8 @@ async function ReadRoomModel(createRoom, roomName) {
         }    
     }
 
+    console.log(roomDataDB)
+
     syncRoomsFB(model,roomName)
     model.addObserver(()=> updateRoomFB(model, roomName));
 
@@ -48,8 +50,7 @@ function syncRoomsFB(model, roomName){
         database.ref('rooms/' + roomName)
         .on('value', (snapshot) => { 
             snapshot.forEach((player) => {
-                model.setPlayers(player.val())
-                
+                model.setPlayers(player.val())  
             })
         })
     } catch (error) {

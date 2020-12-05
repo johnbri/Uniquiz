@@ -1,7 +1,7 @@
 class roomModel {
-    constructor(roomName){
+    constructor(roomName, players=[]){
         this.roomName = roomName;
-        this.players = [];
+        this.players = players;
         this.subscribers = [];
     }
 
