@@ -21,7 +21,7 @@ function Home(props) {
         onLogOut: () => {
             auth().signOut().then(()=> {
                 props.history.push('')})
-                .then(console.log("successful logout")).then(console.log(auth().currentUser))
+                .then(console.log(userModel.getDisplayName())).then(console.log(auth().currentUser))
             } 
     });
 }
