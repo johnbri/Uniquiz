@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { homeView } from "./view/homeView.js";
-import {auth, database} from '../services/firebase.js';
 import userModel from "../index.js";
 import useModelProp from "./useModelProp";
 

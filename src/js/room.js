@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { RoomView } from "./view/roomView";
-import {auth, database} from '../services/firebase.js';
-import { CreateJoinRoomView }from './view/createJoinRoomView';
-import userModel from "../index.js";
-import useModelProp from "./useModelProp";
-import roomName from "./home"
+
 
 function Room(props){
 
