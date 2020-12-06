@@ -3,6 +3,9 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
+        this.playList = [];
+        this.playedSongs = [];
+        this.answers = [];
     }
 
     addObserver(obs){
@@ -42,6 +45,22 @@ class RoomModel {
 
     setRoomName(roomName) {
         this.roomName = roomName;
+    }
+
+    setPlaylist(playList) {
+        this.playList = playList;
+    }
+
+    getPlaylist() {
+        return this.playList;
+    }
+
+    setAnswer(answer) {
+        this.answers.push(answer);
+    }
+
+    getAnswers() {
+        return this.answers;
     }
 
 }
