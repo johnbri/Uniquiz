@@ -5,7 +5,8 @@ import Start from "./start.js";
 import Room from "./room.js";
 import PlaylistPresenter from "./quiz.js";
 import CreateJoinRoom from "./createJoinRoom.js";
-import  SpotifyConnect from "./spotifyConnect";
+import QuizPlaying from "./quizPlaying.js";
+import SpotifyConnect from "./spotifyConnect";
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/room" component={Room} />
           <Route exact path="/quiz" component={PlaylistPresenter} />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
+          <Route exact path="/quizPlaying" component={QuizPlaying} />
         </Switch> 
       </div>
     </Router>

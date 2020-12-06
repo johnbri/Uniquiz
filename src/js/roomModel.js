@@ -1,5 +1,5 @@
-class roomModel {
-    constructor(roomName, players = []){
+class RoomModel {
+    constructor(roomName = "", players=[]){
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
@@ -36,6 +36,10 @@ class roomModel {
         this.notifyObservers();
     }
 
+    setRoomName(roomName) {
+        this.roomName = roomName;
+    }
+
 }
 
-export default roomModel;
+export default RoomModel;

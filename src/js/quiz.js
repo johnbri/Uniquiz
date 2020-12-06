@@ -6,24 +6,27 @@ import usePromise from './usePromise.js';
 import PromiseNoData from './view/promiseNoData.js';
 
 
-function PlaylistPresenter () {
-    const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-    //const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+function PlaylistPresenter (props) {
     const [promise, setPromise] = useState(null);
 
     useEffect(() =>  {
+        const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
         setPromise(quizPlaylist(arrayuid))
     }, []);
     
     const [data, error] = usePromise(promise);
-    //console.log(data);
 
     return PromiseNoData(promise, data, error) // cases 0, 1, 3
     || React.createElement(QuizView, {
-        //timeLeft: timeLeft,
-        onPlay: () => new Audio(data[0].url).play()
+            onPlay: () => {
+                props.history.push({
+                    pathname: '/quizPlaying',
+                    data: data
+                })
+            }
         });
 }
+
 
 async function quizPlaylist (arrayuid) {
     let combinedPlaylist = [];
@@ -33,11 +36,8 @@ async function quizPlaylist (arrayuid) {
         let userPlaylist = await getUserPlaylists(token);
         combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
     }
-    //console.log("hej");
     combinedPlaylist = combinedPlaylist.flat();
-    //console.log(combinedPlaylist);
     let combinedPlaylistUnique = combinedPlaylist.reduce((acc, currentTrack) => {
-        //console.log(combinedPlaylist.filter(track => track[1] === currentTrack[1]).length);
         if (combinedPlaylist.filter(track => track[1] === currentTrack[1]).length === arrayuid.length) { // använder filter för att se om det finns mer än ett track
             combinedPlaylist = combinedPlaylist.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
             return ([...acc, currentTrack]); // och lägger till den till accumulatorn
@@ -47,13 +47,12 @@ async function quizPlaylist (arrayuid) {
         }
     }, []);
 
-    //console.log(combinedPlaylistUnique);
     const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
     return combinedPlaylistUniqueDict;
 }
 async function getUserToken (uid) {
     return database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
-        //console.log("Successfully received token");
+        console.log("Successfully received token")
     });
 }
 
@@ -64,25 +63,8 @@ function listWithObj (list) {
     }
     return newList;
 }
+
 export default PlaylistPresenter;
-
-const calculateTimeLeft = () => {
-    let year = new Date().getFullYear();
-    let difference = +new Date(`10/01/${year}`) - +new Date();
-    let timeLeft = {};
-
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60)
-    };
-  }
-
-  return timeLeft;
-
-}
 
 
 
