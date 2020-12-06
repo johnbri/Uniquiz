@@ -33,7 +33,7 @@ function createJoinRoomFB(roomName, createRoom){
                     roomDataDB[child.key]= child.val();
                 });
                 syncRoomsFB(roomModel,roomName);
-                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
+                
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
                 roomModel.addPlayers(userModel.uid);
@@ -41,7 +41,6 @@ function createJoinRoomFB(roomName, createRoom){
         } else {
             if(createRoom) {
                 syncRoomsFB(roomModel,roomName);
-                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
                 roomModel.addPlayers(userModel.uid);
@@ -67,6 +66,7 @@ function syncRoomsFB(model, roomName){
                 console.log(model.players);
             })
         })
+        model.addObserver(()=> updateRoomFB(roomModel, roomName))
     } catch (error) {
         console.log(error);
     }
