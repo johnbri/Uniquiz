@@ -53,7 +53,7 @@ function createJoinRoomFB(roomName, createRoom){
 
 function updateRoomFB(model, roomName){
     database.ref('rooms/' + roomName).update({
-        "players": model.players
+        players: model.players
     })
 }
 
