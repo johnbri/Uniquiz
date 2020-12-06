@@ -32,8 +32,12 @@ class RoomModel {
     }
 
     setPlayers(players){
-        this.players = players
+        this.players = players;
         this.notifyObservers();
+    }
+    
+    getPlayers(){
+        return this.players;
     }
 
     setRoomName(roomName) {

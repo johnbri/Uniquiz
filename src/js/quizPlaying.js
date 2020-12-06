@@ -4,6 +4,7 @@ import QuizPlayingView from './view/quizPlayingView.js'
 function QuizPlaying(props) {
     const [timeLeft, setTimeLeft] = useState(0);
     const [songPlaying, setSongPlaying] = useState(true);
+    
     useEffect(() => {
         setTimeLeft(100);
         const data = props.location.data;
