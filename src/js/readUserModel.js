@@ -4,13 +4,12 @@ import UserModel from './userModel.js';
 function ReadUserModel() {
     let dbDataObject = {}; 
     const model = new UserModel();
-    auth().onAuthStateChanged((userObject)=> {
+    auth().onAuthStateChanged((userObject) => {
         if(userObject) {
             dbDataObject["uid"] = userObject.uid;
             database.ref('users/' + auth().currentUser.uid).once('value', (snapshot) => { 
                 snapshot.forEach((child) => {
                     dbDataObject[child.key] = child.val() || "";
-                    
                 });
                 model.setUid(dbDataObject.uid);
                 model.setDisplayName(dbDataObject.displayName);

@@ -1,6 +1,6 @@
 import React from "react";
 import { homeView } from "./view/homeView.js";
-import userModel from "../index.js";
+import {userModel} from "../index.js";
 import useModelProp from "./useModelProp";
 import {auth} from '../services/firebase.js';
 

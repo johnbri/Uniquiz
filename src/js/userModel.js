@@ -1,9 +1,10 @@
 class UserModel {
-    constructor(uid = "", token = "", displayName = ""){
+    constructor(uid = "", token = "", displayName = "", currentRoom = ""){
         this.uid=uid;
         this.subscribers = [];
         this.token = token;
         this.displayName = displayName;
+        this.currentRoom = currentRoom;
     }
 
     getDisplayName() {
@@ -43,6 +44,11 @@ class UserModel {
 
     setUser(currentUser) {
         this.user = currentUser;
+        this.notifyObservers();
+    }
+
+    setCurrentRoom(roomName) {
+        this.currentRoom = roomName;
         this.notifyObservers();
     }
 

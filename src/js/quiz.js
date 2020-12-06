@@ -2,27 +2,16 @@ import {database} from '../services/firebase.js';
 import {getUserPlaylists} from './spotify.js';
 import QuizView from './view/quizView.js';
 import React, { useState, useEffect} from "react";
-import usePromise from './usePromise.js';
-import PromiseNoData from './view/promiseNoData.js';
+import {roomModel} from '../index.js';
 
 
 function PlaylistPresenter (props) {
-    const [promise, setPromise] = useState(null);
+    const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
+    quizPlaylist(arrayuid);
 
-    useEffect(() =>  {
-        const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-        setPromise(quizPlaylist(arrayuid))
-    }, []);
-    
-    const [data, error] = usePromise(promise);
-
-    return PromiseNoData(promise, data, error) // cases 0, 1, 3
-    || React.createElement(QuizView, {
+    return React.createElement(QuizView, {
             onPlay: () => {
-                props.history.push({
-                    pathname: '/quizPlaying',
-                    data: data
-                })
+                props.history.push('/quizPlaying')
             }
         });
 }
@@ -48,7 +37,10 @@ async function quizPlaylist (arrayuid) {
     }, []);
 
     const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
+    roomModel.setPlaylist(combinedPlaylistUniqueDict.slice(0, 10));
+    console.log("Added playlist to roommodel");
     return combinedPlaylistUniqueDict;
+    //roomModel.setPlaylist(combinedPlaylistUniqueDict);
 }
 async function getUserToken (uid) {
     return database.ref('users/' + uid + '/token').once('value', (snapshot) => { 

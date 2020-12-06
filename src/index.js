@@ -3,18 +3,21 @@ import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
-import ReadUserModel from './js/readUserModel.js'
+import ReadUserModel from './js/readUserModel.js';
+import {ReadRoomModel} from './js/readRoomModel.js';
 
 let userModel = ReadUserModel();
+let roomModel = ReadRoomModel();
 
-export default userModel;
-/*ReactDOM.render(
+export {userModel, roomModel};
+
+//Skapa react DOM
+ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
-);*/
-ReactDOM.render(<App />, document.getElementById("root"));
+);
 
 
 // If you want to start measuring performance in your app, pass a function

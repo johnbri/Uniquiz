@@ -1,45 +1,58 @@
-import {database} from '../services/firebase.js';
+import {auth, database} from '../services/firebase.js';
 import RoomModel from './roomModel.js';
+import {roomModel, userModel} from "../index.js";
 
-async function ReadRoomModel(createRoom, roomName) {
-    
-    let model;
-    let roomDataDB = {}; 
 
-    (await getRoomFB(roomName)).forEach((child) => {
-        roomDataDB[child.key]= child.val()})
-
-    if (createRoom) {
-        if (Object.keys(roomDataDB).length !== 0) {
-            console.log("A room with the name already exists");
+function ReadRoomModel() {
+    let model = new RoomModel();
+    auth().onAuthStateChanged((userObject) => {
+        if (userObject) {
+            let roomName = userModel.currentRoom;
+            if(roomName !== "") {
+                syncRoomsFB(model,roomName);
+                model.addObserver(()=> updateRoomFB(model, roomName));
+            }
         } else {
-            model = new RoomModel(roomName);
+            console.log("Not logged in.")
         }
-    } else {
-        if (Object.keys(roomDataDB).length !== 0) {
-            model = new RoomModel(roomName, roomDataDB.players);
-            console.log(model.players);
-        } else {
-            console.log("Room does not exist!");
-        }    
-    }
-
-    console.log(roomDataDB)
-
-    syncRoomsFB(model,roomName)
-    model.addObserver(()=> updateRoomFB(model, roomName));
-
+    });
     return model;
 }
-export default ReadRoomModel;
+
+export {ReadRoomModel, createJoinRoomFB};
 
 
-async function getRoomFB(roomName){
-    return database.ref('rooms/' + roomName)
-    .once('value', (snapshot) => snapshot);
+function createJoinRoomFB(roomName, createRoom){
+    let roomDataDB = {}; 
+    database.ref('rooms/' + roomName).once('value', (snapshot) => {
+        if (snapshot.val() !== null) {
+            if(createRoom) {
+                console.log("A room with the name already exists");
+            } else {
+                snapshot.forEach((child) => {
+                    roomDataDB[child.key]= child.val();
+                });
+                syncRoomsFB(roomModel,roomName);
+                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
+                roomModel.setRoomName(roomName);
+                userModel.setCurrentRoom(roomName);
+                roomModel.addPlayers(userModel.uid);
+            }   
+        } else {
+            if(createRoom) {
+                syncRoomsFB(roomModel,roomName);
+                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
+                roomModel.setRoomName(roomName);
+                userModel.setCurrentRoom(roomName);
+                roomModel.addPlayers(userModel.uid);
+            } else {
+                console.log("Room does not exist!");
+            }
+        }
+    });
 }
 
-async function updateRoomFB(model, roomName){
+function updateRoomFB(model, roomName){
     database.ref('rooms/' + roomName).update({
         "players": model.players
     })
@@ -50,7 +63,8 @@ function syncRoomsFB(model, roomName){
         database.ref('rooms/' + roomName)
         .on('value', (snapshot) => { 
             snapshot.forEach((player) => {
-                model.setPlayers(player.val())  
+                model.setPlayers(player.val());  
+                console.log(model.players);
             })
         })
     } catch (error) {

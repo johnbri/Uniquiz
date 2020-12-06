@@ -1,8 +1,9 @@
-class roomModel {
-    constructor(roomName, players=[]){
+class RoomModel {
+    constructor(roomName = "", players=[]){
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
+        //this.playlist = playlist;
     }
 
     addObserver(obs){
@@ -36,6 +37,27 @@ class roomModel {
         this.notifyObservers();
     }
 
+    setRoomName(roomName) {
+        this.roomName = roomName;
+        this.notifyObservers();
+    }
+
+    setPlaylist(playList) {
+        this.playList = playList;
+    }
+
+    getPlaylist() {
+        return this.playList;
+    }
+
+    setAnswer(answer) {
+        this.answers.push(answer);
+    }
+
+    getAnswers() {
+        return this.answers;
+    }
+
 }
 
-export default roomModel;
+export default RoomModel;
