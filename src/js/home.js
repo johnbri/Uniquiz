@@ -2,6 +2,8 @@ import React from "react";
 import { homeView } from "./view/homeView.js";
 import userModel from "../index.js";
 import useModelProp from "./useModelProp";
+import {auth} from '../services/firebase.js';
+
 
 function Home(props) {
     const displayName = useModelProp(userModel, "displayName");
@@ -15,7 +17,12 @@ function Home(props) {
         onJoin: () => props.history.push({
             pathname: '/createJoin',
             createRoom: false
-        })
+        }),
+        onLogOut: () => {
+            auth().signOut().then(()=> {
+                props.history.push('')})
+                .then(console.log(userModel.getDisplayName())).then(console.log(auth().currentUser))
+            } 
     });
 }
 
