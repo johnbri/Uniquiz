@@ -9,7 +9,6 @@
     background-color: #85cc6f;
     height: 30px;
     border-radius: 5px;
-    transition-timing-function: linear;
     transition: width 30s linear;
     WebkitTransition: width 30s;
   }

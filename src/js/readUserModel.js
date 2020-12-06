@@ -10,7 +10,6 @@ function ReadUserModel() {
             database.ref('users/' + auth().currentUser.uid).once('value', (snapshot) => { 
                 snapshot.forEach((child) => {
                     dbDataObject[child.key] = child.val() || "";
-                    
                 });
                 model.setUid(dbDataObject.uid);
                 model.setDisplayName(dbDataObject.displayName);
