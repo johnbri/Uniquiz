@@ -8,7 +8,7 @@ function ReadRoomModel() {
     auth().onAuthStateChanged((userObject) => {
         if (userObject) {
             let roomName = userModel.currentRoom;
-            if(roomName != "") {
+            if(roomName !== "") {
                 syncRoomsFB(model,roomName);
                 model.addObserver(()=> updateRoomFB(model, roomName));
             }
@@ -21,57 +21,37 @@ function ReadRoomModel() {
     return model;
 }
 
-export {ReadRoomModel, getRoomFB};
+export {ReadRoomModel, createJoinRoomFB};
 
 
-function getRoomFB(roomName, createRoom){
-    //Kan den här ha await? 
+function createJoinRoomFB(roomName, createRoom){
     let roomDataDB = {}; 
-    console.log("name",roomName);
     database.ref('rooms/' + roomName).once('value', (snapshot) => {
-        console.log("fd", snapshot.val());
-        if (snapshot.val() != null) {
+        if (snapshot.val() !== null) {
             if(createRoom) {
                 console.log("A room with the name already exists");
             } else {
                 snapshot.forEach((child) => {
-                    console.log("hehe", child);
                     roomDataDB[child.key]= child.val();
                 });
+                syncRoomsFB(roomModel,roomName);
+                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
+                roomModel.addPlayers(userModel.uid);
             }   
         } else {
             if(createRoom) {
-                console.log("create");
+                syncRoomsFB(roomModel,roomName);
+                roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
-                console.log("roomname", roomModel.roomName)
+                roomModel.addPlayers(userModel.uid);
             } else {
                 console.log("Room does not exist!");
             }
 
-        }/*
-        snapshot.forEach((child) => {
-            roomDataDB[child.key]= child.val();
-            console.log("c", child);
-            if (createRoom) {
-                if (Object.keys(roomDataDB).length !== 0) {
-                    console.log("A room with the name already exists");
-                } else {
-                    roomModel.setRoomName(roomName);
-                    userModel.setCurrentRoom(roomName);
-                }
-            } else {
-                if (Object.keys(roomDataDB).length !== 0) {
-                    roomModel.setRoomName(roomName, roomDataDB.players);
-                    userModel.setCurrentRoom(roomName);
-                    console.log(userModel.players);
-                } else {
-                    console.log("Room does not exist!");
-                }       
-            }
-        });*/
+        }
     });
 }
 

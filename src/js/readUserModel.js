@@ -4,7 +4,7 @@ import UserModel from './userModel.js';
 function ReadUserModel() {
     let dbDataObject = {}; 
     const model = new UserModel();
-    auth().onAuthStateChanged((userObject)=> {
+    auth().onAuthStateChanged((userObject) => {
         if(userObject) {
             dbDataObject["uid"] = userObject.uid;
             database.ref('users/' + auth().currentUser.uid).once('value', (snapshot) => { 
