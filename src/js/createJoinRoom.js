@@ -1,5 +1,6 @@
 import React from "react";
 import {userModel} from "../index.js";
+import RoomModel from "./roomModel.js";
 import { CreateJoinRoomView }from './view/createJoinRoomView';
 import {createJoinRoomFB} from "./readRoomModel.js";
 import useModelProp from "./useModelProp.js";
@@ -9,7 +10,7 @@ import {auth} from '../services/firebase.js';
 
 function CreateJoinRoom(props){
     /** Create different view depending on if the user want to create or join room */
-    const [room, setRoom ] = useModelProp(roomModel, "roomName");
+    //const [room, setRoom ] = useModelProp(RoomModel, "roomName");
     const [roomName, setRoomName]= React.useState("");
     let createRoom = props.location.createRoom;
    

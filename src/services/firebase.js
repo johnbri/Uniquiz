@@ -14,7 +14,7 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const auth = firebase.auth;
-    // Set the configuration for your app
+  // Set the configuration for your app
   // TODO: Replace with your project's config object
 
 //Functions
@@ -55,6 +55,37 @@ function syncRoomModelToFB(model, roomName){
   }
 }
 
+function syncRoomPlayersToFB(model, roomName){
+  /** Syncs the model on firebase updates */
+  try {
+      database.ref('rooms/' + roomName)
+      .on('value', (snapshot) => { 
+          snapshot.forEach((player) => {
+              model.addPlayers(player.val());  
+              console.log(model.players);
+          })
+      })
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+function updateRoomPlayersFB(model, roomName){
+  /** Update firebase with room model info*/
+  let playersref = database.ref('rooms/' + roomName ).update({
+    players: model.players
+  });
+  
+  /*.child("players");
+  playersref.transaction( (currentPlayers) => {
+    if (currentPlayers !== model.players) {
+      console("plaeyr", currentPlayers)
+      return model.players;
+    }
+  })*/
+}
+
+
 function updateRoomFB(model, roomName){
   /** Update firebase with room model info*/
   let playersref = database.ref('rooms/' + roomName).child("players");
@@ -64,4 +95,4 @@ function updateRoomFB(model, roomName){
 }
 
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB};
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, syncRoomPlayersToFB, updateRoomPlayersFB};
