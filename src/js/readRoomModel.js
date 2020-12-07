@@ -47,12 +47,12 @@ function updateRoomFB(model, roomName){
     database.ref('rooms/' + roomName).update({
         players: model.players
     })}
-}
+
 
 function syncRoomsFB(model, roomName){
     try {
         database.ref('rooms/' + roomName)
-        .on('value', (snapshot) => { 
+        .once('value', (snapshot) => { 
             snapshot.forEach((player) => {
                 model.addPlayers(player.val());  
                 console.log(model.players);

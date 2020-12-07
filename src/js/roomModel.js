@@ -38,10 +38,6 @@ class RoomModel {
 
     setPlayers(players){
         this.players = players;
-<<<<<<< HEAD
-=======
-
->>>>>>> 57e244c924db974c27c4df1e9476033a96e41c40
         this.notifyObservers();
     }
 
