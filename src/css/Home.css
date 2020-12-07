@@ -12,6 +12,16 @@
   color: white;
 }
 
+.userImg > img {
+  border-radius: 50%;
+  border: 5px solid #ffffff;
+}
+
+.userImg > img {
+  width: 200px;
+}
+
+
 .home > button {
   margin: 10px;
   padding: 10px;

@@ -41,6 +41,12 @@ export function getUserTopPlaylist(token) {
   return apiObj
 }
 
+export async function getUserImg(token) {
+  let apiObj = await apiCall(token, "https://api.spotify.com/v1/me");
+  return apiObj.images[0].url;
+}
+
+
 export async function getUserPlaylists(token) {
   let apiObj = await apiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20");
   let allTracks = [];

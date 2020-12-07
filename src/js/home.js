@@ -3,12 +3,18 @@ import { homeView } from "./view/homeView.js";
 import {userModel} from "../index.js";
 import useModelProp from "./useModelProp";
 import {auth} from '../services/firebase.js';
+import NoDataView from './view/noDataView.js';
 
 
 function Home(props) {
+    const userImg = useModelProp(userModel, "img");
     const displayName = useModelProp(userModel, "displayName");
+    const data = [userImg, displayName];
 
-    return  React.createElement(homeView, {
+
+    return NoDataView(data) 
+    || React.createElement(homeView, {
+        userImg: userImg,
         userName: displayName,
         onCreate: () => props.history.push({
             pathname: '/createJoin',
@@ -26,7 +32,7 @@ function Home(props) {
         onToQuiz: () => {
             props.history.push('/quizPlaying')
         } 
-    });
+    })
 }
 
 export default Home;
