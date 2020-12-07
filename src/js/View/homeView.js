@@ -1,6 +1,7 @@
 import '../../css/Home.css';
 
 const homeView= ({onCreate, onJoin, userName, onLogOut}) =>
+    /** Page that displays opition for the user */
     <div className="home">
         <button className="logout" onClick={() => onLogOut()}>Log out</button>
         <br/><img

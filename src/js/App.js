@@ -1,7 +1,7 @@
 import '../css/App.css';
 import Signup from "./signup";
 import Home from "./home";
-import Start from "./start.js";
+import Login from "./login.js";
 import Room from "./room.js";
 import PlaylistPresenter from "./quiz.js";
 import CreateJoinRoom from "./createJoinRoom.js";
@@ -14,11 +14,12 @@ import {
 } from "react-router-dom";
 
 function App() {
+  /**Renders different components depeding on path */
   return <div className="app">
     <Router>
       <div>
         <Switch>
-          <Route exact path="/" component={Start} />
+          <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />

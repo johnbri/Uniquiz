@@ -1,4 +1,5 @@
 const PlayersSidebarView = ({players}) =>
+    /** Displays all the players connected to the room */
     <div>
         {players.map(player =>
             <div>

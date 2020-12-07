@@ -14,6 +14,54 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const auth = firebase.auth;
-export {database, auth};
     // Set the configuration for your app
   // TODO: Replace with your project's config object
+
+//Functions
+function loginFB (props, email, password) {
+  /**Log in to a user in firebase*/
+  auth().signInWithEmailAndPassword(email, password)
+  .then(() => {
+    props.history.push("/spotifyConnect");
+  }).catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+  });
+}
+
+function signupFB(email, name, password) {
+  /**signs up the user in firebase*/
+    return auth().createUserWithEmailAndPassword(email, password)
+    .then(userRecord => console.log("Successfully created new user"))
+    .then(() =>  {
+      database.ref('users/' + auth().currentUser.uid).set({
+      displayName: name
+      })
+    }).catch((er) => console.log("Error i firebase: " + er));
+}
+
+function syncRoomModelToFB(model, roomName){
+  /** Syncs the model on firebase updates */
+  try {
+      database.ref('rooms/' + roomName)
+      .on('value', (snapshot) => { 
+          snapshot.forEach((player) => {
+              model.setPlayers(player.val());  
+              console.log(model.players);
+          })
+      })
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+function updateRoomFB(model, roomName){
+  /** Update firebase with room model info*/
+  let playersref = database.ref('rooms/' + roomName).child("players");
+  playersref.transaction( (currentPlayers) => {
+      return model.players
+  })
+}
+
+
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB};

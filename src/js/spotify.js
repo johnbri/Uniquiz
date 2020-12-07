@@ -12,6 +12,8 @@ const scopes = [
 ];
 
 export const getTokenFromUrl = () => {
+    /** retrives the token from the url and make it to string*/
+
     return window.location.hash
       .substring(1)
       .split("&")
@@ -26,26 +28,27 @@ export const loginUrl = `${authEndpoint}?client_id=${clientId}&redirect_uri=${re
 "%20"
 )}&response_type=token&show_dialog=true`;
 
-function apiCall(token, URL) {
+function spotifyApiCall(token, URL) {
+  /** Makes api call to spotify */
   return fetch(URL, {
     "method": "GET",
     "headers": {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "Authorization": "Bearer " + token
-    }}).then(data => data.json())
+    }}).then(data => data.json());
 }
 
 export function getUserTopPlaylist(token) {
-  let apiObj = apiCall(token, "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term");
+  let apiObj = spotifyApiCall(token, "https://api.spotify.com/v1/me/top/tracks?limit=50&time_range=medium_term");
   return apiObj
 }
 
 export async function getUserPlaylists(token) {
-  let apiObj = await apiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20");
+  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20");
   let allTracks = [];
   for (let i = 0; i < apiObj.items.length; i++) {
-    const playListsObj = await apiCall(token, apiObj.items[i].tracks.href)
+    const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href)
     playListsObj.items.forEach(trackObj => allTracks.push([trackObj.track.name, trackObj.track.id, trackObj.track.preview_url]));
     
   }

@@ -1,15 +1,10 @@
 class RoomModel {
+    /** Model containing information for the room currently connected to the logged in user from firebase*/
     constructor(roomName = "", players=[]){
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-<<<<<<< HEAD
-        this.playList = [];
-        this.playedSongs = [];
-        this.answers = [];
-=======
         //this.playlist = playlist;
->>>>>>> 2642dc944a72a91d1cb9a24b7ac1c7d0f42d7b85
     }
 
     addObserver(obs){
@@ -39,7 +34,8 @@ class RoomModel {
     }
 
     setPlayers(players){
-        this.players = players
+        this.players = players;
+
         this.notifyObservers();
     }
 

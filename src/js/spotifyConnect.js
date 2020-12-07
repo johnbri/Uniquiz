@@ -23,6 +23,7 @@ function setPath(props) {
   }
 
 function addTokenDB(token) {
+  /** Add token revrived from spotify to firebase */
   auth().onAuthStateChanged(function(userObj) {
     if (userObj) {
       let user = auth().currentUser;

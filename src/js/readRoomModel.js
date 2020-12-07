@@ -1,15 +1,17 @@
-import {auth, database} from '../services/firebase.js';
+import React, { useEffect } from 'react';
+import {auth, database, syncRoomModelToFB, updateRoomFB} from '../services/firebase.js';
 import RoomModel from './roomModel.js';
 import {roomModel, userModel} from "../index.js";
 
 
 function ReadRoomModel() {
+    /** Checks for data connected to currentRoom in firebase to put in the room model on refresh  */
     let model = new RoomModel();
     auth().onAuthStateChanged((userObject) => {
         if (userObject) {
             let roomName = userModel.currentRoom;
             if(roomName !== "") {
-                syncRoomsFB(model,roomName);
+                syncRoomModelToFB(model,roomName);
                 model.addObserver(()=> updateRoomFB(model, roomName));
             }
         } else {
@@ -25,6 +27,7 @@ export {ReadRoomModel, createJoinRoomFB};
 
 
 function createJoinRoomFB(roomName, createRoom){
+    /** Check if given rooms exists in FB to create new or join room to model*/
     let roomDataDB = {}; 
     database.ref('rooms/' + roomName).once('value', (snapshot) => {
         if (snapshot.val() !== null) {
@@ -34,7 +37,7 @@ function createJoinRoomFB(roomName, createRoom){
                 snapshot.forEach((child) => {
                     roomDataDB[child.key]= child.val();
                 });
-                syncRoomsFB(roomModel,roomName);
+                syncRoomModelToFB(roomModel,roomName);
                 roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
@@ -42,7 +45,7 @@ function createJoinRoomFB(roomName, createRoom){
             }   
         } else {
             if(createRoom) {
-                syncRoomsFB(roomModel,roomName);
+                syncRoomModelToFB(roomModel,roomName);
                 roomModel.addObserver(()=> updateRoomFB(roomModel, roomName));
                 roomModel.setRoomName(roomName);
                 userModel.setCurrentRoom(roomName);
@@ -53,24 +56,4 @@ function createJoinRoomFB(roomName, createRoom){
 
         }
     });
-}
-
-function updateRoomFB(model, roomName){
-    database.ref('rooms/' + roomName).update({
-        "players": model.players
-    })
-}
-
-function syncRoomsFB(model, roomName){
-    try {
-        database.ref('rooms/' + roomName)
-        .on('value', (snapshot) => { 
-            snapshot.forEach((player) => {
-                model.setPlayers(player.val());  
-                console.log(model.players);
-            })
-        })
-    } catch (error) {
-        console.log(error);
-    }
 }

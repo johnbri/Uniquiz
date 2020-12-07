@@ -6,6 +6,7 @@ import {auth} from '../services/firebase.js';
 
 
 function Home(props) {
+    /**The user can create a room or join a room */
     const displayName = useModelProp(userModel, "displayName");
 
     return  React.createElement(homeView, {

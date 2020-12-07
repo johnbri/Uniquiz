@@ -1,4 +1,5 @@
 class UserModel {
+    /** Model containing information for logged in user from firebase*/
     constructor(uid = "", token = "", displayName = "", currentRoom = ""){
         this.uid=uid;
         this.subscribers = [];
