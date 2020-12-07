@@ -10,7 +10,7 @@ function Home(props) {
     const userImg = useModelProp(userModel, "img");
     const displayName = useModelProp(userModel, "displayName");
     const data = [userImg, displayName];
-
+    
 
     return NoDataView(data) 
     || React.createElement(homeView, {

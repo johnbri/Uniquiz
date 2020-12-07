@@ -23,10 +23,18 @@ function App() {
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/room" component={Room} />
-          <Route path="/quizAnswers" component={QuizAnswers} />
-          <Route path="/quizAnswers" component={QuizSidebar} />
-          <Route path="/quizPlaying" component={QuizPlaying} />
-          <Route path="/quizPlaying" component={QuizSidebar} />
+          <Route path='/quizAnswers' render={props =>
+            <div>
+              <QuizAnswers />
+              <QuizSidebar />
+            </div>
+          } />
+          <Route path='/quizPlaying' render={props =>
+            <div>
+              <QuizPlaying />
+              <QuizSidebar />
+            </div>
+          } />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
       </div>
     </Router>

@@ -36,7 +36,7 @@ class RoomModel {
     }
 
     setPlayers(players){
-        this.players = players
+        this.players = players;
         this.notifyObservers();
     }
 
