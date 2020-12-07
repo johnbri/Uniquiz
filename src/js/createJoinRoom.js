@@ -1,5 +1,5 @@
 import React from "react";
-import {userModel} from "../index.js";
+import {userModel, roomModel} from "../index.js";
 import { CreateJoinRoomView }from './view/createJoinRoomView';
 import {createJoinRoomFB} from "./readRoomModel.js";
 import useModelProp from "./useModelProp.js";
