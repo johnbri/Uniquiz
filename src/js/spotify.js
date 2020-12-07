@@ -43,7 +43,12 @@ export function getUserTopPlaylist(token) {
 
 export async function getUserImg(token) {
   let apiObj = await apiCall(token, "https://api.spotify.com/v1/me");
-  return apiObj.images[0].url;
+  if (apiObj.images[0].url) {
+    return apiObj.images[0].url
+  }
+  else {
+    return "defaultProfilePic.jpg"
+  }
 }
 
 
