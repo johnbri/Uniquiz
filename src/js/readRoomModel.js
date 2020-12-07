@@ -28,8 +28,7 @@ function createJoinRoomFB(roomName, createRoom){
     /** Check if given rooms exists in FB to create new or join room to model*/
     let roomDataDB = {}; 
     database.ref('rooms/' + roomName).once('value', (snapshot) => {
-        if (snapshot.val() !== null) {
-            if(createRoom) {
+        if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
                 console.log("A room with the name already exists");
             } else {
                 snapshot.forEach((child) => {
@@ -50,7 +49,6 @@ function createJoinRoomFB(roomName, createRoom){
                 roomModel.addPlayers(userModel.uid);
             } else {
                 console.log("Room does not exist!");
-            }
         }
     });
 }
