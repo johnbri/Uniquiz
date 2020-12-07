@@ -30,20 +30,23 @@ function createJoinRoomFB(roomName, createRoom){
                 console.log("A room with the name already exists");
             } else {
                 snapshot.forEach((child) => {
+                    console.log(child.val())
                     roomDataDB[child.key]= child.val();
                 });
-                syncRoomsFB(roomModel,roomName);
                 
-                roomModel.setRoomName(roomName);
-                userModel.setCurrentRoom(roomName);
-                roomModel.addPlayers(userModel.uid);
+                syncRoomsFB(roomModel,roomName);
+                roomModel.setRoomName(roomName)
+                userModel.setCurrentRoom(roomName)
+                roomModel.addPlayers(userModel.uid)   
+                
             }   
         } else {
             if(createRoom) {
                 syncRoomsFB(roomModel,roomName);
-                roomModel.setRoomName(roomName);
-                userModel.setCurrentRoom(roomName);
-                roomModel.addPlayers(userModel.uid);
+                roomModel.setRoomName(roomName)
+                userModel.setCurrentRoom(roomName)
+                roomModel.addPlayers(userModel.uid)
+                
             } else {
                 console.log("Room does not exist!");
             }
@@ -52,9 +55,10 @@ function createJoinRoomFB(roomName, createRoom){
 }
 
 function updateRoomFB(model, roomName){
+    console.log(model.players)
     database.ref('rooms/' + roomName).update({
         players: model.players
-    })
+    })}
 }
 
 function syncRoomsFB(model, roomName){
@@ -62,11 +66,12 @@ function syncRoomsFB(model, roomName){
         database.ref('rooms/' + roomName)
         .on('value', (snapshot) => { 
             snapshot.forEach((player) => {
-                model.setPlayers(player.val());  
                 console.log(model.players);
-            })
+                model.addPlayers(player.val());  
+                console.log(model.players);
+                
+            }); updateRoomFB(model,roomName)
         })
-        model.addObserver(()=> updateRoomFB(roomModel, roomName))
     } catch (error) {
         console.log(error);
     }
