@@ -42,30 +42,3 @@ async function createJoinRoomFB(roomName, createRoom){
         }
     });
 }
-<<<<<<< HEAD
-
-=======
-function updateRoomFB(model, roomName){
-    console.log(model.players)
-    database.ref('rooms/' + roomName).update({
-        players: model.players
-    })}
-}
-
-function syncRoomsFB(model, roomName){
-    try {
-        database.ref('rooms/' + roomName)
-        .on('value', (snapshot) => { 
-            snapshot.forEach((player) => {
-                model.addPlayers(player.val());  
-                console.log(model.players);
-                model.addPlayers(player.val());  
-                console.log(model.players);
-                
-            }); updateRoomFB(model,roomName)
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
->>>>>>> 311667c087ea69b1d5aca54cb06ce1a0cc4476cb
