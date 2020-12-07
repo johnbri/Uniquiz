@@ -9,18 +9,12 @@ function Room(props){
     
     console.log(roomModel)
 
-    return "hej"/*(React.Fragment, {}
-        , (RoomView,{
+    return (React.createElement(RoomView,{
             roomName: "hej",
-            playerNames: "hej",
+            playerNames: userModel.players,
             onExit: () => props.history.push("/home"),
             onStart: () => props.history.push("/quiz")
-            })
-            PromiseNoData(promise, data, error) ||
-                h(PlayersSidebarView,{
-                    hej: "hej"
-                    })*/          
-    
+            }));
 }
 
 export default Room;

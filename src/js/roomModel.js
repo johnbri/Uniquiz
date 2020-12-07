@@ -1,4 +1,4 @@
-import { syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
+import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/

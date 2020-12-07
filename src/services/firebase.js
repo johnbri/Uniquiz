@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import {roomModel, userModel } from '../index.js';
 
   var firebaseConfig = {
     apiKey: "AIzaSyALuzAm03buerT-oxeALHaQ37KJ3-mlWwU",
@@ -14,8 +15,6 @@ firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
 const auth = firebase.auth;
-  // Set the configuration for your app
-  // TODO: Replace with your project's config object
 
 //Functions
 function loginFB (props, email, password) {
@@ -40,14 +39,14 @@ function signupFB(email, name, password) {
     }).catch((er) => console.log("Error i firebase: " + er));
 }
 
-function syncRoomModelToFB(model, roomName){
+function syncRoomModelToFB(roomName){
   /** Syncs the model on firebase updates */
   try {
-      database.ref('rooms/' + roomName)
-      .on('value', (snapshot) => { 
-          snapshot.forEach((player) => {
-              model.setPlayers(player.val());  
-              console.log(model.players);
+      let ref = database.ref('rooms/' + roomName);
+      ref.on('value', (snapshot) => { 
+          snapshot.child("players").forEach((player) => {
+              roomModel.setPlayers(player.key);  
+              console.log("i modellen", roomModel.players);
           })
       })
   } catch (error) {
@@ -55,44 +54,23 @@ function syncRoomModelToFB(model, roomName){
   }
 }
 
-function syncRoomPlayersToFB(model, roomName){
-  /** Syncs the model on firebase updates */
-  try {
-      database.ref('rooms/' + roomName)
-      .on('value', (snapshot) => { 
-          snapshot.forEach((player) => {
-              model.addPlayers(player.val());  
-              console.log(model.players);
-          })
-      })
-  } catch (error) {
-      console.log(error);
-  }
-}
-
-function updateRoomPlayersFB(model, roomName){
-  /** Update firebase with room model info*/
-  let playersref = database.ref('rooms/' + roomName ).update({
-    players: model.players
+function addPlayerToFB(roomName) {
+  /** creates a playerObject for player in room in firebase*/
+  let ref = database.ref('rooms/' + roomName + '/players').child(userModel.uid);
+  ref.update({
+    score: 0,
+    answer: ""
   });
-  
-  /*.child("players");
-  playersref.transaction( (currentPlayers) => {
-    if (currentPlayers !== model.players) {
-      console("plaeyr", currentPlayers)
-      return model.players;
-    }
-  })*/
 }
 
 
-function updateRoomFB(model, roomName){
+function updateRoomFB(roomName){
   /** Update firebase with room model info*/
-  let playersref = database.ref('rooms/' + roomName).child("players");
+  let playersref = database.ref('rooms/' + roomName).add("players");
   playersref.transaction( (currentPlayers) => {
-      return model.players
-  })
+      return roomModel.players
+  });
 }
 
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, syncRoomPlayersToFB, updateRoomPlayersFB};
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, addPlayerToFB};

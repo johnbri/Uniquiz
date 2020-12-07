@@ -63,8 +63,8 @@ function listWithObj (list) {
     }
     return newList;
 }
-const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-quizPlaylist(arrayuid);
+//const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
+//quizPlaylist(arrayuid);
 
 export default QuizAnswers;
 
