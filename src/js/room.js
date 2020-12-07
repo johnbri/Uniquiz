@@ -2,10 +2,11 @@ import React from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel} from "../index.js";
 import PromiseNoData from './view/promiseNoData.js';
+import useModelProp from "./useModelProp"
 
 
 function Room(props){
-    const[roomModel, setRoomModel] = React.useState("")
+    //players= ["gkgpZ7UbAAb530u8CES1SEK1Im83", "cv4yGGhfXoWKfIueyQdP1BNMPT43"]
     
     console.log(roomModel)
 
@@ -18,16 +19,3 @@ function Room(props){
 }
 
 export default Room;
-
-/*
-function Search({model, dishChoice}){
-    const [type, setType]= React.useState(""); 
-    const [query, setQuery]= React.useState("");
-
-    const [promise, setPromise]= React.useState(null);
-    React.useEffect(()=>setPromise(DishSource.searchDishes({})),
-    []);
-    
-    const [data, error]= usePromise(promise);
-
-    */

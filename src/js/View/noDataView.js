@@ -1,3 +1,5 @@
+import '../../css/Loading.css';
+
 function NoDataView(data){  
     let noData = false;
     for (let i = 0; i < data.length; i++) {
@@ -7,6 +9,18 @@ function NoDataView(data){
             break;
         } 
     };
-    return (noData && <img src="http://www.csc.kth.se/~cristi/loading.gif" alt= "Loading"/>)
+    return (noData && loading())
 }
 export default NoDataView;
+
+const loading = () => 
+    <div className="loader">
+    <div className="duo duo1">
+        <div className="dot dot-a"></div>
+        <div className="dot dot-b"></div>
+    </div>
+    <div className="duo duo2">
+        <div className="dot dot-a"></div>
+        <div className="dot dot-b"></div>
+    </div>
+    </div>;
