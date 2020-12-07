@@ -5,10 +5,15 @@
     border-radius: 5px;
     margin: 20px 30px 0px 30px
   }
-  .loader-bar {
+.loader-bar {
     background-color: #85cc6f;
+    width: 0%;
     height: 30px;
     border-radius: 5px;
     transition: width 15s linear;
-    WebkitTransition: width 30s;
-  }
+}
+
+.playersSidebar {
+  position: absolute;
+  bottom: 10px;
+}

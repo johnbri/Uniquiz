@@ -3,13 +3,10 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-<<<<<<< HEAD
         this.playList = [];
         this.playedSongs = [];
         this.answers = [];
-=======
-        //this.playlist = playlist;
->>>>>>> 2642dc944a72a91d1cb9a24b7ac1c7d0f42d7b85
+        this.score = 0;
     }
 
     addObserver(obs){
@@ -50,18 +47,32 @@ class RoomModel {
 
     setPlaylist(playList) {
         this.playList = playList;
+        this.notifyObservers();
     }
 
-    getPlaylist() {
-        return this.playList;
+    getCurrentSong() {
+        let currentSong = this.playList[0];
+        this.playedSongs = [currentSong, this.playedSongs];
+        this.playList.shift();
+        return currentSong;
     }
 
     setAnswer(answer) {
-        this.answers.push(answer);
+        this.answers = [answer, this.answers];
+        this.notifyObservers();
     }
 
-    getAnswers() {
-        return this.answers;
+    getAnswer() {
+        return this.answers[0];
+    }
+
+    getPlayedSong() {
+        return this.playedSongs[0];
+    }
+
+    setScore() {
+        this.score+=1;
+        this.notifyObservers();
     }
 
 }

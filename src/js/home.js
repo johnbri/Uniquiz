@@ -22,7 +22,10 @@ function Home(props) {
             auth().signOut().then(()=> {
                 props.history.push('')})
                 .then(console.log(userModel.getDisplayName())).then(console.log(auth().currentUser))
-            } 
+            },
+        onToQuiz: () => {
+            props.history.push('/quizPlaying')
+        } 
     });
 }
 

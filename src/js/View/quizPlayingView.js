@@ -1,6 +1,7 @@
 import '../../css/quiz.css';
 const QuizPlaying= ({ timeLeft, onText, onSubmit}) =>
     <div className="quiz">
+        {console.log("timeleft i viewn" + timeLeft)}
         <h1>Guess the song!</h1>
         <div className="loader-container">
             <div className="loader">

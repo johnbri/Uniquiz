@@ -1,18 +1,26 @@
 import {database} from '../services/firebase.js';
 import {getUserPlaylists} from './spotify.js';
-import QuizView from './view/quizView.js';
+import QuizAnswersView from './view/quizAnswersView.js';
 import React, { useState, useEffect} from "react";
 import {roomModel} from '../index.js';
+import {userModel} from '../index.js';
+import useModelProp from './useModelProp.js';
 
 
-function PlaylistPresenter (props) {
-    const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-    quizPlaylist(arrayuid);
+function QuizAnswers (props) {
+    const displayName = useModelProp(userModel, "displayName");
+    const score = useModelProp(roomModel, "score");
+    const correctAnswer = useModelProp(roomModel, "playedSongs");
+    //const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
+    //quizPlaylist(arrayuid);
 
-    return React.createElement(QuizView, {
-            onPlay: () => {
-                props.history.push('/quizPlaying')
-            }
+    return React.createElement(QuizAnswersView, {
+        correctAnswer: correctAnswer[0].name,
+        score: score,
+        displayName: displayName,
+        onPlay: () => {
+            props.history.push('/quizPlaying')
+        }
         });
 }
 
@@ -55,8 +63,10 @@ function listWithObj (list) {
     }
     return newList;
 }
+const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
+quizPlaylist(arrayuid);
 
-export default PlaylistPresenter;
+export default QuizAnswers;
 
 
 
