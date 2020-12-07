@@ -8,12 +8,14 @@ import useModelProp from "./useModelProp"
 function Room(props){
     //players= ["gkgpZ7UbAAb530u8CES1SEK1Im83", "cv4yGGhfXoWKfIueyQdP1BNMPT43"]
     
-    return React.createElement(RoomView,{
+    console.log(roomModel)
+
+    return (React.createElement(RoomView,{
             roomName: "hej",
-            playerNames: "hej",
+            playerNames: userModel.players,
             onExit: () => props.history.push("/home"),
             onStart: () => props.history.push("/quiz")
-            });
+            }));
 }
 
 export default Room;
