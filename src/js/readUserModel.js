@@ -15,6 +15,8 @@ function ReadUserModel() {
                 model.setUid(dbDataObject.uid);
                 model.setDisplayName(dbDataObject.displayName);
                 model.setToken(dbDataObject.token);
+                model.setCurrentRoom(dbDataObject.currentRoom);
+                model.setImg(dbDataObject.img);
             });    
         } else {
             console.log("User not logged in");

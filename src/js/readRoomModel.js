@@ -17,9 +17,7 @@ function ReadRoomModel() {
         } else {
             console.log("Not logged in.")
         }
-
     });
-
     return model;
 }
 
@@ -53,7 +51,6 @@ function createJoinRoomFB(roomName, createRoom){
             } else {
                 console.log("Room does not exist!");
             }
-
         }
     });
 }

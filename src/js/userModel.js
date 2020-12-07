@@ -1,11 +1,12 @@
 class UserModel {
-    /** Model containing information for logged in user from firebase*/
-    constructor(uid = "", token = "", displayName = "", currentRoom = ""){
+    /** Model containing information for the logged in user from firebase*/
+    constructor(uid = "", token = "", displayName = null, currentRoom = "", img = null){
         this.uid=uid;
         this.subscribers = [];
         this.token = token;
         this.displayName = displayName;
         this.currentRoom = currentRoom;
+        this.img = img;
     }
 
     getDisplayName() {
@@ -40,6 +41,11 @@ class UserModel {
 
     setUid(uid) {
         this.uid = uid;
+        this.notifyObservers();
+    }
+
+    setImg(img) {
+        this.img = img;
         this.notifyObservers();
     }
 

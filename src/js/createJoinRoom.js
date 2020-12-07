@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import {auth, database} from '../services/firebase.js';
+import React from "react";
+import {userModel} from "../index.js";
 import { CreateJoinRoomView }from './view/createJoinRoomView';
-import RoomModel from './roomModel.js';
-import {roomModel, userModel} from "../index.js";
 import {createJoinRoomFB} from "./readRoomModel.js";
 import useModelProp from "./useModelProp.js";
+import {auth} from '../services/firebase.js';
+
 
 
 function CreateJoinRoom(props){
@@ -20,7 +20,12 @@ function CreateJoinRoom(props){
             props.history.push("/room")
         },
         onText: name => setRoomName(name),
-        onBack: () => props.history.push("/home")
+        onBack: () => props.history.push("/home"),
+        onLogOut: () => {
+            auth().signOut().then(()=> {
+                props.history.push('')})
+                .then(console.log(userModel.getDisplayName())).then(console.log(auth().currentUser))
+            }
     });
 }
 export default CreateJoinRoom;

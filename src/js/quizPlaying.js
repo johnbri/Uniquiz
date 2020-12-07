@@ -2,39 +2,48 @@ import React, { useState, useEffect} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 
-function QuizPlaying(props) {
+function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0);
     const [answer, setAnswer]= useState("");
     const [songPlaying, setSongPlaying] = useState(true);
     
     useEffect(() => {
+        console.log("timeleft: " + timeLeft);
         setTimeLeft(100); //används för att css baren ska börja laddas upp till 100%
-        playSong();
+        let currentSong = playSong();
         const timeout = setTimeout(() => {
-            setSongPlaying(false); // efter 15s
+            currentSong.pause();
+            calculateAnswer();
+            setSongPlaying(false); // efter 15s slutar låten
+            props.history.push('/quizAnswers');
         }, 15000);
         return () => clearTimeout(timeout);
     }, []);
+    console.log("timeleft efter: " + timeLeft)
     
     return songPlaying 
         ? React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
-            onSubmit: () => roomModel.setAnswer(answer),
+            onSubmit: () => {
+                roomModel.setAnswer(answer);
+            },
             onText: name => setAnswer(name)
         })
-        : returnToQuiz(props);
+        : null;
 }
 
-function returnToQuiz (props) {
-    props.history.push('/quiz');
-    return null;
+function calculateAnswer() {
+    if (roomModel.getAnswer() === roomModel.getPlayedSong().name) {
+        roomModel.setScore();
+    }
+    console.log("Current score: " + roomModel.score);
 }
 
-function playSong (data) {
-    console.log(roomModel.getPlaylist());
-    const currentSong = new Audio(roomModel.getPlaylist()[0].url);
+function playSong () {
+    const currentSong = new Audio(roomModel.getCurrentSong().url);
     currentSong.volume = 0.05;
     currentSong.play();
+    return currentSong;
 }
 
-export default QuizPlaying;
+export default QuizPlayingSong;
