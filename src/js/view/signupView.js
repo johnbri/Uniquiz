@@ -1,4 +1,5 @@
 const SignupView = ({onEmail, onName, onPassword, onSignup}) =>
+    /**Page where the user can create an account */
     <div className="login">
         <p>Email</p>
         <input type="text" onChange={(event) => onEmail(event.target.value)}></input>

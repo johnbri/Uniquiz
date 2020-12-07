@@ -73,7 +73,6 @@ export default QuizAnswers;
 
 
 
-
 /*arrayuid.forEach(uid => {
     database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
         getUser(snapshot.val())

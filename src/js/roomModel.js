@@ -1,4 +1,5 @@
 class RoomModel {
+    /** Model containing information for the room currently connected to the logged in user from firebase*/
     constructor(roomName = "", players=[]){
         this.roomName = roomName;
         this.players = players;
@@ -36,7 +37,11 @@ class RoomModel {
     }
 
     setPlayers(players){
-        this.players = players
+        this.players = players;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 57e244c924db974c27c4df1e9476033a96e41c40
         this.notifyObservers();
     }
 

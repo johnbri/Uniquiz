@@ -12,14 +12,32 @@
   color: white;
 }
 
-.userImg > img {
+.profile > img {
   border-radius: 50%;
   border: 5px solid #ffffff;
 }
 
+<<<<<<< HEAD
 .userImg > img {
   height: 200px;
   width: auto;
+=======
+.profile {
+  width: 400px;
+  text-align: center;
+}
+
+.profile > button {
+  margin: 10px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 99px;
+  font-size: 25px;
+  color: rgb(255, 250, 250);
+  background-color: #383838;
+  border: 0px;
+>>>>>>> 5668a3cfe5001e1964f4ddfb12264e3619475414
 }
 
 

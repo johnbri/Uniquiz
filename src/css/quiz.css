@@ -17,3 +17,12 @@
   position: absolute;
   bottom: 10px;
 }
+
+.userImg > img {
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+}
+
+.userImg > img {
+  width: 50px;
+}
