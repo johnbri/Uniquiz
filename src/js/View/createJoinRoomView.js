@@ -1,7 +1,8 @@
 import '../../css/Home.css';
 
-const CreateJoinRoomView = ({onSubmit, onText, onBack, title}) =>
+const CreateJoinRoomView = ({onSubmit, onText, onBack, title, onLogOut}) =>
     <div className="createjoin">
+        <button className="logout" onClick={() => onLogOut()}>Log out</button>
         <button onClick={() => onBack()}>Back</button>
         <h1>{title} quiz</h1>
 
