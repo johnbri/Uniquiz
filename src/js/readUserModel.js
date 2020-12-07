@@ -2,6 +2,7 @@ import {database, auth} from '../services/firebase.js';
 import UserModel from './userModel.js';
 
 function ReadUserModel() {
+    /** Checks for data connected to logged in user in firebase to put in the user model on refresh  */
     let dbDataObject = {}; 
     const model = new UserModel();
     auth().onAuthStateChanged((userObject) => {

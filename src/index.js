@@ -11,7 +11,7 @@ let roomModel = ReadRoomModel();
 
 export {userModel, roomModel};
 
-//Skapa react DOM
+//Create a react DOM
 ReactDOM.render(
   <React.StrictMode>
     <App />

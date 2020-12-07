@@ -1,7 +1,7 @@
 import '../css/App.css';
 import Signup from "./signup";
 import Home from "./home";
-import Start from "./start.js";
+import Login from "./login.js";
 import Room from "./room.js";
 import QuizAnswers from "./quizAnswers.js";
 import QuizSidebar from './quizSidebar.js';
@@ -15,10 +15,12 @@ import {
 } from "react-router-dom";
 
 function App() {
+  /**Renders different components depeding on path */
   return <div className="app">
     <Router>
       <div>
-          <Route exact path="/" component={Start} />
+        <Switch>
+          <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
@@ -36,6 +38,7 @@ function App() {
             </div>
           } />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
+        </Switch> 
       </div>
     </Router>
   </div>;

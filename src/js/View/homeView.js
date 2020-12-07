@@ -1,6 +1,7 @@
 import '../../css/Home.css';
 
 const homeView= ({userImg, onCreate, onJoin, userName, onLogOut, onToQuiz}) =>
+/** Page that displays opition for the user */
     <div className="home">
         <div className="top"><br/><img
         src = "logo.png"

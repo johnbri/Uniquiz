@@ -1,4 +1,5 @@
 const RoomView = ({roomName, playerNames, onStart, onExit}) =>
+    /** Page that works as a lobby before game */
     <div>
         <button onClick={() => onExit()}>Exit room</button>
         <h1>{roomName}</h1>
