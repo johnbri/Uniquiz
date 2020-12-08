@@ -76,7 +76,7 @@ class RoomModel {
     addPlayers(newPlayer) {
         /** Adds a player that is not in the room to  players list*/
         this.players = this.players.filter(player => {
-            if (player === newPlayer){
+            if (player.uid === newPlayer.uid){
                 console.log("Player is already in room!")}
             else {
                 return newPlayer
