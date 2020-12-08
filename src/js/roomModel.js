@@ -10,6 +10,7 @@ class RoomModel {
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
+        this.creator = false;
     }
 
     getRoomName() {
@@ -48,6 +49,11 @@ class RoomModel {
         this.notifyObservers();
     }
 
+    setCreator(boolean) {
+        this.creator = boolean;
+        console.log(this.creator);
+        this.notifyObservers();
+    }
     setPlayers(players){
         this.players = players;
         this.notifyObservers();

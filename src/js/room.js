@@ -6,30 +6,37 @@ import useModelProp from "./useModelProp"
 import { database } from '../services/firebase.js';
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
+import {addPlaylistToFB} from '../services/firebase.js';
 
 function Room(props){
-    //players= ["gkgpZ7UbAAb530u8CES1SEK1Im83", "cv4yGGhfXoWKfIueyQdP1BNMPT43"]
     const combinedPlaylist = useModelProp(roomModel, "playlist");
+    const creator = useModelProp(roomModel, "creator");
+    const roomName = useModelProp(roomModel, "roomName");
     const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
+
+    if (combinedPlaylist !== []) {
+        props.history.push('/quizPlaying')
+    }
+
     return started ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
-            roomName: "hej",
+            creator: creator,
+            roomName: roomName,
             playerNames: userModel.players,
             onExit: () => props.history.push("/home"),
             onStart: () => {
-                const playersuid = roomModel.getPlayersUid();
-                let playlist = quizPlaylist(playersuid);
-                playlist.then((tracks) => roomModel.setPlaylist(tracks))
-                .then(() => setPath(props));
+                if (creator) {
+                    const playersuid = roomModel.getPlayersUid();
+                    let playlist = quizPlaylist(playersuid);
+                    playlist.then((tracks) => addPlaylistToFB(tracks, roomName));
+                    //.then(() => props.history.push('/quizPlaying'));
+                }
                 setStarted(true);
             }
             });
 }
 
-function setPath(props) {
-    props.history.push('/quizPlaying');
-}
 async function quizPlaylist (arrayuid) {
     let combinedPlaylist = [];
 
@@ -50,9 +57,8 @@ async function quizPlaylist (arrayuid) {
     }, []);
 
     const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
-    roomModel.setPlaylist(combinedPlaylistUniqueDict.slice(0, 10));
     console.log("Added playlist to roommodel");
-    return combinedPlaylistUniqueDict;
+    return combinedPlaylistUniqueDict.slice(0,10);
     //roomModel.setPlaylist(combinedPlaylistUniqueDict);
 }
 async function getUserToken (uid) {

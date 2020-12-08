@@ -44,15 +44,15 @@ function syncRoomModelToFB(roomName){
   try {
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
+          roomModel.setPlaylist(snapshot.child("playlist").val());
+          console.log(roomModel.playlist);
+          //console.log(roomModel.playlist);
           snapshot.child("players").forEach((player) => {
-            //let key = player.key;
-            //var childKey = player.val()
             let playerObj = {};
             playerObj[player.key] = player.val();
               roomModel.addPlayers(
                 playerObj
               );  
-              console.log("player: " + player);
               console.log("i modellen", roomModel.players);
           })
       })
@@ -68,9 +68,15 @@ function addPlayerToFB(roomName) {
     displayName: userModel.displayName,
     profileImg: userModel.img,
     score: 0,
-    answer: "",
-    displayName: userModel.displayName,
-    profileImg: userModel.img
+    answer: ""
+  });
+}
+
+function addPlaylistToFB(playlist, roomName) {
+  /** creates a playerObject for player in room in firebase*/
+  let ref = database.ref('rooms/' + roomName);
+  ref.update({
+    playlist
   });
 }
 
@@ -84,4 +90,4 @@ function updateRoomFB(roomName){
 }
 
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, addPlayerToFB};
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, addPlayerToFB, addPlaylistToFB};
