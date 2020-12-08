@@ -6,7 +6,7 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-        this.playlist = [];
+        this.playlist = null;
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
