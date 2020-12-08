@@ -58,6 +58,8 @@ function addPlayerToFB(roomName) {
   /** creates a playerObject for player in room in firebase*/
   let ref = database.ref('rooms/' + roomName + '/players').child(userModel.uid);
   ref.update({
+    displayName: userModel.displayName,
+    profileImg: userModel.img,
     score: 0,
     answer: ""
   });
