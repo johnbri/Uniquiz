@@ -2,6 +2,7 @@ import React, { useState, useEffect} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 import { useHistory } from "react-router-dom";
+import { setPlayerAnswerFB, setPlayerScoreFB } from "../services/firebase.js"
 
 function QuizPlayingSong(props) {
     let history = useHistory();
@@ -25,7 +26,8 @@ function QuizPlayingSong(props) {
         ? React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
-                roomModel.setAnswer(answer);
+                setPlayerAnswerFB(answer);
+                //roomModel.setAnswer(answer);
             },
             onText: name => setAnswer(name)
         })
@@ -33,8 +35,9 @@ function QuizPlayingSong(props) {
 }
 
 function calculateAnswer() {
-    if (roomModel.getAnswer() === roomModel.getPlayedSong().name) {
-        roomModel.setScore();
+    if (roomModel.getPlayerInfo().answer === roomModel.getPlayedSong().name) {
+        //funkar ej !!!
+        setPlayerScoreFB();
     }
     //console.log("Current score: " + roomModel.score);
 }
