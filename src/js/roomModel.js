@@ -38,7 +38,7 @@ class RoomModel {
     getCurrentSong() {
         /** Returns the first song in the playlist and sets is as a played song*/
         let currentSong = this.playList[0];
-        this.playedSongs = [currentSong, ...this.this.playedSongs];
+        this.playedSongs = [currentSong, ...this.playedSongs];
         this.playList.shift();
         return currentSong;
     }
