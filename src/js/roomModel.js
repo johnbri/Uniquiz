@@ -6,7 +6,7 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-        this.playlist = [];
+        this.playlist = null;
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
@@ -26,7 +26,7 @@ class RoomModel {
     }
 
     getPlayersUid() {
-        return this.players.map((player) => Object.keys(player)[0]);
+        return this.players.map((player) => player.uid);
     }
         getPlayedSong() {
         return this.playedSongs[0];
@@ -51,7 +51,6 @@ class RoomModel {
 
     setCreator(boolean) {
         this.creator = boolean;
-        console.log(this.creator);
         this.notifyObservers();
     }
     setPlayers(players){

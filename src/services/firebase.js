@@ -39,20 +39,21 @@ function signupFB(email, name, password) {
     }).catch((er) => console.log("Error i firebase: " + er));
 }
 
+
 function syncRoomModelToFB(roomName){
   /** Syncs the model on firebase updates */
   try {
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           roomModel.setPlaylist(snapshot.child("playlist").val());
-          console.log(roomModel.playlist);
-          //console.log(roomModel.playlist);
           snapshot.child("players").forEach((player) => {
             let playerObj = {};
-            playerObj[player.key] = player.val();
+            playerObj = player.val();
+            playerObj.uid = player.key;
               roomModel.addPlayers(
                 playerObj
-              );  
+              );
+              console.log("player: " + player);
               console.log("i modellen", roomModel.players);
           })
       })
