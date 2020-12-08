@@ -68,7 +68,9 @@ function addPlayerToFB(roomName) {
     displayName: userModel.displayName,
     profileImg: userModel.img,
     score: 0,
-    answer: ""
+    answer: "",
+    displayName: userModel.displayName,
+    profileImg: userModel.img
   });
 }
 
