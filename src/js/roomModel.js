@@ -1,5 +1,5 @@
-import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 
+import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
     constructor(roomName = "", players=[]){
@@ -35,7 +35,11 @@ class RoomModel {
             else {
                 return newPlayer
             }}).concat(newPlayer);
-            this.notifyObservers();
+        this.notifyObservers();
+    }
+
+    getPlayersUid() {
+        return this.players.map((player) => Object.keys(player)[0]);
     }
 
     setPlayers(players){
@@ -50,7 +54,7 @@ class RoomModel {
 
     setPlaylist(playList) {
         this.playList = playList;
-        this.notifyObservers();
+        //this.notifyObservers();
     }
 
     getCurrentSong() {
