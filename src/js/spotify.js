@@ -62,7 +62,6 @@ export async function getUserPlaylists(token) {
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href)
     playListsObj.items.forEach(trackObj => allTracks.push([trackObj.track.name, trackObj.track.id, trackObj.track.preview_url]));
-    
   }
   const allTracksUnique = allTracks.reduce((acc, currentTrack) => {
         //console.log((allTracks.filter(track => track[1] === currentTrack[1]).length === 1));

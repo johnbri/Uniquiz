@@ -6,7 +6,7 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-        this.playList = [];
+        this.playlist = [];
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
@@ -21,7 +21,7 @@ class RoomModel {
     }
 
     getPlaylist() {
-        return [...this.playList];
+        return [...this.playlist];
     }
 
     getPlayersUid() {
@@ -37,9 +37,9 @@ class RoomModel {
 
     getCurrentSong() {
         /** Returns the first song in the playlist and sets is as a played song*/
-        let currentSong = this.playList[0];
+        let currentSong = this.playlist[0];
         this.playedSongs = [currentSong, ...this.playedSongs];
-        this.playList.shift();
+        this.playlist.shift();
         return currentSong;
     }
 
@@ -53,8 +53,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setPlaylist(playList) {
-        this.playList = playList;
+    setPlaylist(playlist) {
+        this.playlist = playlist;
         //this.notifyObservers();
     }
 

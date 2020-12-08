@@ -9,7 +9,7 @@ import NoDataView from './view/noDataView.js';
 
 function Room(props){
     //players= ["gkgpZ7UbAAb530u8CES1SEK1Im83", "cv4yGGhfXoWKfIueyQdP1BNMPT43"]
-    const combinedPlaylist = useModelProp(roomModel, "playList");
+    const combinedPlaylist = useModelProp(roomModel, "playlist");
     const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
     return started ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
