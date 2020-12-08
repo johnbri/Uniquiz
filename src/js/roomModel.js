@@ -1,4 +1,5 @@
 
+import { userModel } from "..";
 import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
@@ -6,10 +7,11 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-        this.playlist = [];
+        this.playlist = null;
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
+        this.creator = false;
     }
 
     getRoomName() {
@@ -27,12 +29,18 @@ class RoomModel {
     getPlayersUid() {
         return this.players.map((player) => player.uid);
     }
-        getPlayedSong() {
+    
+    getPlayedSong() {
         return this.playedSongs[0];
     }
 
     getAnswer() {
         return this.answers[0];
+    }
+
+    getPlayerInfo() {
+        const player = this.players.filter(player => player.uid === userModel.uid)
+        return player;
     }
 
     getCurrentSong() {
@@ -48,13 +56,21 @@ class RoomModel {
         this.notifyObservers();
     }
 
+    setCreator(boolean) {
+        this.creator = boolean;
+        this.notifyObservers();
+    }
     setPlayers(players){
         this.players = players;
         this.notifyObservers();
     }
 
     setPlaylist(playlist) {
-        this.playlist = playlist;
+        if (this.playlist == null) {
+            
+            this.playlist = playlist;
+        
+        }
         //this.notifyObservers();
     }
 
@@ -63,15 +79,10 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setScore() {
-        this.score+=1;
-        this.notifyObservers();
-    }
-
     addPlayers(newPlayer) {
         /** Adds a player that is not in the room to  players list*/
         this.players = this.players.filter(player => {
-            if (player === newPlayer){
+            if (player.uid === newPlayer.uid){
                 console.log("Player is already in room!")}
             else {
                 return newPlayer
