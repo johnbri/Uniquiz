@@ -69,6 +69,10 @@ class RoomModel {
         return this.answers[0];
     }
 
+    getPlayers() {
+        return this.players;
+    }
+
     getPlayedSong() {
         return this.playedSongs[0];
     }

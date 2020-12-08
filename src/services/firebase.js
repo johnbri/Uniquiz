@@ -45,8 +45,8 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           snapshot.child("players").forEach((player) => {
-              roomModel.setPlayers(player.key);  
-              console.log("i modellen", roomModel.players);
+              roomModel.addPlayers(player.key);  
+              
           })
       })
   } catch (error) {

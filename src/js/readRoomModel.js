@@ -29,14 +29,10 @@ async function createJoinRoomFB(roomName, createRoom){
         } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
             syncRoomModelToFB(roomName);
             addPlayerToFB(roomName);
-            /*roomModel.setRoomName(roomName);
-            userModel.setCurrentRoom(roomName);
-            roomModel.addPlayers(userModel.uid); */
+            
         } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
-            /*syncRoomModelToFB(roomModel,roomName);
-            roomModel.setRoomName(roomName);
-            userModel.setCurrentRoom(roomName);
-            roomModel.addPlayers(userModel.uid);*/
+            syncRoomModelToFB(roomName);
+            addPlayerToFB(roomName);
         } else { //If room does not exist and user wants to join
                 console.log("Room does not exist!");
         }
