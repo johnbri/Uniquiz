@@ -13,9 +13,9 @@ export {userModel, roomModel};
 
 //Create a react DOM
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <App />
-  </React.StrictMode>,
+  </div>,
   document.getElementById('root')
 );
 

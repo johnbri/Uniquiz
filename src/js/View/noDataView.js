@@ -8,18 +8,6 @@ function NoDataView(data){
             break;
         } 
     };
-    return (noData && loading())
+    return (noData && <img src = "loading.gif" alt="loading gif"/> )
 }
 export default NoDataView;
-
-const loading = () => 
-    <div className="loader">
-    <div className="duo duo1">
-        <div className="dot dot-a"></div>
-        <div className="dot dot-b"></div>
-    </div>
-    <div className="duo duo2">
-        <div className="dot dot-a"></div>
-        <div className="dot dot-b"></div>
-    </div>
-    </div>;

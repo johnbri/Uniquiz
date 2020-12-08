@@ -1,4 +1,5 @@
 
+import { userModel } from "..";
 import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
@@ -28,12 +29,18 @@ class RoomModel {
     getPlayersUid() {
         return this.players.map((player) => player.uid);
     }
-        getPlayedSong() {
+    
+    getPlayedSong() {
         return this.playedSongs[0];
     }
 
     getAnswer() {
         return this.answers[0];
+    }
+
+    getPlayerInfo() {
+        const player = this.players.filter(player => player.uid === userModel.uid)
+        return player;
     }
 
     getCurrentSong() {
@@ -59,17 +66,16 @@ class RoomModel {
     }
 
     setPlaylist(playlist) {
-        this.playlist = playlist;
+        if (this.playlist == null) {
+            
+            this.playlist = playlist;
+        
+        }
         //this.notifyObservers();
     }
 
     setAnswer(answer) {
         this.answers = [answer, ...this.answers];
-        this.notifyObservers();
-    }
-
-    setScore() {
-        this.score+=1;
         this.notifyObservers();
     }
 
