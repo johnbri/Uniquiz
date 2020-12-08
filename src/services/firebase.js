@@ -45,10 +45,9 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           snapshot.child("players").forEach((player) => {
-            //let key = player.key;
-            //var childKey = player.val()
             let playerObj = {};
-            playerObj[player.key] = player.val();
+            playerObj = player.val();
+            playerObj.uid = player.key;
               roomModel.addPlayers(
                 playerObj
               );  
@@ -68,20 +67,26 @@ function addPlayerToFB(roomName) {
     displayName: userModel.displayName,
     profileImg: userModel.img,
     score: 0,
-    answer: "",
-    displayName: userModel.displayName,
-    profileImg: userModel.img
+    answer: ""
   });
 }
 
-
 function updateRoomFB(roomName){
-  /** Update firebase with room model info*/
+  /** Update firebase with room model info */
   let playersref = database.ref('rooms/' + roomName).add("players");
   playersref.transaction( (currentPlayers) => {
       return roomModel.players
   });
 }
 
+function setPlayerAnswerFB(answer) {
+  /** Sets the players answer in Firebase */
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
+  console.log("ref ", ref, "answer: ", answer);
+  ref.set(
+    answer
+  );
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, addPlayerToFB};
+}
+
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, updateRoomFB, addPlayerToFB, setPlayerAnswerFB};

@@ -25,7 +25,7 @@ class RoomModel {
     }
 
     getPlayersUid() {
-        return this.players.map((player) => Object.keys(player)[0]);
+        return this.players.map((player) => player.uid);
     }
         getPlayedSong() {
         return this.playedSongs[0];

@@ -1,4 +1,4 @@
-import {auth, database, syncRoomModelToFB, addPlayerToFB} from '../services/firebase.js';
+import {auth, database, syncRoomModelToFB, addPlayerToFB, setPlayerAnswerFB} from '../services/firebase.js';
 import RoomModel from './roomModel.js';
 import {roomModel, userModel} from "../index.js";
 

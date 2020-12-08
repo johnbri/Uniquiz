@@ -4,7 +4,7 @@ import Home from "./home";
 import Login from "./login.js";
 import Room from "./room.js";
 import QuizAnswers from "./quizAnswers.js";
-import QuizSidebar from './quizSidebar.js';
+import PlayersSidebar from './playersSidebar.js';
 import CreateJoinRoom from "./createJoinRoom.js";
 import QuizPlaying from "./quizPlaying.js";
 import SpotifyConnect from "./spotifyConnect";
@@ -28,13 +28,13 @@ function App() {
           <Route path='/quizAnswers' render={props =>
             <div>
               <QuizAnswers />
-              <QuizSidebar />
+              <PlayersSidebar />
             </div>
           } />
           <Route path='/quizPlaying' render={props =>
             <div>
               <QuizPlaying />
-              <QuizSidebar />
+              <PlayersSidebar />
             </div>
           } />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
