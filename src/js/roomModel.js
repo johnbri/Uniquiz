@@ -68,14 +68,6 @@ class RoomModel {
         this.notifyObservers();
     }
 
-<<<<<<< HEAD
-    getPlayers() {
-        return this.players;
-    }
-
-    getPlayedSong() {
-        return this.playedSongs[0];
-=======
     addPlayers(newPlayer) {
         /** Adds a player that is not in the room to  players list*/
         this.players = this.players.filter(player => {
@@ -85,7 +77,6 @@ class RoomModel {
                 return newPlayer
             }}).concat(newPlayer);
             this.notifyObservers();
->>>>>>> 28e43b3d93dd4edaa6f4f753c9c32953fc496ef1
     }
 
     addObserver(obs){
