@@ -33,8 +33,9 @@ async function createJoinRoomFB(roomName, createRoom){
             userModel.setCurrentRoom(roomName);
             roomModel.addPlayers(userModel.uid); */
         } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
-            /*syncRoomModelToFB(roomModel,roomName);
-            roomModel.setRoomName(roomName);
+            syncRoomModelToFB(roomModel,roomName);
+            addPlayerToFB(roomName);
+            /*roomModel.setRoomName(roomName);
             userModel.setCurrentRoom(roomName);
             roomModel.addPlayers(userModel.uid);*/
         } else { //If room does not exist and user wants to join

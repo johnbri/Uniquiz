@@ -45,9 +45,8 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           snapshot.child("players").forEach((player) => {
-              roomModel.setPlayers(player.key);  
-              console.log("i modellen", roomModel.players);
-          })
+              roomModel.addPlayers(player.key);  
+          }) 
       })
   } catch (error) {
       console.log(error);
@@ -59,7 +58,9 @@ function addPlayerToFB(roomName) {
   let ref = database.ref('rooms/' + roomName + '/players').child(userModel.uid);
   ref.update({
     score: 0,
-    answer: ""
+    answer: "",
+    displayName: userModel.displayName,
+    profileImg: userModel.img
   });
 }
 

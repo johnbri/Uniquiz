@@ -12,6 +12,70 @@ class RoomModel {
         this.score = 0;
     }
 
+    getRoomName() {
+        return this.roomName;
+    }
+
+    getPlayers() {
+        return [...this.players];
+    }
+
+    getPlaylist() {
+        return [...this.playList];
+    }
+
+    getPlayedSong() {
+        return this.playedSongs[0];
+    }
+
+    getAnswer() {
+        return this.answers[0];
+    }
+
+    getCurrentSong() {
+        /** Returns the first song in the playlist and sets is as a played song*/
+        let currentSong = this.playList[0];
+        this.playedSongs = [currentSong, ...this.this.playedSongs];
+        this.playList.shift();
+        return currentSong;
+    }
+
+    setRoomName(roomName) {
+        this.roomName = roomName;
+        this.notifyObservers();
+    }
+
+    setPlayers(players){
+        this.players = players;
+        this.notifyObservers();
+    }
+
+    setPlaylist(playList) {
+        this.playList = playList;
+        this.notifyObservers();
+    }
+
+    setAnswer(answer) {
+        this.answers = [answer, ...this.answers];
+        this.notifyObservers();
+    }
+
+    setScore() {
+        this.score+=1;
+        this.notifyObservers();
+    }
+
+    addPlayers(newPlayer) {
+        /** Adds a player that is not in the room to  players list*/
+        this.players = this.players.filter(player => {
+            if (player === newPlayer){
+                console.log("Player is already in room!")}
+            else {
+                return newPlayer
+            }}).concat(newPlayer);
+            this.notifyObservers();
+    }
+
     addObserver(obs){
         this.subscribers= this.subscribers.concat(obs);   
         return ()=> this.removeObserver(obs);                                                   
@@ -26,56 +90,6 @@ class RoomModel {
             try{callback()}catch(err){
                   console.error("Error ", err, callback);}
         })
-    }
-
-    addPlayers(newPlayer) {
-        this.players = this.players.filter(player => {
-            if (player === newPlayer){
-                console.log("Player is already in room!")}
-            else {
-                return newPlayer
-            }}).concat(newPlayer);
-            this.notifyObservers();
-    }
-
-    setPlayers(players){
-        this.players = players;
-        this.notifyObservers();
-    }
-
-    setRoomName(roomName) {
-        this.roomName = roomName;
-        this.notifyObservers();
-    }
-
-    setPlaylist(playList) {
-        this.playList = playList;
-        this.notifyObservers();
-    }
-
-    getCurrentSong() {
-        let currentSong = this.playList[0];
-        this.playedSongs = [currentSong, this.playedSongs];
-        this.playList.shift();
-        return currentSong;
-    }
-
-    setAnswer(answer) {
-        this.answers = [answer, this.answers];
-        this.notifyObservers();
-    }
-
-    getAnswer() {
-        return this.answers[0];
-    }
-
-    getPlayedSong() {
-        return this.playedSongs[0];
-    }
-
-    setScore() {
-        this.score+=1;
-        this.notifyObservers();
     }
 
 }
