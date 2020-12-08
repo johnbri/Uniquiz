@@ -45,8 +45,20 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           snapshot.child("players").forEach((player) => {
+<<<<<<< HEAD
               roomModel.addPlayers(player.key);  
               
+=======
+            //let key = player.key;
+            //var childKey = player.val()
+            let playerObj = {};
+            playerObj[player.key] = player.val();
+              roomModel.addPlayers(
+                playerObj
+              );  
+              console.log("player: " + player);
+              console.log("i modellen", roomModel.players);
+>>>>>>> 28e43b3d93dd4edaa6f4f753c9c32953fc496ef1
           })
       })
   } catch (error) {
@@ -58,8 +70,12 @@ function addPlayerToFB(roomName) {
   /** creates a playerObject for player in room in firebase*/
   let ref = database.ref('rooms/' + roomName + '/players').child(userModel.uid);
   ref.update({
+    displayName: userModel.displayName,
+    profileImg: userModel.img,
     score: 0,
-    answer: ""
+    answer: "",
+    displayName: userModel.displayName,
+    profileImg: userModel.img
   });
 }
 
