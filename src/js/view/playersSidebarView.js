@@ -1,15 +1,15 @@
 import '../../css/quiz.css';
 
-const PlayersSidebarView= ({players}) =>
+const PlayersSidebarView= ({players, inRoom}) =>
     /** Displays all the players connected to the room */
     <div className="playersSidebar">
-        {players.map(player => 
+        {Object.keys(players).map(playerUid => 
             <div className = "playerCard">
                 <div className="userImg">
-                    <img src={player.profileImg} alt="playerImg"/>
+                    <img src={players[playerUid].profileImg} alt="playerImg"/>
                 </div>
-                <h2>{player.displayName}</h2>
-                <h3>Score: {player.score}</h3>
+                <h2>{players[playerUid].displayName}</h2>
+                {!inRoom && <h3>Score: {players[playerUid].score}</h3>}
             </div>
         )}
     </div>;

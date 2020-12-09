@@ -14,7 +14,7 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
-    if (combinedPlaylist !== null) {
+    if (combinedPlaylist.length > 0) {
         props.history.push('/quizPlaying')
     }
     return started ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
@@ -26,7 +26,9 @@ function Room(props){
             onStart: () => {
                 if (creator) {
                     const playersuid = roomModel.getPlayersUid();
+                    console.log(playersuid)
                     let playlist = quizPlaylist(playersuid);
+                    console.log(playlist)
                     playlist.then((tracks) => addPlaylistToFB(tracks, roomName));
                     //.then(() => props.history.push('/quizPlaying'));
                 }

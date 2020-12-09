@@ -9,7 +9,6 @@ function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0);
     const [answer, setAnswer]= useState("");
     const [songPlaying, setSongPlaying] = useState(true);
-    console.log(roomModel.playList);
     useEffect(() => {
         setTimeLeft(100); //används för att css baren ska börja laddas upp till 100%
         let currentSong = playSong();
@@ -27,7 +26,6 @@ function QuizPlayingSong(props) {
             timeLeft: timeLeft,
             onSubmit: () => {
                 setPlayerAnswerFB(answer);
-                //roomModel.setAnswer(answer);
             },
             onText: name => setAnswer(name)
         })

@@ -43,8 +43,23 @@ function syncRoomModelToFB(roomName){
   /** Syncs the model on firebase updates */
   try {
       let ref = database.ref('rooms/' + roomName);
+      
+      ref.child("players").on('value', (snapshot) => { 
+        roomModel.setPlayers(snapshot.val()) 
+      })
+
+      ref.child("playlist").on('value', (snapshot) => {
+        roomModel.setPlaylist(snapshot.val())
+        console.log(snapshot.val())
+        console.log(roomModel.playlist)
+      })
+      
+      /*  let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
           roomModel.setPlaylist(snapshot.child("playlist").val());
+          roomModel.setPlayers(snapshot.child("players").val());
+          console.log(roomModel.players)
+          console.log(roomModel.getPlayerInfo())
           snapshot.child("players").forEach((player) => {
             let playerObj = {};
             playerObj = player.val();
@@ -52,8 +67,7 @@ function syncRoomModelToFB(roomName){
               roomModel.addPlayers(
                 playerObj
               );
-          })
-      })
+          })*/
   } catch (error) {
       console.log(error);
   }

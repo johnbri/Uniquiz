@@ -7,7 +7,7 @@ class RoomModel {
         this.roomName = roomName;
         this.players = players;
         this.subscribers = [];
-        this.playlist = null;
+        this.playlist = [];
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
@@ -27,7 +27,8 @@ class RoomModel {
     }
 
     getPlayersUid() {
-        return this.players.map((player) => player.uid);
+        return Object.keys(this.players);
+        //return this.players.map((player) => player.uid);
     }
     
     getPlayedSong() {
@@ -39,8 +40,9 @@ class RoomModel {
     }
 
     getPlayerInfo() {
-        const player = this.players.filter(player => player.uid === userModel.uid)
-        return player[0];
+        const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
+        //const player = this.players.filter(player => player.uid === userModel.uid)
+        return this.players[playerUid];
     }
 
     getCurrentSong() {
@@ -66,12 +68,10 @@ class RoomModel {
     }
 
     setPlaylist(playlist) {
-        if (this.playlist == null) {
-            
-            this.playlist = playlist;
-        
+        if (playlist !== null){
+        this.playlist = playlist;
+        this.notifyObservers();
         }
-        //this.notifyObservers();
     }
 
     setAnswer(answer) {

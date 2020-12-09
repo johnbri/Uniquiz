@@ -19,26 +19,27 @@ function App() {
   return <div className="app">
     <Router>
       <div>
-        <Switch>
+        
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
-          <Route exact path="/room" component={Room} />
+          <Route path="/room" component={Room} />
+          <Route path="/room" component={PlayersSidebar} />
           <Route path='/quizAnswers' render={props =>
             <div>
-              <QuizAnswers />
-              <PlayersSidebar />
+              <QuizAnswers {...props}/>
+              <PlayersSidebar {...props}/>
             </div>
           } />
           <Route path='/quizPlaying' render={props =>
             <div>
-              <QuizPlaying />
-              <PlayersSidebar />
+              <QuizPlaying {...props}/>
+              <PlayersSidebar {...props}/>
             </div>
           } />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
-        </Switch> 
+         
       </div>
     </Router>
   </div>;
