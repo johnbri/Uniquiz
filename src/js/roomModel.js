@@ -1,5 +1,5 @@
 
-import { userModel } from "..";
+import { userModel } from "../index";
 import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
@@ -40,7 +40,7 @@ class RoomModel {
 
     getPlayerInfo() {
         const player = this.players.filter(player => player.uid === userModel.uid)
-        return player;
+        return player[0];
     }
 
     getCurrentSong() {

@@ -35,8 +35,7 @@ function QuizPlayingSong(props) {
 }
 
 function calculateAnswer() {
-    if (roomModel.getPlayerInfo().answer === roomModel.getPlayedSong().name) {
-        //funkar ej !!!
+    if (roomModel.getPlayerInfo().answer === roomModel.getPlayedSong().name) { 
         setPlayerScoreFB();
     }
     //console.log("Current score: " + roomModel.score);

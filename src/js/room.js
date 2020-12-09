@@ -14,8 +14,6 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
-    console.log("combiendplaylist: ");
-    console.log(combinedPlaylist);
     if (combinedPlaylist !== null) {
         props.history.push('/quizPlaying')
     }
@@ -46,26 +44,17 @@ async function quizPlaylist (arrayuid) {
         combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
     }
     combinedPlaylist = combinedPlaylist.flat();
-    let combinedPlaylistUnique = [];
-    let i = 0;
-    do {
-        let trackThreshold = arrayuid.length - i; // används för att sänka kravet om att alla users ska ha låtarna i playlists
-        let combinedPlaylistForReduce = combinedPlaylist; // gör detta här för o undvika varning att det är unsafe use of references/variables
-
-        combinedPlaylistUnique = combinedPlaylistForReduce.reduce((acc, currentTrack) => {
-                if (combinedPlaylistForReduce.filter(track => track[1] === currentTrack[1]).length === trackThreshold) { // om tracket finns lika många gånger som det finns spelare (dvs. alla har låten i någon av sina listor)
-                    combinedPlaylistForReduce = combinedPlaylistForReduce.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
-                    return ([...acc, currentTrack]); // och lägger till den till accumulatorn
-                }
-                else {
-                    return acc; // annars gör vi ingenting och returnerar accumulatorn
-                }
-            }, []);
-            i++
+    let combinedPlaylistUnique = combinedPlaylist.reduce((acc, currentTrack) => {
+        if (combinedPlaylist.filter(track => track[1] === currentTrack[1]).length === arrayuid.length) { // använder filter för att se om det finns mer än ett track
+            combinedPlaylist = combinedPlaylist.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
+            return ([...acc, currentTrack]); // och lägger till den till accumulatorn
         }
-    while (combinedPlaylistUnique.length < 11 && i < arrayuid.length);
-    
-    const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique); // gör om listan till objekt
+        else {
+            return acc; // annars gör vi ingenting och returnerar accumulatorn
+        }
+    }, []);
+
+    const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
     console.log("Added playlist to roommodel");
     return combinedPlaylistUniqueDict.slice(0,10);
     //roomModel.setPlaylist(combinedPlaylistUniqueDict);
