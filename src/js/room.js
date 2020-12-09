@@ -14,8 +14,6 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
-    console.log("combiendplaylist: ");
-    console.log(combinedPlaylist);
     if (combinedPlaylist !== null) {
         props.history.push('/quizPlaying')
     }
