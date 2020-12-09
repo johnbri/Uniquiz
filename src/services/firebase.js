@@ -1,4 +1,6 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database'; // If using Firebase database
+import 'firebase/auth';
 import {roomModel, userModel } from '../index.js';
 
   var firebaseConfig = {
@@ -22,10 +24,7 @@ function loginFB (props, email, password) {
   auth().signInWithEmailAndPassword(email, password)
   .then(() => {
     props.history.push("/spotifyConnect");
-  }).catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-  });
+  }).catch((error) => error.code + error.message);
 }
 
 function signupFB(email, name, password) {
@@ -53,8 +52,6 @@ function syncRoomModelToFB(roomName){
               roomModel.addPlayers(
                 playerObj
               );
-              console.log("player: " + player);
-              console.log("i modellen", roomModel.players);
           })
       })
   } catch (error) {
