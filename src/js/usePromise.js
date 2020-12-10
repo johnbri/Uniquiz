@@ -8,7 +8,7 @@ function usePromise(promise) {
         setData(null); 
         setError(null);
         promise && promise.then(dt => setData(dt)).catch(er => setError(er));    
-     }, [promise]); 
+    }, [promise]); 
 
     return [data, error];
 }
