@@ -8,6 +8,6 @@ function NoDataView(data){
             break;
         } 
     };
-    return (noData && <img src = "loading.gif" alt="loading gif"/> )
+    return (noData && <img src = "loading.svg" alt="loading gif"/> )
 }
 export default NoDataView;
