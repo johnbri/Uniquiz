@@ -12,6 +12,7 @@ class RoomModel {
         this.answers = [];
         this.score = 0;
         this.creator = false;
+        this.started = false;
     }
 
     getRoomName() {
@@ -53,6 +54,10 @@ class RoomModel {
         return currentSong;
     }
 
+    getStarted() {
+        return this.started;
+    }
+
     setRoomName(roomName) {
         this.roomName = roomName;
         this.notifyObservers();
@@ -76,6 +81,11 @@ class RoomModel {
 
     setAnswer(answer) {
         this.answers = [answer, ...this.answers];
+        this.notifyObservers();
+    }
+
+    setStarted(started) {
+        this.started = started;
         this.notifyObservers();
     }
 

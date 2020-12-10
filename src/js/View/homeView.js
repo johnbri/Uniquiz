@@ -3,12 +3,10 @@ import '../../css/Home.css';
 const homeView= ({userImg, onCreate, onJoin, userName, onLogOut, onToQuiz}) =>
 /** Page that displays opition for the user */
     <div className="home">
-        <div className="top"><br/><img
-        src = "logo.png"
-        alt="Spotify logo"
-        /> <br/>
+        <div className="top"><br/>
+        <img className="logo" src = "logo.png" alt="Uniquiz logo"/> <br/>
         <div className = "profile">
-            <img src ={userImg} alt="userImg"></img>
+            <img className="userImg" src ={userImg} alt="userImg"></img>
             <button className="logout" onClick={() => onLogOut()}>Log out</button>
         </div>
         </div>

@@ -56,6 +56,11 @@ function syncRoomModelToFB(roomName){
         console.log(snapshot.val())
         console.log(roomModel.playlist)
       })
+
+      ref.child("started").on('value', (snapshot) => {
+        roomModel.setStarted(snapshot.val())
+        console.log(roomModel.started)
+      })
       
       /*  let ref = database.ref('rooms/' + roomName);
       ref.on('value', (snapshot) => { 
@@ -104,7 +109,11 @@ function setPlayerAnswerFB(answer) {
 function setPlayerScoreFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/score');
   ref.set(roomModel.getPlayerInfo().score+1);
-  
 }
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, addPlayerToFB, addPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB};
+
+function setStartedFB(started) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/started');
+  ref.set(started);
+}
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, addPlayerToFB, addPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB};
 
