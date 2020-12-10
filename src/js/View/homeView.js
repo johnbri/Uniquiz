@@ -6,7 +6,7 @@ const homeView= ({userImg, onCreate, onJoin, userName, onLogOut, onToQuiz}) =>
         <div className="top"><br/>
         <img className="logo" src = "logo.png" alt="Uniquiz logo"/> <br/>
         <div className = "profile">
-            <img className="userImg" src ={userImg} alt="userImg"></img>
+            <img className="userImg" src ={userImg} alt="userImg"></img><br/>
             <button className="logout" onClick={() => onLogOut()}>Log out</button>
         </div>
         </div>
