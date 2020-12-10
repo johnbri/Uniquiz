@@ -1,6 +1,6 @@
 import '../../css/Home.css';
 
-const homeView= ({userImg, onCreate, onJoin, userName, onLogOut, onToQuiz}) =>
+const homeView= ({userImg, onCreate, onJoin, userName, onLogOut}) =>
 /** Page that displays opition for the user */
     <div className="home">
         <div className="top"><br/>
@@ -13,7 +13,6 @@ const homeView= ({userImg, onCreate, onJoin, userName, onLogOut, onToQuiz}) =>
         <h1>Welcome, {userName}!!</h1>
         <button onClick={() => onCreate()}>Create Quiz</button>
         <button onClick={() => onJoin()}>Join Quiz</button>
-        <button onClick={() => onToQuiz()}>Eriks to quiz btn</button>
         
     </div>;
 
