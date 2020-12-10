@@ -12,6 +12,8 @@ class RoomModel {
         this.answers = [];
         this.score = 0;
         this.creator = false;
+        this.started = false;
+        this.currentSongIndex = -1;
     }
 
     getRoomName() {
@@ -53,6 +55,14 @@ class RoomModel {
         return currentSong;
     }
 
+    getStarted() {
+        return this.started;
+    }
+
+    getCurrentSongIndex() {
+        return this.currentSongIndex;
+    }
+
     setRoomName(roomName) {
         this.roomName = roomName;
         this.notifyObservers();
@@ -76,6 +86,18 @@ class RoomModel {
 
     setAnswer(answer) {
         this.answers = [answer, ...this.answers];
+        this.notifyObservers();
+    }
+
+    setStarted(started) {
+        this.started = started;
+        this.notifyObservers();
+    }
+
+    setCurrentSongIndex(index) {
+        if (index !== null){
+            this.currentSongIndex = index;
+        }
         this.notifyObservers();
     }
 

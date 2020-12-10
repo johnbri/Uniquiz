@@ -54,23 +54,19 @@ function syncRoomModelToFB(roomName){
       ref.child("playlist").on('value', (snapshot) => {
         roomModel.setPlaylist(snapshot.val())
         console.log(snapshot.val())
+        console.log("halloj")
         console.log(roomModel.playlist)
       })
-      
-      /*  let ref = database.ref('rooms/' + roomName);
-      ref.on('value', (snapshot) => { 
-          roomModel.setPlaylist(snapshot.child("playlist").val());
-          roomModel.setPlayers(snapshot.child("players").val());
-          console.log(roomModel.players)
-          console.log(roomModel.getPlayerInfo())
-          snapshot.child("players").forEach((player) => {
-            let playerObj = {};
-            playerObj = player.val();
-            playerObj.uid = player.key;
-              roomModel.addPlayers(
-                playerObj
-              );
-          })*/
+
+      ref.child("started").on('value', (snapshot) => {
+        roomModel.setStarted(snapshot.val())
+        console.log(roomModel.started)
+      })
+
+      ref.child("currentSongIndex").on('value', (snapshot) => {
+        roomModel.setCurrentSongIndex(snapshot.val());
+        console.log("current song i model: ", roomModel.getCurrentSongIndex())
+      })
   } catch (error) {
       console.log(error);
   }
@@ -104,7 +100,18 @@ function setPlayerAnswerFB(answer) {
 function setPlayerScoreFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/score');
   ref.set(roomModel.getPlayerInfo().score+1);
-  
 }
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, addPlayerToFB, addPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB};
+
+function setStartedFB(started) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/started');
+  ref.set(started);
+}
+
+function setCurrentSongIndexFB(started) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/currentSongIndex');
+  console.log("hej", roomModel.getCurrentSongIndex());
+  console.log("dsadsa", roomModel.getCurrentSongIndex()+1)
+  ref.set(roomModel.getCurrentSongIndex()+1);
+}
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, addPlayerToFB, addPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB};
 

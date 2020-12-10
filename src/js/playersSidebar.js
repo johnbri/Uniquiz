@@ -10,8 +10,7 @@ function PlayersSidebar (props) {
     const score = useModelProp(roomModel, "score");
     const userImg = useModelProp(userModel, "img"); */
 
-    let inRoom = props.location.pathname === "/room"
-    console.log(inRoom)
+    let inRoom = props.location.pathname === "/room";
     return React.createElement(PlayersSidebarView, {
         players: players,
         inRoom: inRoom

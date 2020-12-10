@@ -3,21 +3,33 @@ import React, { useState, useEffect} from "react";
 import {roomModel} from '../index.js';
 import {userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
+import {setCurrentSongIndexFB} from '../services/firebase.js';
 
 function QuizAnswers (props) {
     const displayName = useModelProp(userModel, "displayName");
     const score = useModelProp(roomModel, "score");
     const correctAnswer = useModelProp(roomModel, "playedSongs");
+    const creator = useModelProp(roomModel, "creator");
+    const [nextSong, setNextSong] = useState(null);
+    const currentSongIndex = useModelProp(roomModel, "currentSongIndex");
+    useEffect(function(){ 
+        console.log("nextSong", nextSong);
+        console.log("currentsongindex", currentSongIndex);
+        setNextSong(currentSongIndex);
+        console.log("testa next song", nextSong != null && "hej");
+        nextSong != null && props.history.push('/quizPlaying');   
+    }, [currentSongIndex]); 
     //const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
     //quizPlaylist(arrayuid);
 
     return React.createElement(QuizAnswersView, {
-        correctAnswer: correctAnswer[0].name,
-        score: score,
-        displayName: displayName,
-        onPlay: () => {
-            props.history.push('/quizPlaying'); // Måste fixas, props går inte att nå så gjorde en ful lösning
-        }
+            correctAnswer: correctAnswer[0].name,
+            score: score,
+            displayName: displayName,
+            onPlay: () => {
+                setCurrentSongIndexFB();
+            },
+            creator: creator
         });
 }
 

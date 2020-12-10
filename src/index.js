@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/index.css';
 import App from './js/App';
@@ -13,9 +13,9 @@ export {userModel, roomModel};
 
 //Create a react DOM
 ReactDOM.render(
-  <div>
+  <React.StrictMode>
     <App />
-  </div>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
 
