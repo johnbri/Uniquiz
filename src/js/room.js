@@ -6,13 +6,13 @@ import useModelProp from "./useModelProp"
 import { database } from '../services/firebase.js';
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {addPlaylistToFB} from '../services/firebase.js';
+import {addPlaylistToFB, setStartedFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
-    const [started, setStarted] = useState(false); // boolean som visar om man klickat på start
+    const started = useModelProp(roomModel, "started");//useState(false); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
     if (combinedPlaylist.length > 0) {
         props.history.push('/quizPlaying')
@@ -32,7 +32,7 @@ function Room(props){
                     playlist.then((tracks) => addPlaylistToFB(tracks, roomName));
                     //.then(() => props.history.push('/quizPlaying'));
                 }
-                setStarted(true);
+                setStartedFB(true);
             }
             });
 }
