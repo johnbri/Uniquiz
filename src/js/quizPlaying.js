@@ -1,11 +1,8 @@
 import React, { useState, useEffect} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import { useHistory } from "react-router-dom";
-import { setPlayerAnswerFB, setPlayerScoreFB } from "../services/firebase.js"
 
 function QuizPlayingSong(props) {
-    let history = useHistory();
     const [timeLeft, setTimeLeft] = useState(0);
     const [answer, setAnswer]= useState("");
     const [songPlaying, setSongPlaying] = useState(true);
@@ -16,7 +13,7 @@ function QuizPlayingSong(props) {
             currentSong.pause();
             calculateAnswer();
             setSongPlaying(false); // efter 15s slutar låten
-            history.push('/quizAnswers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
+            props.history.push('/quizAnswers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
         }, 15000);
         return () => clearTimeout(timeout);
     }, []);
@@ -25,7 +22,7 @@ function QuizPlayingSong(props) {
         ? React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
-                setPlayerAnswerFB(answer);
+                roomModel.setAnswer(answer);
             },
             onText: name => setAnswer(name)
         })
@@ -33,8 +30,8 @@ function QuizPlayingSong(props) {
 }
 
 function calculateAnswer() {
-    if (roomModel.getPlayerInfo().answer === roomModel.getPlayedSong().name) { 
-        setPlayerScoreFB();
+    if (roomModel.getAnswer() === roomModel.getPlayedSong().name) {
+        roomModel.setScore();
     }
     //console.log("Current score: " + roomModel.score);
 }

@@ -18,26 +18,17 @@ function App() {
   /**Renders different components depeding on path */
   return <div className="app">
     <Router>
-      <div>
-        
+      <div> 
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
           <Route path="/room" component={Room} />
           <Route path="/room" component={PlayersSidebar} />
-          <Route path='/quizAnswers' render={props =>
-            <div>
-              <QuizAnswers {...props}/>
-              <PlayersSidebar {...props}/>
-            </div>
-          } />
-          <Route path='/quizPlaying' render={props =>
-            <div>
-              <QuizPlaying {...props}/>
-              <PlayersSidebar {...props}/>
-            </div>
-          } />
+          <Route path="/quizAnswers" component={QuizAnswers} />
+          <Route path="/quizAnswers" component={PlayersSidebar} />
+          <Route path="/quizPlaying" component={QuizPlaying} />
+          <Route path="/quizPlaying" component={PlayersSidebar} />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
          
       </div>

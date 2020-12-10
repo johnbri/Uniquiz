@@ -1,14 +1,10 @@
-import {database} from '../services/firebase.js';
-import {getUserPlaylists} from './spotify.js';
 import QuizAnswersView from './view/quizAnswersView.js';
 import React, { useState, useEffect} from "react";
 import {roomModel} from '../index.js';
 import {userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
-import { useHistory } from "react-router-dom";
 
 function QuizAnswers (props) {
-    let history = useHistory();
     const displayName = useModelProp(userModel, "displayName");
     const score = useModelProp(roomModel, "score");
     const correctAnswer = useModelProp(roomModel, "playedSongs");
@@ -20,7 +16,7 @@ function QuizAnswers (props) {
         score: score,
         displayName: displayName,
         onPlay: () => {
-            history.push('/quizPlaying'); // Måste fixas, props går inte att nå så gjorde en ful lösning
+            props.history.push('/quizPlaying'); // Måste fixas, props går inte att nå så gjorde en ful lösning
         }
         });
 }
