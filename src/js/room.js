@@ -40,36 +40,50 @@ function Room(props){
 
 async function quizPlaylist (arrayuid) {
     let combinedPlaylist = [];
-
+    let combinedPlaylistHolder = []; // används för att hålla de låtar som finns flera av så länge
+    let combinedPlaylistUnique = [];
     for (let i = 0; i < arrayuid.length; i++) {
         let token = (await getUserToken(arrayuid[i])).val(); // hämtar ut token
         let userPlaylist = await getUserPlaylists(token);
         combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
     }    
     
-    let combinedPlaylistHolder = [];
-    let combinedPlaylistUnique = [];
     let i = 0;
     do {
         let trackThreshold = arrayuid.length - i; // används för att sänka kravet om att alla users ska ha låtarna i playlists
-        let combinedPlaylistForReduce = combinedPlaylist; // gör detta här för o undvika varning att det är unsafe use of references/variables
+        let combinedPlaylistForReduce = combinedPlaylist.flat(); // gör detta här för o undvika varning att det är unsafe use of references/variables. den blir arg om man använder combinedPlaylist
 
         combinedPlaylistHolder = combinedPlaylistForReduce.reduce((acc, currentTrack) => {
-                if (combinedPlaylistForReduce.filter(track => track[1] === currentTrack[1]).length === trackThreshold) { // om tracket finns lika många gånger som det finns spelare (dvs. alla har låten i någon av sina listor)
-                    combinedPlaylistForReduce = combinedPlaylistForReduce.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
-                    return ([...acc, currentTrack]); // och lägger till den till accumulatorn
-                }
-                else {
-                    return acc;
-                }
+            if (combinedPlaylistForReduce.filter(track => track[1] === currentTrack[1]).length === trackThreshold) { // om tracket finns lika många gånger som det finns spelare (dvs. alla har låten i någon av sina listor)
+                combinedPlaylistForReduce = combinedPlaylistForReduce.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
+                return ([...acc, currentTrack]); // och lägger till den till accumulatorn
+            }
+            else {
+                return acc;
+            }
             }, []);
-            i++
-            combinedPlaylistUnique = combinedPlaylistUnique.concat(combinedPlaylistHolder).flat(); // lägger ihop listan med den genererade listan, används för att se om listan är < 11
+        
+        let combinedPlaylistHolderRemove = [...combinedPlaylistHolder]; // är detta dumt?
+        
+        for (let i = 0; i < combinedPlaylistHolder.length; i++) { // Plockar ut 10 random låtar
+            let randomIndex = Math.floor(Math.random() * combinedPlaylistHolderRemove.length);
+            let trackAdd = combinedPlaylistHolderRemove[randomIndex];
+            if (trackAdd[1] !== null) { //om tracket inte har en url
+                combinedPlaylistUnique.push(trackAdd);
+            }
+            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
+                break;
+            }
+            combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
+            }
+            i++;
         }
-    while (combinedPlaylistUnique.length < 11 && i < arrayuid.length);
-    const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
+    while (combinedPlaylistUnique.length < 10 && i < arrayuid.length);
+    
+    combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
+    combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt
     console.log("Added playlist to roommodel");
-    return combinedPlaylistUniqueDict.slice(0,10);
+    return combinedPlaylistUnique;
 }
 async function getUserToken (uid) {
     return database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
