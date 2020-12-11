@@ -31,7 +31,7 @@ function App() {
           <Route path="/quizAnswers" component={PlayersSidebar} />
           <Route path="/quizPlaying" component={QuizPlaying} />
           <Route path="/quizPlaying" component={PlayersSidebar} />
-          <Route exact path="/results" component={Results} hej={console.log("ldlsdlsad")}/>
+          <Route exact path="/results" component={Results} />
       </div> 
     </Router>
   </div>;
