@@ -13,7 +13,7 @@ function Home(props) {
     const data = [userImg, displayName]
     
 
-    return NoDataView(data) 
+    return NoDataView(data, "Loading homepage") 
     || React.createElement(homeView, {
         userImg: userImg,
         userName: displayName,
