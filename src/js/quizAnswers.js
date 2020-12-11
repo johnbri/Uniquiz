@@ -13,17 +13,14 @@ function QuizAnswers (props) {
     const [nextSong, setNextSong] = useState(null);
     const currentSongIndex = useModelProp(roomModel, "currentSongIndex");
     useEffect(function(){ 
-        console.log("nextSong", nextSong);
-        console.log("currentsongindex", currentSongIndex);
         setNextSong(currentSongIndex);
-        console.log("testa next song", nextSong != null && "hej");
         nextSong != null && props.history.push('/quizPlaying');   
     }, [currentSongIndex]); 
-    //const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-    //quizPlaylist(arrayuid);
 
     return React.createElement(QuizAnswersView, {
-            correctAnswer: correctAnswer[0].name,
+            correctName: correctAnswer[0].name,
+            correctArtists: correctAnswer[0].artists,
+            correctImg: correctAnswer[0].img,
             score: score,
             displayName: displayName,
             onPlay: () => {
