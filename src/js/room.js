@@ -4,7 +4,7 @@ import {roomModel, userModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {database, addPlaylistToFB, setStartedFB, setCurrentSongIndexFB} from '../services/firebase.js';
+import {database, addRoomPlaylistToFB, setStartedFB, setCurrentSongIndexFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -23,52 +23,79 @@ function Room(props){
             onExit: () => props.history.push("/home"),
             onStart: () => {
                 if (creator) {
-                    const playersuid = roomModel.getPlayersUid();
-                    console.log(playersuid)
-                    let playlist = quizPlaylist(playersuid);
-                    console.log(playlist)
-                    playlist.then((tracks) => addPlaylistToFB(tracks, roomName));
+                    //const playersuid = roomModel.getPlayersUid();
+                    //console.log(playersuid)
+                    let combinedPlaylist = quizPlaylist();
+                    //console.log(playlist)
+                    combinedPlaylist.then((tracks) => addRoomPlaylistToFB(tracks, roomName));
                     //.then(() => props.history.push('/quizPlaying'));
                 }
-                console.log("innan man statar", roomModel.currentSongIndex);
+                //console.log("innan man statar", roomModel.currentSongIndex);
                 setCurrentSongIndexFB();
                 setStartedFB(true);
             }
             });
 }
 
-async function quizPlaylist (arrayuid) {
-    let combinedPlaylist = [];
+/*function roomModelPlaylists() {
+    let playlist = [];
+    roomModel.players.forEach(player => playlist.concat(player.playlist));
+    return playlist;
+}*/
 
-    for (let i = 0; i < arrayuid.length; i++) {
-        let token = (await getUserToken(arrayuid[i])).val(); // hämtar ut token
-        let userPlaylist = await getUserPlaylists(token);
-        combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
-    }    
-    
-    let combinedPlaylistHolder = [];
+async function quizPlaylist () {
+    let numPlayers = Object.keys(roomModel.players).length;
+    console.log("numplayers", numPlayers);
+    let combinedPlaylist = [];
+    let combinedPlaylistHolder = []; // används för att hålla de låtar som finns flera av så länge
     let combinedPlaylistUnique = [];
     let i = 0;
+    //console.log(roomModel.players);
+    //roomModel.players.forEach(player => combinedPlaylist.concat(player.playlist));
+
+    for (const key in roomModel.players) {
+        //console.log("key", roomModel.players[key].playlist);
+        combinedPlaylist = [roomModel.players[key].playlist, ...combinedPlaylist];
+    }
+    //console.log(combinedPlaylist);
     do {
-        let trackThreshold = arrayuid.length - i; // används för att sänka kravet om att alla users ska ha låtarna i playlists
-        let combinedPlaylistForReduce = combinedPlaylist; // gör detta här för o undvika varning att det är unsafe use of references/variables
+        //console.log(i);
+        let trackThreshold = numPlayers - i; // används för att sänka kravet om att alla users ska ha låtarna i playlists
+        let combinedPlaylistForReduce = combinedPlaylist.flat(); // gör detta här för o undvika varning att det är unsafe use of references/variables. den blir arg om man använder combinedPlaylist
 
         combinedPlaylistHolder = combinedPlaylistForReduce.reduce((acc, currentTrack) => {
-                if (combinedPlaylistForReduce.filter(track => track[1] === currentTrack[1]).length === trackThreshold) { // om tracket finns lika många gånger som det finns spelare (dvs. alla har låten i någon av sina listor)
-                    combinedPlaylistForReduce = combinedPlaylistForReduce.filter(track => track[1] !== currentTrack[1]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
-                    return ([...acc, currentTrack]); // och lägger till den till accumulatorn
-                }
-                else {
-                    return acc;
-                }
+            if (combinedPlaylistForReduce.filter(track => track[1] === currentTrack[1]).length === trackThreshold) { // om tracket finns lika många gånger som det finns spelare (dvs. alla har låten i någon av sina listor)
+                combinedPlaylistForReduce = combinedPlaylistForReduce.filter(track => track[1] !== currentTrack[1] && track[0] !== currentTrack[0]); // om det finns så tar vi bort den från original listan, detta för att unika låtar kan läggas till två gånger annars
+                return ([...acc, currentTrack]); // och lägger till den till accumulatorn
+            }
+            else {
+                return acc;
+            }
             }, []);
-            i++
-            combinedPlaylistUnique = combinedPlaylistUnique.concat(combinedPlaylistHolder).flat(); // lägger ihop listan med den genererade listan, används för att se om listan är < 11
+        
+        let combinedPlaylistHolderRemove = [...combinedPlaylistHolder]; // är detta dumt?
+        
+        for (let i = 0; i < combinedPlaylistHolder.length; i++) { // Plockar ut 10 random låtar
+            let randomIndex = Math.floor(Math.random() * combinedPlaylistHolderRemove.length);
+            let trackAdd = combinedPlaylistHolderRemove[randomIndex];
+            console.log(trackAdd);
+            if (trackAdd.length === 3) { //om tracket inte har en url
+                combinedPlaylistUnique.push(trackAdd);
+            }
+            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
+                break;
+            }
+            combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
+            }
+            i++;
         }
-    while (combinedPlaylistUnique.length < 11 && i < arrayuid.length);
-    const combinedPlaylistUniqueDict = listWithObj(combinedPlaylistUnique);
+    while (combinedPlaylistUnique.length < 10 && i < numPlayers);
+    
+    combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
+    combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt
+    console.log(combinedPlaylistUnique);
     console.log("Added playlist to roommodel");
-    return combinedPlaylistUniqueDict.slice(0,10);
+    return combinedPlaylistUnique;
 }
 async function getUserToken (uid) {
     return database.ref('users/' + uid + '/token').once('value', (snapshot) => { 
@@ -86,4 +113,10 @@ function listWithObj (list) {
 //const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
 //quizPlaylist(arrayuid);
 
+    /*for (let i = 0; i < arrayuid.length; i++) {
+        let token = (await getUserToken(arrayuid[i])).val(); // hämtar ut token
+        let userPlaylist = await getUserPlaylists(token);
+        combinedPlaylist.push(userPlaylist); // lägger till i den stora playlisten med alla användares låtar
+    }*/
+    
 export default Room;
