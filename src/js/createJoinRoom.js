@@ -17,7 +17,7 @@ function CreateJoinRoom(props){
     return playlistReady ? React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {
-            console.log(playlist);
+            //console.log(playlist);
             playlist && createJoinRoomFB(roomName, createRoom);
             playlist && props.history.push("/room");
             !playlist && setPlaylistReady(false);
