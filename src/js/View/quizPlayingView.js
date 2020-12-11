@@ -8,7 +8,7 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit}) =>
                 <div className="loader-bar" style={{width:`${timeLeft}%`}}/>
             </div>
         </div>
-        <input type="text" id="searchbar" autocomplete="off" onChange={(event)=> onText(event.target.value)}/>
+        <input type="text" id="searchbar" autoComplete="off" onChange={(event)=> onText(event.target.value)}/>
         <button onClick={() => onSubmit()}>Submit Answer!</button>
     </div>;
 

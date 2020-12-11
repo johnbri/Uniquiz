@@ -13,7 +13,8 @@ function PlayersSidebar (props) {
     let inRoom = props.location.pathname === "/room";
     return React.createElement(PlayersSidebarView, {
         players: players,
-        inRoom: inRoom
+        inRoom: inRoom,
+        onResults: () => props.history.push("/results")
         });
 }
 
