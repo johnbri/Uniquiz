@@ -53,20 +53,29 @@ function syncRoomModelToFB(roomName){
 
       ref.child("playlist").on('value', (snapshot) => {
         roomModel.setPlaylist(snapshot.val())
-        console.log(snapshot.val())
-        console.log("halloj")
-        console.log(roomModel.playlist)
       })
 
       ref.child("started").on('value', (snapshot) => {
         roomModel.setStarted(snapshot.val())
-        console.log(roomModel.started)
       })
 
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
-        console.log("current song i model: ", roomModel.getCurrentSongIndex())
       })
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+function syncUserModelToFB(uid){
+  /** Syncs the model on firebase updates */
+  try {
+      let ref = database.ref('users/' + uid);
+      
+      ref.child("playlist").on('value', (snapshot) => { 
+        userModel.setPlaylist(snapshot.val()) 
+      })
+
   } catch (error) {
       console.log(error);
   }
@@ -79,17 +88,34 @@ function addPlayerToFB(roomName) {
     displayName: userModel.displayName,
     profileImg: userModel.img,
     score: 0,
-    answer: ""
+    answer: "",
+    playlist: userModel.playlist
   });
 }
 
-function addPlaylistToFB(playlist, roomName) {
+function addRoomPlaylistToFB(playlist, roomName) {
   /** creates a playerObject for player in room in firebase*/
   let ref = database.ref('rooms/' + roomName);
   ref.update({
     playlist
   });
 }
+
+function addUserPlaylistToFB(playlist) {
+  /** creates a playerObject for player in room in firebase*/
+  auth().onAuthStateChanged(function(userObj) {
+    if (userObj) {
+      let user = auth().currentUser;
+      database.ref('users/' + user.uid).update({
+        playlist
+      }).then( res => console.log("successfully added playlist to user in database")).catch(console.log("Error adding token to firebase DB"));
+    } else {
+      console.log("There is no user logged in");
+    }
+  });
+}
+
+
 
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
@@ -109,9 +135,7 @@ function setStartedFB(started) {
 
 function setCurrentSongIndexFB(started) {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/currentSongIndex');
-  console.log("hej", roomModel.getCurrentSongIndex());
-  console.log("dsadsa", roomModel.getCurrentSongIndex()+1)
   ref.set(roomModel.getCurrentSongIndex()+1);
 }
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, addPlayerToFB, addPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB};
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB, addUserPlaylistToFB};
 

@@ -57,7 +57,7 @@ export async function getUserImg(token) {
 
 
 export async function getUserPlaylists(token) {
-  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20"); //får ned 20 playlists från usern
+  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=50"); //får ned 20 playlists från usern
   let allTracks = [];
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href) // får ned alla tracks

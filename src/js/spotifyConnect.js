@@ -1,8 +1,8 @@
 import React from "react";
-import { loginUrl, getTokenFromUrl, getUserImg} from "./spotify";
+import { loginUrl, getTokenFromUrl, getUserImg, getUserPlaylists} from "./spotify";
 
 import { SpotifyConnectView } from "./view/spotifyConnectView";
-import {auth, database} from '../services/firebase.js';
+import {auth, database, addUserPlaylistToFB} from '../services/firebase.js';
 import { userModel } from "../index.js";
 
 
@@ -13,6 +13,7 @@ function SpotifyConnect(props) {
     if (token){
         addTokenDB(token);
         addImgDB(token);
+        getUserPlaylists(token).then(playlist => addUserPlaylistToFB(playlist)); // problemet är att man kan hinna starta rum innan den läggs in i modellen
     }
     
   return token ? setPath(props) : React.createElement(SpotifyConnectView, {
@@ -55,4 +56,7 @@ async function addImgDB(token) {
   });
 }
 
+/*async function getUserPlaylist (token) {
+
+}*/
 export default SpotifyConnect;
