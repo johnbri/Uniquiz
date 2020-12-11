@@ -19,7 +19,7 @@ function Signup(props) {
   });
 }
 
-function setPath(props, user) {
+function setPath(props) {
   props.history.push("/spotifyConnect");
   return null;
 }
