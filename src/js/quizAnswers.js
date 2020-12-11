@@ -21,12 +21,18 @@ function QuizAnswers (props) {
     //Listens for update from firebase
     useEffect(function(){ 
         setNextSong(currentSongIndex);
-        (nextSong != null) && props.history.push('/quizPlaying') ;   
+        (nextSong != null) && props.history.push('/quizPlaying') ;  
     }, [currentSongIndex]); 
 
+    let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
+
     return React.createElement(QuizAnswersView, {
-            correctAnswer: roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].name,
-            btnText: lastSong ? "See Result" : "Next Song", 
+            btnText: lastSong ? "See Result" : "Next Song",
+            correctName: Song.name,
+            correctArtists: Song.artists,
+            correctImg: Song.img,
+            score: score,
+            displayName: displayName,
             onPlay: () => {
                 lastSong ? props.history.push('/results') : setCurrentSongIndexFB();
             },
