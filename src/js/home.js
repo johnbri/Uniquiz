@@ -2,7 +2,7 @@ import React from "react";
 import { homeView } from "./view/homeView.js";
 import {userModel} from "../index.js";
 import useModelProp from "./useModelProp";
-import {auth} from '../services/firebase.js';
+import {auth, removeUserFromRoomFB} from '../services/firebase.js';
 import NoDataView from './view/noDataView.js';
 
 
@@ -13,7 +13,7 @@ function Home(props) {
     const data = [userImg, displayName]
     
 
-    return NoDataView(data) 
+    return NoDataView(data, "Loading homepage") 
     || React.createElement(homeView, {
         userImg: userImg,
         userName: displayName,
@@ -27,9 +27,11 @@ function Home(props) {
         }),
         onLogOut: () => {
             auth().signOut().then(()=> {
-                props.history.push('')})
-                .then(console.log(userModel.getDisplayName())).then(console.log(auth().currentUser))
-            }
+                removeUserFromRoomFB()
+                props.history.push('')
+            })
+                
+        }
     })
 }
 

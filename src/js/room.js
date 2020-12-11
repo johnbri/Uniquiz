@@ -4,7 +4,7 @@ import {roomModel, userModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {database, addRoomPlaylistToFB, setStartedFB, setCurrentSongIndexFB} from '../services/firebase.js';
+import {database, addRoomPlaylistToFB, setStartedFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -20,7 +20,10 @@ function Room(props){
             creator: creator,
             roomName: roomName,
             playerNames: userModel.players,
-            onExit: () => props.history.push("/home"),
+            onExit: () => {
+                removeUserFromRoomFB()
+                props.history.push("/home")
+            },
             onStart: () => {
                 if (creator) {
                     let combinedPlaylist = quizPlaylist();

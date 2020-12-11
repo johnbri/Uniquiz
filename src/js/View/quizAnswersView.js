@@ -1,5 +1,5 @@
 import '../../css/quiz.css';
-const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, onPlay}) =>
+const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnText, onPlay}) =>
     <div className="quizAnswers">
         <h1>The correct answer was...</h1>
         <img src = {correctImg} alt ="Track"></img>
@@ -16,6 +16,6 @@ const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, onPla
                 <span key = {element + index}>{element}, </span>
             )}
         </div>
-        {creator ? <button onClick={() => onPlay()} >Next Song</button> : <span>Waiting for creator to continue the game</span> }
+        {creator ? <button onClick={() => onPlay()} >{btnText}</button> : <span>Waiting for creator to continue the game</span> }
     </div>;
 export default QuizAnswersView;

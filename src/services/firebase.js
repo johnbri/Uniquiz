@@ -62,6 +62,7 @@ function syncRoomModelToFB(roomName){
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
       })
+
   } catch (error) {
       console.log(error);
   }
@@ -115,8 +116,6 @@ function addUserPlaylistToFB(playlist) {
   });
 }
 
-
-
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
@@ -128,6 +127,12 @@ function setPlayerScoreFB() {
   ref.set(roomModel.getPlayerInfo().score+1);
 }
 
+function clearPlayerAnswersFB() {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
+  ref.set("");
+  
+}
+
 function setStartedFB(started) {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/started');
   ref.set(started);
@@ -137,5 +142,13 @@ function setCurrentSongIndexFB(started) {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/currentSongIndex');
   ref.set(roomModel.getCurrentSongIndex()+1);
 }
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB, addUserPlaylistToFB};
 
+function removeUserFromRoomFB() {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid);
+  ref.set(null);
+}
+
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
+  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
+  clearPlayerAnswersFB, removeUserFromRoomFB
+};

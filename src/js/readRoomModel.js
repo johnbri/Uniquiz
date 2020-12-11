@@ -3,7 +3,9 @@ import RoomModel from './roomModel.js';
 import {roomModel, userModel} from "../index.js";
 
 
-function ReadRoomModel() {
+
+
+function ReadRoomModel(props) {
     let model = new RoomModel();
     auth().onAuthStateChanged((userObject) => {
         if (userObject) {
@@ -13,7 +15,10 @@ function ReadRoomModel() {
                 model.addObserver(()=> updateRoomFB(model, roomName));*/
             }
         } else {
-            console.log("Not logged in.")
+            model = new RoomModel();
+            console.log("User is not logged in, not joined in any room")
+            
+            
         }
     });
     return model;
