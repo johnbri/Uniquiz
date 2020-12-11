@@ -1,4 +1,4 @@
-.home > img {
+.logo {
   width: auto;
   padding-top: 80px;
   height: 200px;
@@ -12,17 +12,21 @@
   color: white;
 }
 
-.profile > img {
+.profile {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.userImg {
+  object-fit: cover;
+  width:100px;
+  height:100px;
   border-radius: 50%;
   border: 5px solid #ffffff;
 }
 
-.profile {
-  width: 400px;
-  text-align: center;
-}
-
-.profile > button {
+.logout{
   margin: 10px;
   padding: 10px;
   padding-left: 20px;
@@ -33,7 +37,6 @@
   background-color: #383838;
   border: 0px;
 }
-
 
 .home > button {
   margin: 10px;
@@ -68,7 +71,6 @@
   padding-bottom: 40px;
   color: white;
 }
-/*createjoin funkar inte??*/
 
 .createjoin > button {
   margin: 10px;
