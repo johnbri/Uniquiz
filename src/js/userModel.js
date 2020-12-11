@@ -7,6 +7,7 @@ class UserModel {
         this.displayName = displayName;
         this.currentRoom = currentRoom;
         this.img = img;
+        this.playlist = [];
     }
 
     getDisplayName() {
@@ -56,6 +57,11 @@ class UserModel {
 
     setCurrentRoom(roomName) {
         this.currentRoom = roomName;
+        this.notifyObservers();
+    }
+
+    setPlaylist(playlist) {
+        this.playlist = playlist;
         this.notifyObservers();
     }
 

@@ -1,6 +1,7 @@
 import {database, auth} from '../services/firebase.js';
 import UserModel from './userModel.js';
 
+import {syncUserModelToFB} from '../services/firebase.js';
 function ReadUserModel() {
     /** Checks for data connected to logged in user in firebase to put in the user model on refresh  */
     let dbDataObject = {}; 
@@ -12,6 +13,11 @@ function ReadUserModel() {
                 snapshot.forEach((child) => {
                     dbDataObject[child.key] = child.val() || "";
                 });
+                console.log("setting playlist in model");
+                syncUserModelToFB(dbDataObject.uid);
+                if (dbDataObject.playlist) { // behövs detta?
+                    model.setPlaylist(dbDataObject.playlist);
+                }
                 model.setUid(dbDataObject.uid);
                 model.setDisplayName(dbDataObject.displayName);
                 model.setToken(dbDataObject.token);
@@ -21,17 +27,7 @@ function ReadUserModel() {
         } else {
             console.log("User not logged in");
         }        
-    });
-    //console.log("HEJ", model);
-    /*const modelString = localStorage.getItem("dinnerModel");
-    let modelObject = modelString && JSON.parse(modelString) || {} ;
-    const model = new DinnerModel(modelObject.guests, modelObject.dishes, modelObject.currentDish);
-    model.addObserver(() => localStorage.setItem("dinnerModel",JSON.stringify({
-        guests: model.getNumberOfGuests(), 
-        dishes: model.getMenu(),
-        currentDish: model.getCurrentDish()
-    })));*/
-    
+    });  
     return model;
 }
 
