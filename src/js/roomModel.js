@@ -30,7 +30,6 @@ class RoomModel {
 
     getPlayersUid() {
         return Object.keys(this.players);
-        //return this.players.map((player) => player.uid);
     }
     
     getPlayedSong() {
@@ -45,14 +44,6 @@ class RoomModel {
         const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
         //const player = this.players.filter(player => player.uid === userModel.uid)
         return this.players[playerUid];
-    }
-
-    getCurrentSong() {
-        /** Returns the first song in the playlist and sets is as a played song*/
-        let currentSong = this.playlist[0];
-        this.playedSongs = [currentSong, ...this.playedSongs];
-        this.playlist.shift();
-        return currentSong;
     }
 
     getStarted() {
@@ -72,6 +63,7 @@ class RoomModel {
         this.creator = boolean;
         this.notifyObservers();
     }
+
     setPlayers(players){
         this.players = players;
         this.notifyObservers();
@@ -79,7 +71,7 @@ class RoomModel {
 
     setPlaylist(playlist) {
         if (playlist !== null){
-        this.playlist = playlist;
+            this.playlist = playlist;
         this.notifyObservers();
         }
     }

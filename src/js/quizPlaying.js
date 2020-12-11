@@ -31,14 +31,13 @@ function QuizPlayingSong(props) {
 }
 
 function calculateAnswer() {
-    if (roomModel.getAnswer() === roomModel.getPlayedSong().name) {
+    if (roomModel.getAnswer() === roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].name) {
         setPlayerScoreFB();
     }
-    //console.log("Current score: " + roomModel.score);
 }
 
 function playSong () {
-    const currentSong = new Audio(roomModel.getCurrentSong().url);
+    const currentSong = new Audio(roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].url);
     currentSong.volume = 0.05;
     currentSong.play();
     return currentSong;

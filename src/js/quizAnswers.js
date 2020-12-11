@@ -8,26 +8,27 @@ import {setCurrentSongIndexFB} from '../services/firebase.js';
 function QuizAnswers (props) {
     const displayName = useModelProp(userModel, "displayName");
     const score = useModelProp(roomModel, "score");
-    const correctAnswer = useModelProp(roomModel, "playedSongs");
     const creator = useModelProp(roomModel, "creator");
     const [nextSong, setNextSong] = useState(null);
     const currentSongIndex = useModelProp(roomModel, "currentSongIndex");
+    const playlist = useModelProp(roomModel, "playlist");
+    let lastSong = false;
+
+    //Check if we are currenty on the last song
+    if (currentSongIndex >= playlist.length-1) {
+        lastSong = true;
+    }
+    //Listens for update from firebase
     useEffect(function(){ 
-        console.log("nextSong", nextSong);
-        console.log("currentsongindex", currentSongIndex);
         setNextSong(currentSongIndex);
-        console.log("testa next song", nextSong != null && "hej");
-        nextSong != null && props.history.push('/quizPlaying');   
+        (nextSong != null) && props.history.push('/quizPlaying') ;   
     }, [currentSongIndex]); 
-    //const arrayuid = ["7Bj00PUe4bPpJbp4L2vf5bRDbtI2"];
-    //quizPlaylist(arrayuid);
 
     return React.createElement(QuizAnswersView, {
-            correctAnswer: correctAnswer[0].name,
-            score: score,
-            displayName: displayName,
+            correctAnswer: roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].name,
+            btnText: lastSong ? "See Result" : "Next Song", 
             onPlay: () => {
-                setCurrentSongIndexFB();
+                lastSong ? props.history.push('/results') : setCurrentSongIndexFB();
             },
             creator: creator
         });
