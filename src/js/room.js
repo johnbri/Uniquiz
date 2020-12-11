@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel} from "../index.js";
-import PromiseNoData from './view/promiseNoData.js';
-import useModelProp from "./useModelProp"
+import useModelProp from "./useModelProp.js"
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import {database, addPlaylistToFB, setStartedFB, setCurrentSongIndexFB} from '../services/firebase.js';

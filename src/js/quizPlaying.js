@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import { setPlayerScoreFB} from '../services/firebase.js';
+import { setPlayerScoreFB } from '../services/firebase.js';
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0);

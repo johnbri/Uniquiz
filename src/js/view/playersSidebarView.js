@@ -4,7 +4,7 @@ const PlayersSidebarView= ({players, inRoom}) =>
     /** Displays all the players connected to the room */
     <div className="playersSidebar">
         {Object.keys(players).map(playerUid => 
-            <div className = "playerCard">
+            <div className="playerCard" key={playerUid}>
                 <div className="userImg">
                     <img src={players[playerUid].profileImg} alt="playerImg"/>
                 </div>
