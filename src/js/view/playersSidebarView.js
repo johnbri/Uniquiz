@@ -1,4 +1,4 @@
-import '../../css/quiz.css';
+import '../../css/playerSidebar.css';
 
 const PlayersSidebarView= ({players, inRoom}) =>
     /** Displays all the players connected to the room */
@@ -10,9 +10,8 @@ const PlayersSidebarView= ({players, inRoom}) =>
                     <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />
                     : <img src={players[playerUid].profileImg} alt ="playerImg" />}
                 </div>
-                <h2>{players[playerUid].displayName}</h2>
-                {!inRoom && <h3>Score: {players[playerUid].score}</h3>}
             </div>
+            
         )}
     </div>;
 export default PlayersSidebarView;

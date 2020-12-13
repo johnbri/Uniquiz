@@ -12,7 +12,7 @@ const RoomView = ({creator, roomName, time, onStart, onExit, setTimer}) =>
         </div>
         
         <button className="startButton" onClick={() => onStart()} disabled={!creator}>Start quiz!</button><br/>
-        {!creator && <span>The creator starts the game</span> }
+        {!creator && <span>The host starts the game.</span> }
     </div>
 
 export default RoomView;

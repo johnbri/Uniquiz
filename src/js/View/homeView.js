@@ -10,7 +10,7 @@ const homeView= ({userImg, onCreate, onJoin, userName, onLogOut}) =>
             <button className="logout" onClick={() => onLogOut()}>Log out</button>
         </div>
         </div>
-        <h1>Welcome, {userName}!!</h1>
+        <h1>Welcome, {userName}!</h1>
         <button onClick={() => onCreate()}>Create Quiz</button>
         <button onClick={() => onJoin()}>Join Quiz</button>
         

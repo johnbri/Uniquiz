@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import RoomView from "./view/roomView.js";
-import {roomModel, userModel} from "../index.js";
+import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
+import withAuth from "./withAuth.js";
+import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
@@ -26,7 +28,8 @@ function Room(props){
             playerNames: userModel.players,
             time: time,
             onExit: () => {
-                removeUserFromRoomFB()
+                removeUserFromRoomFB();
+                resetRoomModel();
                 props.history.push("/home")
             },
             onStart: () => {

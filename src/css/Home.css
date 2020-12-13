@@ -29,6 +29,7 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
+  cursor: pointer
 }
 
 .profile > button:hover {
@@ -53,6 +54,7 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
+  cursor: pointer
 }
 
 .home > button:hover {
@@ -71,6 +73,7 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
+  cursor: pointer
 }
 
 .createjoin > h1 { 
@@ -90,6 +93,7 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
+  cursor: pointer
 }
 
 .createjoin > .logout {
