@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import { setPlayerScoreFB} from '../services/firebase.js';
+import { setPlayerScoreFB } from '../services/firebase.js';
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0)
@@ -14,6 +14,7 @@ function QuizPlayingSong(props) {
             currentSong.pause();
             calculateAnswer();
             setTimeLeft(0);
+            roomModel.checkCorrectAnswer() && setPlayerScoreFB();
             props.history.push('/quiz/answers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
             //console.log("efter pushen");
         }, 15000);

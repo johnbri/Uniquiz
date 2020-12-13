@@ -54,6 +54,10 @@ class RoomModel {
         return this.currentSongIndex;
     }
 
+    getCorrectAnswer() {
+        return this.getPlaylist()[this.getCurrentSongIndex()].name;
+    }
+
     setRoomName(roomName) {
         this.roomName = roomName;
         this.notifyObservers();
@@ -91,6 +95,40 @@ class RoomModel {
             this.currentSongIndex = index;
         }
         this.notifyObservers();
+    }
+
+    checkCorrectAnswer() {
+        let userAnswer = this.getAnswer();
+        let userAnswerOrig = userAnswer;
+        let correctAnswer = this.getCorrectAnswer();
+        let correctAnswerOrig = correctAnswer;
+        //console.log("useranswer innan" ,userAnswer);
+        //console.log("correctanswer innan" ,correctAnswer);
+        if (userAnswer) {
+            correctAnswerOrig = correctAnswerOrig.toLowerCase();
+            userAnswerOrig = userAnswerOrig.toLowerCase();
+
+            userAnswer = userAnswer.toLowerCase();
+            userAnswer = userAnswer.replace("'", '');
+            userAnswer = userAnswer.split('(')[0];
+            userAnswer = userAnswer.split('-')[0];
+            userAnswer = userAnswer.replace(/\s+/g, '');
+
+            correctAnswer = correctAnswer.toLowerCase();
+            correctAnswer = correctAnswer.replace("'", '');
+            correctAnswer = correctAnswer.split('(')[0];
+            correctAnswer = correctAnswer.split('-')[0];
+            correctAnswer = correctAnswer.replace(/\s+/g, '');
+        }
+        //console.log("useranswer efter" ,userAnswer);
+        //console.log("correctanswer efter" ,correctAnswer);
+        if (userAnswer === correctAnswer || userAnswerOrig === correctAnswerOrig) {
+            //console.log("returnade true");
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     addPlayers(newPlayer) {
