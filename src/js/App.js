@@ -25,12 +25,10 @@ function App() {
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/createJoin" component={CreateJoinRoom} />
-          <Route path="/room" component={Room} />
-          <Route path="/room" component={PlayersSidebar} />
-          <Route path="/quizAnswers" component={QuizAnswers} />
-          <Route path="/quizAnswers" component={PlayersSidebar} />
-          <Route path="/quizPlaying" component={QuizPlaying} />
-          <Route path="/quizPlaying" component={PlayersSidebar} />
+          <Route path="/quiz" component={PlayersSidebar} />
+          <Route path="/quiz/room" component={Room} />
+          <Route path="/quiz/playing" component={QuizPlaying}/>
+          <Route path="/quiz/answers" component={QuizAnswers}/>
           <Route exact path="/results" component={Results} />
       </div> 
     </Router>
