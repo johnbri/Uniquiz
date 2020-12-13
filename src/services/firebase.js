@@ -167,6 +167,7 @@ function addUserPlaylistToFB(playlist) {
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
+  console.log("fb answer", answer);
   ref.set(answer);
 }
 

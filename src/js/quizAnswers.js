@@ -5,6 +5,7 @@ import {userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
 import {setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
 import { Redirect } from 'react-router-dom'; 
+import PlayersSidebar from './playersSidebar.js';
 
 function QuizAnswers (props) {
     const displayName = useModelProp(userModel, "displayName");
@@ -25,12 +26,9 @@ function QuizAnswers (props) {
         setNextSong(currentSongIndex);
         (nextSong != null) && props.history.push('/quiz/playing') ;  
     }, [currentSongIndex]); 
-
     let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
-    console.log("status", status)
 
     if (status === "inGame") {
-        console.log("heej");
         return  React.createElement(QuizAnswersView, {
                     btnText: lastSong ? "See Result" : "Next Song",
                     correctName: Song.name,
