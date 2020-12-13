@@ -16,11 +16,11 @@ function QuizAnswers (props) {
     const status = useModelProp(roomModel, "status");
 
     let lastSong = false;
-    //Check if we are currenty on the last song
+    //Check if we are currently on the last song
     if (currentSongIndex >= playlist.length-1) {
         lastSong = true;
     }
-    //Listens for update from firebase
+    //Listens for update from firebase on which song index is next
     useEffect(function(){ 
         setNextSong(currentSongIndex);
         (nextSong != null) && props.history.push('/quiz/playing') ;  
