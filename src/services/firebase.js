@@ -207,5 +207,5 @@ function removeUserFromRoomFB() {
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB
+  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB
 };
