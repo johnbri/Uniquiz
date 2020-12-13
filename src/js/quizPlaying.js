@@ -24,7 +24,9 @@ function QuizPlayingSong(props) {
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
+                console.log("submited")
                 roomModel.setAnswer(answer);
+                console.log(roomModel.answers)
             },
             onText: name => setAnswer(name)
         })
