@@ -27,8 +27,8 @@ function Home(props) {
         }),
         onLogOut: () => {
             auth().signOut().then(()=> {
-                removeUserFromRoomFB()
-                props.history.push('')
+                removeUserFromRoomFB();
+                props.history.push('');
             })
                 
         }

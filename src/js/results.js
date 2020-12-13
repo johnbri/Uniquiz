@@ -1,6 +1,6 @@
 import React from "react";
 import ResultsView from './view/resultsView.js';
-import {roomModel} from "../index.js";
+import {roomModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js";
 import { Redirect } from 'react-router-dom'; 
 import RoomModel from "./roomModel.js";
@@ -18,7 +18,7 @@ function Results(props){
         roomName: roomName,
         players: players,
         onExit: (roomModel) => {
-            roomModel = new RoomModel(); //Den finns fortfarande kvar i home
+            resetRoomModel(); //Den finns fortfarande kvar i home
             props.history.push('/home');
 
         }, //Ta bort currentRoom på User 
