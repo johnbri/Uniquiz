@@ -5,7 +5,6 @@ import useModelProp from "./useModelProp";
 import {auth, removeUserFromRoomFB} from '../services/firebase.js';
 import NoDataView from './view/noDataView.js';
 
-
 function Home(props) {
     /**The user can create a room or join a room */
     const userImg = useModelProp(userModel, "img");

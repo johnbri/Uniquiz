@@ -1,0 +1,51 @@
+/*----------------------Player Sidebar-----------------------------*/
+.playersSidebar {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+  }
+  
+  .playerCard > .userImage > img {
+    object-fit: cover;
+    width:70px;
+    height:70px;
+    border-radius: 50%;
+    
+  }
+  
+  .playerCard > .userImage {
+    width:70px;
+    height:70px;
+    margin-right: 30px;
+  }
+
+  .playerCard{
+    display: flex;
+  }
+  
+  .posistionbox{
+    padding: 20px;
+    margin: 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    width: 200px;
+    height: 130px;
+    box-shadow:
+    0 2.8px 4.5px rgba(0, 0, 0, 0.014),
+    0 6.7px 10.8px rgba(0, 0, 0, 0.02),
+    0 12.5px 20.3px rgba(0, 0, 0, 0.025),
+    0 22.3px 36.2px rgba(0, 0, 0, 0.03),
+    0 41.8px 67.7px rgba(0, 0, 0, 0.036),
+    0 100px 162px rgba(0, 0, 0, 0.05);
+  }
+  
+  .playerCard > .userInfo {
+    font-size: 14px;
+    padding-top: 10px;
+  }
+  
+  .posistionbox h1{
+    font-size: 30px;
+  }

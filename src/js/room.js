@@ -2,6 +2,7 @@ import React from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
+import withAuth from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import {database, addRoomPlaylistToFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
@@ -99,4 +100,4 @@ function listWithObj (list) {
     return newList;
 }
     
-export default Room;
+export default withAuth(Room);

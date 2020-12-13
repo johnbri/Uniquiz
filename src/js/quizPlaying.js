@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 import { setPlayerScoreFB, setPlayerAnswerFB } from '../services/firebase.js';
+import withAuth from "./withAuth.js";
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0)
@@ -13,7 +14,6 @@ function QuizPlayingSong(props) {
         const timeout = setTimeout(() => {
             currentSong.pause();
             setTimeLeft(0);
-            console.log("jdsij", answer);
             setPlayerAnswerFB(roomModel.getAnswer());
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
             props.history.push('/quiz/answers');
@@ -37,4 +37,4 @@ function playSong () {
     return currentSong;
 }
 
-export default QuizPlayingSong;
+export default withAuth(QuizPlayingSong);
