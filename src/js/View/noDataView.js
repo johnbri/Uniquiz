@@ -12,7 +12,6 @@ function NoDataView(data, loadingstring){
         <div className="loadingComponent">
             <img src = "loading.svg" alt="loading gif"/> 
             <h1>{loadingstring}</h1>
-            <div class="ldBar"></div>
         </div>
     )
 }
