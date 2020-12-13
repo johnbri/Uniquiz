@@ -17,6 +17,6 @@ const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnTe
                 <span key = {element + index}>{element}, </span>
             )}
         </div>
-        {creator ? <button onClick={() => onPlay()} >{btnText}</button> : <span>Waiting for creator to continue the game</span> }
+        {creator ? <button onClick={() => onPlay()} >{btnText}</button> : <span>Waiting for the host to continue the game.</span> }
     </div>;
 export default QuizAnswersView;

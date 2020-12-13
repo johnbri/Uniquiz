@@ -1,6 +1,6 @@
 import React from "react";
 import RoomView from "./view/roomView.js";
-import {roomModel, userModel} from "../index.js";
+import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import withAuth from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
@@ -24,7 +24,8 @@ function Room(props){
             roomName: roomName,
             playerNames: userModel.players,
             onExit: () => {
-                removeUserFromRoomFB()
+                removeUserFromRoomFB();
+                resetRoomModel();
                 props.history.push("/home")
             },
             onStart: () => {

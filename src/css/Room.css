@@ -8,6 +8,7 @@
     color: rgb(255, 250, 250);
     background-color: #383838;
     border: 0px;
+    cursor: pointer
   }
 
 .room > button:hover {

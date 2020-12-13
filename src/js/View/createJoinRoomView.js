@@ -1,6 +1,6 @@
 import '../../css/Home.css';
 
-const CreateJoinRoomView = ({onSubmit, onText, onBack, title}) =>
+const CreateJoinRoomView = ({onSubmit, onText, onBack, title, errorMessage}) =>
     /** Lets the user either join och create a room */
     <div className="createjoin">
         <button onClick={() => onBack()}>Back</button>
@@ -9,6 +9,7 @@ const CreateJoinRoomView = ({onSubmit, onText, onBack, title}) =>
         <button onClick={() => onSubmit()}>{title} room</button>
         {title === "Create" ? <p>Want to play with your friends? Share the room name and ask them to join you!</p>
                             : <p>Write the name of an already existing room.</p>}
+        <p className="errorMessage">{errorMessage}</p>
     </div>;
 
 export {CreateJoinRoomView};

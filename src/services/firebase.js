@@ -28,7 +28,7 @@ function loginFB (props, email, password) {
   }).catch((error) => { 
     props.history.push({
       pathname: '/',
-      errorMessage: error.code.includes("invalid-email") ? "Invalid email" : "Invalid password"
+      errorMessage: "Invalid email or password."
     })
   });
 }
@@ -52,7 +52,6 @@ function signupFB(props, email, name, password) {
     });
 }
 
-
 function syncRoomModelToFB(roomName){
   /** Syncs the model on firebase updates */
   try {
@@ -75,7 +74,7 @@ function syncRoomModelToFB(roomName){
       })
 
   } catch (error) {
-      console.log(error);
+      console.log("Unable to correctly sync RoomModel to FB");
   }
 }
 
@@ -92,6 +91,44 @@ function syncUserModelToFB(uid){
       console.log(error);
   }
 }
+
+async function createJoinRoomFB(props, roomName, createRoom){
+  database.ref('rooms/' + roomName).once('value', (snapshot) => {
+      try {
+      if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
+              throw new Error("A room with the name already exists");
+      } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
+          syncRoomModelToFB(roomName);
+          addPlayerToFB(roomName);
+          roomModel.setRoomName(roomName);
+          /*roomModel.setRoomName(roomName);
+          userModel.setCurrentRoom(roomName);
+          roomModel.addPlayers(userModel.uid); */
+      } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
+          syncRoomModelToFB(roomName);
+          addPlayerToFB(roomName);
+          roomModel.setRoomName(roomName);
+          roomModel.setCreator(true);
+          /*roomModel.addPlayers(userModel.uid);
+          roomModel.setRoomName(roomName);
+          userModel.setCurrentRoom(roomName);*/
+      } else { //If room does not exist and user wants to join
+              throw new Error("Room does not exist!");
+      }
+  } catch(error) {
+      error.message.includes("already exists") ? props.history.push({
+        pathname: '/createJoin',
+        createRoom: true,
+        errorMessage: error.message
+      }) : props.history.push({
+        pathname: '/createJoin',
+        createRoom: false,
+        errorMessage: error.message
+      })
+  }
+  });
+}
+
 
 function addPlayerToFB(roomName) {
   /** creates a playerObject for player in room in firebase*/
@@ -160,7 +197,7 @@ function removeUserFromRoomFB() {
   ref.set(null);
 }
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, createJoinRoomFB, addPlayerToFB, 
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
   clearPlayerAnswersFB, removeUserFromRoomFB
 };
