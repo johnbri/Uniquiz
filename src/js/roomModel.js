@@ -98,12 +98,11 @@ class RoomModel {
     }
 
     checkCorrectAnswer() {
+        /** Check if user answer is correct. Strips the string of certain signs and skips parantheses etc. */
         let userAnswer = this.getAnswer();
-        let userAnswerOrig = userAnswer;
+        let userAnswerOrig = userAnswer; // safety in case the split etc. does not work
         let correctAnswer = this.getCorrectAnswer();
-        let correctAnswerOrig = correctAnswer;
-        //console.log("useranswer innan" ,userAnswer);
-        //console.log("correctanswer innan" ,correctAnswer);
+        let correctAnswerOrig = correctAnswer; // safety in case the split etc. does not work
         if (userAnswer) {
             correctAnswerOrig = correctAnswerOrig.toLowerCase();
             userAnswerOrig = userAnswerOrig.toLowerCase();
@@ -120,10 +119,7 @@ class RoomModel {
             correctAnswer = correctAnswer.split('-')[0];
             correctAnswer = correctAnswer.replace(/\s+/g, '');
         }
-        //console.log("useranswer efter" ,userAnswer);
-        //console.log("correctanswer efter" ,correctAnswer);
         if (userAnswer === correctAnswer || userAnswerOrig === correctAnswerOrig) {
-            //console.log("returnade true");
             return true;
         }
         else {
