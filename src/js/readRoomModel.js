@@ -13,12 +13,9 @@ function ReadRoomModel(props) {
             if(roomName !== "") {
                 /*syncRoomsFB(model,roomName);
                 model.addObserver(()=> updateRoomFB(model, roomName));*/
-            }
+            } 
         } else {
-            model = new RoomModel();
             console.log("User is not logged in, not joined in any room")
-            
-            
         }
     });
     return model;

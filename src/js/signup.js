@@ -13,9 +13,11 @@ function Signup(props) {
     onEmail: (txt) => setEmail(txt),
     onName: (txt) => setName(txt),
     onPassword: (txt) => setPassword(txt),
-    onSignup: () => { 
-      signupFB(email, name, password).then(setUser("hej"));
-    }
+    onSignup: () => signupFB(props, email, name, password),
+    onLogin: () => {
+      props.history.push("/")
+    },
+    errorMessage: props.location.errorMessage
   });
 }
 

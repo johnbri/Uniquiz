@@ -12,6 +12,7 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
     const data = [combinedPlaylist];
+
     if (combinedPlaylist.length > 0) {
         props.history.push('/quiz/playing')
     }
