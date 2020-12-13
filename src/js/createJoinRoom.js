@@ -19,7 +19,7 @@ function CreateJoinRoom(props){
         onSubmit: () => {
             //console.log(playlist);
             playlist && createJoinRoomFB(roomName, createRoom);
-            playlist && props.history.push("/room");
+            playlist && props.history.push("/quiz/room");
             !playlist && setPlaylistReady(false);
         },
         onText: name => setRoomName(name),

@@ -15,7 +15,7 @@ function QuizPlayingSong(props) {
             currentSong.pause();
             calculateAnswer();
             setTimeLeft(0);
-            props.history.push('/quizAnswers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
+            props.history.push('/quiz/answers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
             //console.log("efter pushen");
         }, 15000);
         return () => clearTimeout(timeout);
@@ -25,7 +25,9 @@ function QuizPlayingSong(props) {
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
+                console.log("submited")
                 roomModel.setAnswer(answer);
+                console.log(roomModel.answers)
             },
             onText: name => setAnswer(name)
         })

@@ -23,7 +23,7 @@ function QuizAnswers (props) {
     //Listens for update from firebase
     useEffect(function(){ 
         setNextSong(currentSongIndex);
-        (nextSong != null) && props.history.push('/quizPlaying') ;  
+        (nextSong != null) && props.history.push('/quiz/playing') ;  
     }, [currentSongIndex]); 
 
     let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
