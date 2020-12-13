@@ -57,12 +57,12 @@ export async function getUserImg(token) {
 
 
 export async function getUserPlaylists(token) {
-  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=1"); //får ned 20 playlists från usern
+  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=5"); //får ned 20 playlists från usern
   let allTracks = [];
 
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href) // får ned alla tracks
-
+    console.log("playlist", playListsObj);
     playListsObj.items.forEach(trackObj => { // skulle kunna skriva om den här funktionen till en for loop så vi slipper errors...
         if (trackObj.track!=null) {
           let artists = [];
