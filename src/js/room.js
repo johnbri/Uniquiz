@@ -6,6 +6,8 @@ import withAuth from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import {database, addRoomPlaylistToFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
+import { Redirect } from "react-router";
+import { useHistory } from "react-router-dom";
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -13,9 +15,10 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
     const data = [combinedPlaylist];
+    let history = useHistory();
 
     if (combinedPlaylist.length > 0) {
-        props.history.push('/quiz/playing')
+        history.push('/quiz/playing');//props.history.push('/quiz/playing')
     }
     console.log("status i room", status)
     return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
@@ -26,7 +29,7 @@ function Room(props){
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
-                props.history.push("/home")
+                <Redirect to="/home"/>//props.history.push("/home")
             },
             onStart: () => {
                 if (creator) {

@@ -4,7 +4,7 @@
     width: 100%;
     justify-content: center;
     position: absolute;
-    bottom: 10px;
+    bottom: 0;
   }
   
   .playerCard > .userImage > img {
@@ -33,6 +33,7 @@
     padding: 20px;
     margin: 40px;
     margin-top: 5px;
+    margin-bottom: 0px;
     background-color: #ffffff;
     border-radius: 15px;
     width: 200px;

@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 import { setPlayerScoreFB, setPlayerAnswerFB } from '../services/firebase.js';
-import withAuth from "./withAuth.js";
+import GameInProgress from "./withAuth.js";
+import { useHistory } from "react-router-dom";
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0)
 
     const [answer, setAnswer]= useState("");
+    let history = useHistory();
     useEffect(() => {
         setTimeout(() => setTimeLeft(100), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
         let currentSong = playSong();
@@ -16,7 +18,7 @@ function QuizPlayingSong(props) {
             setTimeLeft(0);
             setPlayerAnswerFB(roomModel.getAnswer());
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
-            props.history.push('/quiz/answers');
+            history.push('/quiz/answers');
         }, 15000);
         return () => clearTimeout(timeout);
     }, []);
@@ -37,4 +39,4 @@ function playSong () {
     return currentSong;
 }
 
-export default QuizPlayingSong;
+export default GameInProgress(QuizPlayingSong);
