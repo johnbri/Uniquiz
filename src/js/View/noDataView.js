@@ -10,11 +10,7 @@ function NoDataView(data, loadingstring=""){
     };
     return (noData && 
         <div className="loadingComponent">
-<<<<<<< HEAD
-            <img src={window.location.origin + '/loading.svg'} alt ="Loading gif" />
-=======
             <img src={window.location.origin + '/loading.svg'} alt ="Loading gif" /> 
->>>>>>> c4ba3a6d11f9dae79d8be4d4b0c91729ce1dee57
             <h1>{loadingstring}</h1>
         </div>
     )
