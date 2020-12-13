@@ -29,7 +29,6 @@ function CreateJoinRoom(props){
         errorMessage: props.location.errorMessage
     })
     : NoDataView(data) || createJoin(props, roomName, createRoom);
-    ;
 }
 
 function createJoin (props, roomName, createRoom) {

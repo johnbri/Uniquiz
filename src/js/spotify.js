@@ -62,7 +62,6 @@ export async function getUserPlaylists(token) {
 
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href) // får ned alla tracks
-    console.log("playlist", playListsObj);
     playListsObj.items.forEach(trackObj => { // skulle kunna skriva om den här funktionen till en for loop så vi slipper errors...
         if (trackObj.track!=null) {
           let artists = [];

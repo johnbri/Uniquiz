@@ -8,7 +8,7 @@ const PlayersSidebarView= ({players, inRoom}) =>
                 {players[playerUid].answer !== "" && <img className="light" src={window.location.origin + '/lightbulb.svg'} alt ="Loading gif" />}
                 <div className="posistionbox">
                     <h1>1</h1>
-                    <div className="playerCard" key={playerUid}>
+                    <div classsName="playerCard" key={playerUid}>
                         <div className="userImage">
                         {players[playerUid].profileImg === 'defaultProfilePic.jpg' ?
                             <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />

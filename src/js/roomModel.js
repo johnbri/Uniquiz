@@ -11,6 +11,7 @@ class RoomModel {
         this.playedSongs = [];
         this.answers = [];
         this.score = 0;
+        this.time=15;
         this.creator = false;
         this.status = "inRoom";
         this.currentSongIndex = -1;
@@ -50,6 +51,10 @@ class RoomModel {
         return this.started;
     }
 
+    getTime() {
+        return this.time;
+    }
+
     getCurrentSongIndex() {
         return this.currentSongIndex;
     }
@@ -87,6 +92,11 @@ class RoomModel {
 
     setStatus(started) {
         this.status = started;
+        this.notifyObservers();
+    }
+
+    setTime(time) {
+        this.time = time;
         this.notifyObservers();
     }
 

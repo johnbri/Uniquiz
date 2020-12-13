@@ -19,11 +19,12 @@ function QuizPlayingSong(props) {
             setPlayerAnswerFB(roomModel.getAnswer());
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
             history.push('/quiz/answers');
-        }, 15000);
+        }, (roomModel.time*1000));
         return () => clearTimeout(timeout);
     }, []);
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
+            loadTime: roomModel.time,
             onSubmit: () => {
                 roomModel.setAnswer(answer);
             },

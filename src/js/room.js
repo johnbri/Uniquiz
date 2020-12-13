@@ -1,31 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import withAuth from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {database, addRoomPlaylistToFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
+import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
+    const [time, setTime] = useState(15)
+
+
+
     const data = [combinedPlaylist];
     let history = useHistory();
 
     if (combinedPlaylist.length > 0) {
         history.push('/quiz/playing');//props.history.push('/quiz/playing')
     }
-    console.log("status i room", status)
     return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,
             playerNames: userModel.players,
+            time: time,
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
@@ -37,8 +41,9 @@ function Room(props){
                     combinedPlaylist.then(tracks => addRoomPlaylistToFB(tracks, roomName));
                 }
                 setCurrentSongIndexFB();
-                setQuizStatusFB("inGame");
-            }
+                setQuizStatusFB("inGame")},
+            setTimer: input => {setTimeFB(input);
+                setTime(input)}
             });
 }
 

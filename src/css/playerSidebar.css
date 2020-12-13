@@ -7,7 +7,7 @@
     bottom: 0;
   }
   
-  .playerCard > .userImage > img {
+  .userImage img {
     object-fit: cover;
     width:70px;
     height:70px;
@@ -15,7 +15,7 @@
     
   }
   
-  .playerCard > .userImage {
+  .playerCard  .userImage {
     width:70px;
     height:70px;
     margin-right: 30px;

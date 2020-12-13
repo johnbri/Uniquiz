@@ -69,6 +69,10 @@ function syncRoomModelToFB(roomName){
         roomModel.setStatus(snapshot.val())
       })
 
+      ref.child("time").on('value', (snapshot) => {
+        roomModel.setTime(snapshot.val())
+      })
+
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
       })
@@ -179,7 +183,6 @@ function setPlayerScoreFB() {
 function clearPlayerAnswersFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
   ref.set("");
-  
 }
 
 function setQuizStatusFB(status) {
@@ -192,12 +195,17 @@ function setCurrentSongIndexFB(started) {
   ref.set(roomModel.getCurrentSongIndex()+1);
 }
 
+function setTimeFB(time) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/time');
+  ref.set(time);
+}
+
 function removeUserFromRoomFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid);
   ref.set(null);
 }
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, createJoinRoomFB, addPlayerToFB, 
-  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
+  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
+  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB
 };
