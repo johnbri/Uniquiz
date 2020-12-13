@@ -14,7 +14,7 @@ function PlayersSidebar (props) {
     return React.createElement(PlayersSidebarView, {
         players: players,
         inRoom: inRoom
-        });
+        })
 }
 
 export default PlayersSidebar;

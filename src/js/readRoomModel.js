@@ -26,8 +26,9 @@ export {ReadRoomModel, createJoinRoomFB};
 
 async function createJoinRoomFB(roomName, createRoom){
     database.ref('rooms/' + roomName).once('value', (snapshot) => {
+        try {
         if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
-                console.log("A room with the name already exists");
+                throw "A room with the name already exists XDD";
         } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
             syncRoomModelToFB(roomName);
             addPlayerToFB(roomName);
@@ -46,5 +47,8 @@ async function createJoinRoomFB(roomName, createRoom){
         } else { //If room does not exist and user wants to join
                 console.log("Room does not exist!");
         }
+    } catch(error) {
+        console.log(error)
+    }
     });
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import RoomView from "./view/roomView.js";
-import {roomModel, userModel} from "../index.js";
+import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
@@ -17,13 +17,14 @@ function Room(props){
         props.history.push('/quiz/playing')
     }
     console.log("status i room", status)
-    return status === "inRoom" ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
+    return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,
             playerNames: userModel.players,
             onExit: () => {
-                removeUserFromRoomFB()
+                removeUserFromRoomFB();
+                resetRoomModel();
                 props.history.push("/home")
             },
             onStart: () => {
