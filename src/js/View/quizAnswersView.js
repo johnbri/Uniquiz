@@ -8,13 +8,11 @@ const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnTe
         </div>
         <div className="correctAnswer">
             <h2>{correctName}</h2> by {correctArtists && correctArtists.map((element, index) => 
-                index === correctArtists.length - 1
-                ?
-                <span key = {element + index}> & {element} </span>
+                correctArtists.length === 1 ? <span key = {element + index}>{element} </span>
                 :
-                index === correctArtists.length - 2
-                ?
-                <span key = {element + index}>{element} </span>
+                index === correctArtists.length - 1 && correctArtists.length !== 1 ? <span key = {element + index}> & {element} </span>
+                :
+                index === correctArtists.length - 2 ? <span key = {element + index}>{element} </span>
                 :
                 <span key = {element + index}>{element}, </span>
             )}
@@ -22,4 +20,3 @@ const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnTe
         {creator ? <button onClick={() => onPlay()} >{btnText}</button> : <span>Waiting for creator to continue the game</span> }
     </div>;
 export default QuizAnswersView;
-

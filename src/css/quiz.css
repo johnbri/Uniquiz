@@ -89,6 +89,11 @@
      
 }
 
+.correctAnswer {
+  font-weight: bold;
+  font-size: 1em;
+}
+
 .coverArt:hover {
   transform: scale(1.2);
   transform: translate3d();
