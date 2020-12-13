@@ -101,4 +101,4 @@ function listWithObj (list) {
     return newList;
 }
     
-export default withAuth(Room);
+export default Room;

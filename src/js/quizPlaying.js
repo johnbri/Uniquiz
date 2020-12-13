@@ -37,4 +37,4 @@ function playSong () {
     return currentSong;
 }
 
-export default withAuth(QuizPlayingSong);
+export default QuizPlayingSong;
