@@ -1,7 +1,11 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect} from "react";
 import { roomModel } from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 import { setPlayerScoreFB } from '../services/firebase.js';
+<<<<<<< HEAD
+=======
+import { Redirect } from 'react-router-dom'; 
+>>>>>>> b537bfa650bf758adce3643e08993c2a177b6545
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0)
@@ -25,13 +29,13 @@ function QuizPlayingSong(props) {
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
+                console.log("submited")
                 roomModel.setAnswer(answer);
+                console.log(roomModel.answers)
             },
             onText: name => setAnswer(name)
         })
 }
-
-
 function calculateAnswer() {
     if (roomModel.getAnswer() === roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].name) {
         setPlayerScoreFB();

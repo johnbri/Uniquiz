@@ -3,6 +3,7 @@ import 'firebase/database';
 import 'firebase/auth';
 import {roomModel, userModel } from '../index.js';
 
+
   var firebaseConfig = {
     apiKey: "AIzaSyALuzAm03buerT-oxeALHaQ37KJ3-mlWwU",
     authDomain: "uniquiz-e9d1f.firebaseapp.com",
@@ -24,13 +25,15 @@ function loginFB (props, email, password) {
   auth().signInWithEmailAndPassword(email, password)
   .then(() => {
     props.history.push("/spotifyConnect");
-  }).catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
+  }).catch((error) => { 
+    props.history.push({
+      pathname: '/',
+      errorMessage: error.code.includes("invalid-email") ? "Invalid email" : "Invalid password"
+    })
   });
 }
 
-function signupFB(email, name, password) {
+function signupFB(props, email, name, password) {
   /**signs up the user in firebase*/
     return auth().createUserWithEmailAndPassword(email, password)
     .then(userRecord => console.log("Successfully created new user"))
@@ -38,7 +41,15 @@ function signupFB(email, name, password) {
       database.ref('users/' + auth().currentUser.uid).set({
       displayName: name
       })
-    }).catch((er) => console.log("Error i firebase: " + er));
+    }).catch((error) => {
+      props.history.push({
+        pathname: '/signup',
+        errorMessage: error.code.includes("weak-password") ? "Password has to be at least 6 characters" :
+                      error.code.includes("email-already-in-use") ? "Email is already in use." :
+                      error.code.includes("invalid-email") ? "Invald email" : "Unexpected error. Please try again."
+      })
+
+    });
 }
 
 
@@ -55,8 +66,8 @@ function syncRoomModelToFB(roomName){
         roomModel.setPlaylist(snapshot.val())
       })
 
-      ref.child("started").on('value', (snapshot) => {
-        roomModel.setStarted(snapshot.val())
+      ref.child("status").on('value', (snapshot) => {
+        roomModel.setStatus(snapshot.val())
       })
 
       ref.child("currentSongIndex").on('value', (snapshot) => {
@@ -133,9 +144,9 @@ function clearPlayerAnswersFB() {
   
 }
 
-function setStartedFB(started) {
-  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/started');
-  ref.set(started);
+function setQuizStatusFB(status) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/status');
+  ref.set(status);
 }
 
 function setCurrentSongIndexFB(started) {
@@ -149,6 +160,6 @@ function removeUserFromRoomFB() {
 }
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
-  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setStartedFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
+  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
   clearPlayerAnswersFB, removeUserFromRoomFB
 };

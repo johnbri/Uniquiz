@@ -4,18 +4,20 @@ import {roomModel, userModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {database, addRoomPlaylistToFB, setStartedFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
+import {database, addRoomPlaylistToFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
-    const started = useModelProp(roomModel, "started"); // boolean som visar om man klickat på start
+    const status = useModelProp(roomModel, "status");
     const data = [combinedPlaylist];
+
     if (combinedPlaylist.length > 0) {
         props.history.push('/quiz/playing')
     }
-    return started ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
+    console.log("status i room", status)
+    return status === "inRoom" ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,
@@ -30,7 +32,7 @@ function Room(props){
                     combinedPlaylist.then(tracks => addRoomPlaylistToFB(tracks, roomName));
                 }
                 setCurrentSongIndexFB();
-                setStartedFB(true);
+                setQuizStatusFB("inGame");
             }
             });
 }
@@ -68,14 +70,14 @@ async function quizPlaylist () {
             if (trackAdd.length === 5 && trackAdd[3] !== undefined) { //om tracket inte har en url osv...
                 combinedPlaylistUnique.push(trackAdd);
             }
-            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
+            if (combinedPlaylistUnique.length === 4) { // så fort vi har 10 låtar breakar vi
                 break;
             }
             combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
             }
             i++;
         }
-    while (combinedPlaylistUnique.length < 10 && i < numPlayers);
+    while (combinedPlaylistUnique.length < 4 && i < numPlayers);
     
     combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
     combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt

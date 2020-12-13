@@ -5,11 +5,10 @@ import App from './js/App';
 import reportWebVitals from './reportWebVitals';
 import ReadUserModel from './js/readUserModel.js';
 import {ReadRoomModel} from './js/readRoomModel.js';
+import RoomModel from './js/roomModel';
 
 let userModel = ReadUserModel();
 let roomModel = ReadRoomModel();
-
-export {userModel, roomModel};
 
 //Create a react DOM
 ReactDOM.render(
@@ -24,3 +23,11 @@ ReactDOM.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+function resetRoomModel() {
+  roomModel = new RoomModel();
+  userModel.setCurrentRoom("");
+}
+
+export {userModel, roomModel, resetRoomModel};
+
