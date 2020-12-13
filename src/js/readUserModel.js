@@ -17,7 +17,6 @@ function ReadUserModel() {
                 snapshot.forEach((child) => {
                     dbDataObject[child.key] = child.val() || "";
                 });
-                console.log("setting playlist in model");
                 syncUserModelToFB(dbDataObject.uid);
                 if (dbDataObject.playlist) { // behövs detta?
                     model.setPlaylist(dbDataObject.playlist);

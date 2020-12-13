@@ -15,8 +15,7 @@
     background: linear-gradient(90deg, rgba(255,0,157,1) 0%, rgba(255,101,0,1) 43%, rgba(255,222,84,1) 100%);
     width: 0%;
     height: 30px;
-    border-radius: 50px;
-    transition: width 15s linear;
+    border-radius: 100px;
     animation-fill-mode: forwards;
 }
 

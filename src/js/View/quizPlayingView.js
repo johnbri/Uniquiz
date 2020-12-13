@@ -1,19 +1,19 @@
 import '../../css/quiz.css';
 import React from "react"
 
-const QuizPlaying= ({ timeLeft, onText, onSubmit}) => 
+const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime}) => 
     /** donno */
 
     <div className="quizPlaying">
-        {console.log("timeleft i viewn: ", timeLeft)}
         <h1>Submit track before the time runs out!</h1>
         <div className="loader-container">
             <div className="loader">
-                <div className="loader-bar" style={{width:`${timeLeft}%`}}/>
+                <div className="loader-bar" style={{width:`${timeLeft}%`,
+                                                    transition: `width ${loadTime}s linear`}}/>
             </div>
         </div>
         <input 
-        type="text"vplaceholder="Type trackname..." autoComplete="off" 
+        type="text" placeholder="Type trackname..." autoComplete="off" 
             onChange={(event)=> onText(event.target.value)}
             onKeyDown={(e) => {e.key === 'Enter' && onSubmit()}} 
             ref = {inputElement => {

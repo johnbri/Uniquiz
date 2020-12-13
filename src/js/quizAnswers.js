@@ -27,10 +27,8 @@ function QuizAnswers (props) {
     }, [currentSongIndex]); 
 
     let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
-    console.log("status", status)
 
     if (status === "inGame") {
-        console.log("heej");
         return  React.createElement(QuizAnswersView, {
                     btnText: lastSong ? "See Result" : "Next Song",
                     correctName: Song.name,

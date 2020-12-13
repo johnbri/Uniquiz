@@ -12,7 +12,6 @@ function Home(props) {
     const displayName = useModelProp(userModel, "displayName");
     const data = [userImg, displayName]
     
-    console.log("room", roomModel);
     return NoDataView(data, "Loading homepage") 
     || React.createElement(homeView, {
         userImg: userImg,

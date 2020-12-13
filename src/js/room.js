@@ -1,27 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
-import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import {database, addRoomPlaylistToFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
+import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
+    const [time, setTime] = useState(15)
+
+
+
     const data = [combinedPlaylist];
 
     if (combinedPlaylist.length > 0) {
         props.history.push('/quiz/playing')
     }
-    console.log("status i room", status)
-    return status === "inRoom" ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
+    return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,
             playerNames: userModel.players,
+            time: time,
             onExit: () => {
                 removeUserFromRoomFB()
                 props.history.push("/home")
@@ -32,8 +35,9 @@ function Room(props){
                     combinedPlaylist.then(tracks => addRoomPlaylistToFB(tracks, roomName));
                 }
                 setCurrentSongIndexFB();
-                setQuizStatusFB("inGame");
-            }
+                setQuizStatusFB("inGame")},
+            setTimer: input => {setTimeFB(input);
+                setTime(input)}
             });
 }
 

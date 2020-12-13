@@ -31,7 +31,6 @@ function CreateJoinRoom(props){
             }
     })
     : NoDataView(data) || createJoin(props, roomName, createRoom);
-    ;
 }
 
 function createJoin (props, roomName, createRoom) {
