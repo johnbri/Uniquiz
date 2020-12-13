@@ -12,7 +12,7 @@ class RoomModel {
         this.answers = [];
         this.score = 0;
         this.creator = false;
-        this.started = false;
+        this.status = "inRoom";
         this.currentSongIndex = -1;
     }
 
@@ -46,7 +46,7 @@ class RoomModel {
         return this.players[playerUid];
     }
 
-    getStarted() {
+    getStatus() {
         return this.started;
     }
 
@@ -81,8 +81,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setStarted(started) {
-        this.started = started;
+    setStatus(started) {
+        this.status = started;
         this.notifyObservers();
     }
 
