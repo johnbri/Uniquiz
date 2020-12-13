@@ -12,10 +12,12 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const started = useModelProp(roomModel, "started"); // boolean som visar om man klickat på start
     const data = [combinedPlaylist];
+
     if (combinedPlaylist.length > 0) {
         props.history.push('/quizPlaying')
     }
-    return started ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
+
+    return started ? NoDataView(data, "Loading room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,
