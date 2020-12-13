@@ -17,7 +17,7 @@ function Room(props){
         props.history.push('/quiz/playing')
     }
     console.log("status i room", status)
-    return status === "inRoom" ? NoDataView(data) // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
+    return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
     : React.createElement(RoomView,{
             creator: creator,
             roomName: roomName,

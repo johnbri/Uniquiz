@@ -1,6 +1,6 @@
 import '../../css/Loading.css';
 
-function NoDataView(data, loadingstring){  
+function NoDataView(data, loadingstring=""){  
     let noData = false;
     for (let i = 0; i < data.length; i++) {
         if (data[i] === null || data[i].length === 0 ) {
@@ -10,7 +10,7 @@ function NoDataView(data, loadingstring){
     };
     return (noData && 
         <div className="loadingComponent">
-            <img src = "loading.svg" alt="loading gif"/> 
+            <img src={window.location.origin + '/loading.svg'} alt ="Loading gif" /> 
             <h1>{loadingstring}</h1>
         </div>
     )
