@@ -14,13 +14,10 @@ function QuizPlayingSong(props) {
             currentSong.pause();
             setTimeLeft(0);
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
-            props.history.push('/quiz/answers'); // Måste fixas, props går inte att nå så gjorde en ful lösning
-            //console.log("efter pushen");
+            props.history.push('/quiz/answers');
         }, 15000);
         return () => clearTimeout(timeout);
     }, []);
-    //console.log("en rendewr");
-    //console.log(timeLeft);
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             onSubmit: () => {
