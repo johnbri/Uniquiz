@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
-import {roomModel, userModel, resetRoomModel } from '../index.js';
+import {roomModel, userModel, resetRoomModel} from '../index.js';
 
 
   var firebaseConfig = {
@@ -64,7 +64,6 @@ function syncRoomModelToFB(roomName){
           let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
           nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
         }
-        console.log("om man är host: " + roomModel.getPlayerInfo().host);
       })
 
       ref.child("playlist").on('value', (snapshot) => {
@@ -98,9 +97,7 @@ function syncUserModelToFB(uid){
       let ref = database.ref('users/' + uid);
 
       ref.child("inRoom").on('value', (snapshot) => {
-        console.log("snapshot: ", snapshot.val());
         userModel.setInRoom(snapshot.val());
-        console.log("inroom i modellen (i on)", userModel.inRoom);
       });
       ref.child("playlist").on('value', (snapshot) => { 
         userModel.setPlaylist(snapshot.val()) 

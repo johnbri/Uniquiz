@@ -28,14 +28,11 @@ function ReadUserModel() {
 
                 dbDataObject.inRoom ? model.setInRoom(true) : model.setInRoom(false);
                 model.setLoggedIn(true);
-                console.log("model inRoom", model.inRoom);
-                //window.location.pathname = "/home";
             });    
         } else {
             model = new UserModel();
             model.setLoggedIn(false);
             console.log("User not logged in");
-            (window.location.pathname !== "/") && (window.location.pathname = "/"); 
         }        
     });  
     return model;

@@ -11,7 +11,7 @@ function Home(props) {
     const userImg = useModelProp(userModel, "img");
     const displayName = useModelProp(userModel, "displayName");
     const data = [userImg, displayName]
-    
+
     return NoDataView(data, "Loading homepage") 
     || React.createElement(homeView, {
         userImg: userImg,
@@ -29,9 +29,9 @@ function Home(props) {
                 removeUserFromRoomFB();
                 props.history.push('');
             })
-                
+
         }
     })
 }
 
-export default allowedAccess(Home);
+export default Home;

@@ -21,4 +21,4 @@ function PlayersSidebar (props) {
         }) : NoDataView(data, "Loading for players")
 }
 
-export default allowedAccess(PlayersSidebar);
+export default PlayersSidebar;

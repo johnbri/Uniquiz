@@ -46,7 +46,6 @@ export function getUserTopPlaylist(token) {
 
 export async function getUserImg(token) {
   let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me");
-  console.log("profile", apiObj.images[0]);
   if (apiObj.images[0]) {
     return apiObj.images[0].url
   }
@@ -57,7 +56,7 @@ export async function getUserImg(token) {
 
 
 export async function getUserPlaylists(token) {
-  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=1"); //får ned 20 playlists från usern
+  let apiObj = await spotifyApiCall(token, "https://api.spotify.com/v1/me/playlists?limit=20"); //får ned 20 playlists från usern
   let allTracks = [];
 
   for (let i = 0; i < apiObj.items.length; i++) {

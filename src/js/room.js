@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
-import allowedAccess from "./withAuth.js";
-import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
-import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
 
@@ -34,7 +31,7 @@ function Room(props){
                 removeUserFromRoomFB();
                 setUserRoomStatusToFB(false);
                 resetRoomModel();
-                history.push("/home");
+                props.history.push("/home");
             },
             onStart: () => {
                 if (creator) {
@@ -80,7 +77,6 @@ async function quizPlaylist () {
             let trackAdd = combinedPlaylistHolderRemove[randomIndex];
             if (trackAdd.length === 5 && trackAdd[3] !== undefined) { //om tracket inte har en url osv...
                 combinedPlaylistUnique.push(trackAdd);
-                console.log(roomModel.getNumberOfTracks())
             }
             if (combinedPlaylistUnique.length === roomModel.getNumberOfTracks()) { // så fort vi har 10 låtar breakar vi
                 break;
@@ -93,7 +89,6 @@ async function quizPlaylist () {
     
     combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
     combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt
-    console.log(combinedPlaylistUnique);
     return combinedPlaylistUnique;
 }
 
@@ -111,4 +106,4 @@ function listWithObj (list) {
     return newList;
 }
 
-export default allowedAccess(Room);
+export default Room;

@@ -25,4 +25,4 @@ function Results(props){
         }, //Ta bort currentRoom på User 
     });
 }
-export default allowedAccess(Results);
+export default Results;
