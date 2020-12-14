@@ -20,8 +20,10 @@ const allowedAccess = (Component) => {
         if (userModel.inRoom) {
           setUserRoomStatusToFB(false);
           history.push("/home");
+          console.log("if");
           return null;
         } else {
+          //setUserRoomStatusToFB(false);
           return <Component />;
         }
       }

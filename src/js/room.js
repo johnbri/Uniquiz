@@ -7,18 +7,15 @@ import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
-import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
+import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
-    const [time, setTime] = useState(15)
     const data = [combinedPlaylist, creator, status];
     let history = useHistory();
-    console.log("hej i room");
-    //console.log("creator", creator)
 
     if (combinedPlaylist.length > 0) {
         history.push('/quiz/playing');//props.history.push('/quiz/playing')
@@ -31,6 +28,7 @@ function Room(props){
             time: time,
             onExit: () => {
                 removeUserFromRoomFB();
+                setUserRoomStatusToFB(false);
                 resetRoomModel();
                 history.push("/home");
             },
