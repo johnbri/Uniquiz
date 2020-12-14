@@ -4,6 +4,7 @@ import {userModel, roomModel} from "../index.js";
 import useModelProp from "./useModelProp";
 import {auth, removeUserFromRoomFB} from '../services/firebase.js';
 import NoDataView from './view/noDataView.js';
+import allowedAccess from "./withAuth.js";
 
 function Home(props) {
     /**The user can create a room or join a room */
@@ -33,4 +34,4 @@ function Home(props) {
     })
 }
 
-export default Home;
+export default allowedAccess(Home);

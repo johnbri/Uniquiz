@@ -4,6 +4,7 @@ import React, { useState, useEffect, useReducer} from "react";
 import {roomModel, userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
 import { useHistory } from "react-router-dom";
+import allowedAccess from "./withAuth.js";
 
 function PlayersSidebar (props) {
     const players = useModelProp(roomModel, "players");
@@ -20,4 +21,4 @@ function PlayersSidebar (props) {
         }) : NoDataView(data, "Loading for players")
 }
 
-export default PlayersSidebar;
+export default allowedAccess(PlayersSidebar);
