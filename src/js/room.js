@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
-import withAuth from "./withAuth.js";
+import allowedAccess from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
@@ -17,7 +17,7 @@ function Room(props){
     const time = useModelProp(roomModel, "time");
     const tracks = useModelProp(roomModel, "tracks")
 
-    const data = [combinedPlaylist];
+    const data = [combinedPlaylist, creator, status];
     let history = useHistory();
 
     if (combinedPlaylist.length > 0) {
@@ -33,7 +33,7 @@ function Room(props){
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
-                <Redirect to="/home"/>//props.history.push("/home")
+                history.push("/home");
             },
             onStart: () => {
                 if (creator) {
@@ -110,4 +110,4 @@ function listWithObj (list) {
     return newList;
 }
     
-export default Room;
+export default allowedAccess(Room);

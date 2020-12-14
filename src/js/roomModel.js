@@ -73,8 +73,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setCreator(boolean) {
-        this.creator = boolean;
+    setCreator(isCreator) {
+        this.creator = isCreator;
         this.notifyObservers();
     }
 
