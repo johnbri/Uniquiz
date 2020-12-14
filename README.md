@@ -1,5 +1,3 @@
 To start the project
 
-1: clone the project to your desktop
-2: npm install in project folder
-3: npm start
+Clone the project to your desktop, launch npm install in console in project folder, launch npm start to start a local server and use the app in http://localhost:3000/
