@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { SignupView } from "./view/signupView";
 import {signupFB} from '../services/firebase.js';
+import { userModel } from "../index"
 
 function Signup(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
   
   //When the user is set in firebase the user will be redirected to the home view
-  return user ? setPath(props, user) : React.createElement(SignupView, {
+  return React.createElement(SignupView, {
     onEmail: (txt) => setEmail(txt),
     onName: (txt) => setName(txt),
     onPassword: (txt) => setPassword(txt),
@@ -17,13 +17,8 @@ function Signup(props) {
     onLogin: () => {
       props.history.push("/")
     },
-    errorMessage: props.location.errorMessage
-  });
-}
-
-function setPath(props) {
-  props.history.push("/spotifyConnect");
-  return null;
+    errorMessage: props.location.errorMessage 
+   });
 }
 
 export default Signup;

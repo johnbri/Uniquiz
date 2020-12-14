@@ -16,8 +16,6 @@ function Room(props){
     const status = useModelProp(roomModel, "status");
     const [time, setTime] = useState(15)
 
-
-
     const data = [combinedPlaylist];
     let history = useHistory();
 
@@ -33,7 +31,7 @@ function Room(props){
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
-                <Redirect to="/home"/>//props.history.push("/home")
+                history.push("/home")
             },
             onStart: () => {
                 if (creator) {
