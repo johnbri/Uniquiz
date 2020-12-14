@@ -3,6 +3,7 @@ import { LoginView } from "./view/loginView";
 import {loginFB} from '../services/firebase.js';
 
 function Login(props) {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return React.createElement(LoginView, {

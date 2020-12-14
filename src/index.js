@@ -8,7 +8,7 @@ import {ReadRoomModel} from './js/readRoomModel.js';
 import RoomModel from './js/roomModel';
 
 let userModel = ReadUserModel();
-let roomModel = ReadRoomModel();
+let roomModel = new RoomModel();
 
 //Create a react DOM
 ReactDOM.render(

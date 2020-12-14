@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
-import withAuth from "./withAuth.js";
+import allowedAccess from "./withAuth.js";
 import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
@@ -15,11 +15,10 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
     const [time, setTime] = useState(15)
-
-
-
-    const data = [combinedPlaylist];
+    const data = [combinedPlaylist, creator, status];
     let history = useHistory();
+    console.log("hej i room");
+    //console.log("creator", creator)
 
     if (combinedPlaylist.length > 0) {
         history.push('/quiz/playing');//props.history.push('/quiz/playing')
@@ -33,7 +32,7 @@ function Room(props){
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
-                <Redirect to="/home"/>//props.history.push("/home")
+                history.push("/home");
             },
             onStart: () => {
                 if (creator) {
@@ -80,14 +79,14 @@ async function quizPlaylist () {
             if (trackAdd.length === 5 && trackAdd[3] !== undefined) { //om tracket inte har en url osv...
                 combinedPlaylistUnique.push(trackAdd);
             }
-            if (combinedPlaylistUnique.length === 4) { // så fort vi har 10 låtar breakar vi
+            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
                 break;
             }
             combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
             }
             i++;
         }
-    while (combinedPlaylistUnique.length < 4 && i < numPlayers);
+    while (combinedPlaylistUnique.length < 10 && i < numPlayers);
     
     combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
     combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt
@@ -109,4 +108,4 @@ function listWithObj (list) {
     return newList;
 }
     
-export default Room;
+export default allowedAccess(Room);

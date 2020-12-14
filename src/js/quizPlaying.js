@@ -40,4 +40,4 @@ function playSong () {
     return currentSong;
 }
 
-export default GameInProgress(QuizPlayingSong);
+export default QuizPlayingSong;
