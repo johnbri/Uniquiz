@@ -5,6 +5,7 @@ import { setPlayerScoreFB, setPlayerAnswerFB } from '../services/firebase.js';
 import GameInProgress from "./withAuth.js";
 import { useHistory } from "react-router-dom";
 import useModelProp from "./useModelProp.js";
+import allowedAccess from "./withAuth.js";
 
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(0)
@@ -44,4 +45,4 @@ function playSong () {
     return currentSong;
 }
 
-export default QuizPlayingSong;
+export default allowedAccess(QuizPlayingSong);
