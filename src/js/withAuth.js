@@ -23,7 +23,7 @@ const allowedAccess = (Component) => {
           console.log("if");
           return null;
         } else {
-          //setUserRoomStatusToFB(false);
+          setUserRoomStatusToFB(false);
           return <Component />;
         }
       }

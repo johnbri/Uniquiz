@@ -19,7 +19,7 @@ function CreateJoinRoom(props){
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {
             if (playlist) {
-                createJoinRoomFB(props, roomName, createRoom).then(() => {props.history.push('/quiz/room')})
+                createJoinRoomFB(props, roomName, createRoom).then(() => {props.history.push('/quiz/room')}) // den här kraschar
             } else{
                 setPlaylistReady(false)
             } 

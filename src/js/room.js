@@ -7,7 +7,7 @@ import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
-import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
+import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -32,7 +32,7 @@ function Room(props){
             tracks: tracks,
             onExit: () => {
                 removeUserFromRoomFB();
-                //setUserRoomStatusToFB(false);
+                setUserRoomStatusToFB(false);
                 resetRoomModel();
                 history.push("/home");
             },
@@ -110,5 +110,5 @@ function listWithObj (list) {
     }
     return newList;
 }
-    
+
 export default allowedAccess(Room);

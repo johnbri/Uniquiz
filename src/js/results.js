@@ -4,7 +4,7 @@ import {roomModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js";
 import { Redirect } from 'react-router-dom'; 
 import RoomModel from "./roomModel.js";
-
+import allowedAccess from "./withAuth.js";
 
 function Results(props){
     /** Results and the end of a quiz */
@@ -25,4 +25,4 @@ function Results(props){
         }, //Ta bort currentRoom på User 
     });
 }
-export default Results;
+export default allowedAccess(Results);
