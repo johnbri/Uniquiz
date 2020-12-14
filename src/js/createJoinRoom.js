@@ -20,6 +20,11 @@ function CreateJoinRoom(props){
         onSubmit: () => {
             playlist ? createJoinRoomFB(props, roomName, createRoom)
             : setPlaylistReady(false) 
+            /* if (playlist) {
+                createJoinRoomFB(props, roomName, createRoom).then(() => {props.history.push('/quiz/room')}) // den här kraschar
+            } else{
+                setPlaylistReady(false)
+            } */
         },
         onText: name => setRoomName(name),
         onBack: () => props.history.push("/home"),

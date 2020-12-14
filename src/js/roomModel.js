@@ -12,6 +12,7 @@ class RoomModel {
         this.answers = [];
         this.score = 0;
         this.time=15;
+        this.tracks=0;
         this.creator = false;
         this.status = "inRoom";
         this.currentSongIndex = -1;
@@ -38,7 +39,11 @@ class RoomModel {
     }
 
     getAnswer() {
-        return this.answers[0];
+        return this.answers[0]?this.answers[0]:"";
+    }
+
+    getNumberOfTracks(){
+        return  this.tracks;
     }
 
     getPlayerInfo() {
@@ -68,8 +73,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setCreator(boolean) {
-        this.creator = boolean;
+    setCreator(isCreator) {
+        this.creator = isCreator;
         this.notifyObservers();
     }
 
@@ -100,6 +105,11 @@ class RoomModel {
         this.notifyObservers();
     }
 
+    setNumberOfTracks(tracks) {
+        this.tracks = tracks;
+        this.notifyObservers();
+    }
+
     setCurrentSongIndex(index) {
         if (index !== null){
             this.currentSongIndex = index;
@@ -107,9 +117,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    checkCorrectAnswer() {
+    checkCorrectAnswer(userAnswer=this.getAnswer()) {
         /** Check if user answer is correct. Strips the string of certain signs and skips parantheses etc. */
-        let userAnswer = this.getAnswer();
         let userAnswerOrig = userAnswer; // safety in case the split etc. does not work
         let correctAnswer = this.getCorrectAnswer();
         let correctAnswerOrig = correctAnswer; // safety in case the split etc. does not work

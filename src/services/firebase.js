@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
-import {roomModel, userModel } from '../index.js';
+import {roomModel, userModel, resetRoomModel} from '../index.js';
 
 
   var firebaseConfig = {
@@ -56,9 +56,14 @@ function syncRoomModelToFB(roomName){
   /** Syncs the model on firebase updates */
   try {
       let ref = database.ref('rooms/' + roomName);
-      
       ref.child("players").on('value', (snapshot) => { 
-        roomModel.setPlayers(snapshot.val()) 
+        roomModel.setPlayers(snapshot.val());
+        roomModel.setCreator(roomModel.getPlayerInfo().host);
+
+        if (roomModel.creator) {
+          let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
+          nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
+        }
       })
 
       ref.child("playlist").on('value', (snapshot) => {
@@ -71,6 +76,10 @@ function syncRoomModelToFB(roomName){
 
       ref.child("time").on('value', (snapshot) => {
         roomModel.setTime(snapshot.val())
+      })
+
+      ref.child("tracks").on('value', (snapshot) => {
+        roomModel.setNumberOfTracks(snapshot.val())
       })
 
       ref.child("currentSongIndex").on('value', (snapshot) => {
@@ -86,10 +95,13 @@ function syncUserModelToFB(uid){
   /** Syncs the model on firebase updates */
   try {
       let ref = database.ref('users/' + uid);
-      
+
+      ref.child("inRoom").on('value', (snapshot) => {
+        userModel.setInRoom(snapshot.val());
+      });
       ref.child("playlist").on('value', (snapshot) => { 
         userModel.setPlaylist(snapshot.val()) 
-      })
+      });
 
   } catch (error) {
       console.log(error);
@@ -103,21 +115,21 @@ async function createJoinRoomFB(props, roomName, createRoom){
               throw new Error("A room with the name already exists");
       } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
           syncRoomModelToFB(roomName);
-          addPlayerToFB(roomName);
+          addPlayerToFB(roomName, createRoom);
+          setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
-          /*roomModel.setRoomName(roomName);
-          userModel.setCurrentRoom(roomName);
-          roomModel.addPlayers(userModel.uid); */
       } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
           syncRoomModelToFB(roomName);
-          addPlayerToFB(roomName);
+          addPlayerToFB(roomName, createRoom);
+          setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
           roomModel.setCreator(true);
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
-          /*roomModel.addPlayers(userModel.uid);
-          roomModel.setRoomName(roomName);
-          userModel.setCurrentRoom(roomName);*/
       } else { //If room does not exist and user wants to join
               throw new Error("Room does not exist!");
       }
@@ -136,16 +148,26 @@ async function createJoinRoomFB(props, roomName, createRoom){
 }
 
 
-function addPlayerToFB(roomName) {
+function addPlayerToFB(roomName, createRoom) {
   /** creates a playerObject for player in room in firebase*/
-  let ref = database.ref('rooms/' + roomName + '/players').child(userModel.uid);
-  ref.update({
+  let ref = database.ref('rooms/' + roomName + '/players');
+  ref.child(userModel.uid).update({
     displayName: userModel.displayName,
     profileImg: userModel.img,
     score: 0,
     answer: "",
-    playlist: userModel.playlist
+    playlist: userModel.playlist,
+    host: createRoom
   });
+  ref.child(userModel.uid).onDisconnect().remove(); // removes player from room on disconnect
+}
+
+function setUserRoomStatusToFB(inRoom) {
+  /** Adds if user is in a room*/
+  let ref = database.ref('users/' + userModel.uid);
+  ref.update({
+    inRoom: inRoom
+  }); // removes player from room on disconnect
 }
 
 function addRoomPlaylistToFB(playlist, roomName) {
@@ -173,7 +195,6 @@ function addUserPlaylistToFB(playlist) {
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
-  console.log("fb answer", answer);
   ref.set(answer);
 }
 
@@ -202,12 +223,32 @@ function setTimeFB(time) {
   ref.set(time);
 }
 
-function removeUserFromRoomFB() {
-  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid);
-  ref.set(null);
+function setNumberOfTracksFB(tracks) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/tracks');
+  ref.set(tracks);
 }
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
+function removeUserFromRoomFB() {
+  /** Stops syncing roommodel, removes the user from room and assigns a new host if needed */
+  let ref = database.ref('rooms/' + roomModel.roomName);
+  stopSyncRoomModelToFB();
+  if (roomModel.creator) {
+    let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
+    nextCreator && ref.child("players").child(nextCreator).update({host: true});
+  }
+  ref.child("players").child(userModel.uid).remove().then(resetRoomModel());
+}
+
+function stopSyncRoomModelToFB() {
+  let ref = database.ref('rooms/' + roomModel.roomName);
+  ref.child("players").off(); // stops syncing room
+  ref.child("playlist").off();
+  ref.child("status").off();
+  ref.child("time").off();
+  ref.child("currentSongIndex").off();
+}
+
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB
+  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB
 };

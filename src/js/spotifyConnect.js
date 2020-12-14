@@ -33,7 +33,7 @@ function addTokenDB(token) {
       let user = auth().currentUser;
       database.ref('users/' + user.uid).update({
         token: token
-      }).then( res => console.log("successfully added token to user in database")).catch(console.log("Error adding token to firebase DB"));
+      }).then( res => console.log("successfully added token to user in database"));
     } else {
       console.log("There is no user logged in");
     }

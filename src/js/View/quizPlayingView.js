@@ -1,11 +1,13 @@
 import '../../css/quiz.css';
 import React from "react"
+import { roomModel } from '../..';
 
-const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime}) => 
+const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) => 
     /** donno */
 
     <div className="quizPlaying">
-        <h1>Submit track before the time runs out!</h1>
+        <h1>Track {roomModel.currentSongIndex+1} of {roomModel.playlist.length}</h1>
+        <h2>Submit track before the time runs out!</h2>
         <div className="loader-container">
             <div className="loader">
                 <div className="loader-bar" style={{width:`${timeLeft}%`,
@@ -22,6 +24,8 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime}) =>
             />
         <button className="submitButton" 
         onClick={() => onSubmit()}>Submit Answer!</button>
+
+        <h2>{submittedAnswer}</h2>
     </div>;
 
 export default QuizPlaying;

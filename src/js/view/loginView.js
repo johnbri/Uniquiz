@@ -3,9 +3,10 @@ import '../../css/Login.css';
 const LoginView = ({onEmail, onPassword, onLogin, onSignUp, errorMessage}) =>
     /** Start page with login and sign up*/
     <div className="login">
-        <p className="description">A quiz that combines your Spotify playlists with your friends. No one will feel left behind!
-        <br/>"Truly an unique quiz. An Uniquiz."  -New york Times</p>
         <img src = "logo.png" alt="UniQuiz logo"/> <br/>
+        <h1>
+        Challenge you friends with songs you have in common. Who is the better fan of your favourite aritsts?
+        </h1>
         <p>Email</p>
         <input type="text" onChange={(event) => onEmail(event.target.value)}></input>
         <p>Password</p>

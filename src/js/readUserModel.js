@@ -24,13 +24,15 @@ function ReadUserModel() {
                 model.setUid(dbDataObject.uid);
                 model.setDisplayName(dbDataObject.displayName);
                 model.setToken(dbDataObject.token);
-                model.setCurrentRoom(dbDataObject.currentRoom);
                 model.setImg(dbDataObject.img);
+
+                dbDataObject.inRoom ? model.setInRoom(true) : model.setInRoom(false);
+                model.setLoggedIn(true);
             });    
         } else {
             model = new UserModel();
+            model.setLoggedIn(false);
             console.log("User not logged in");
-            (window.location.pathname !== "/") && (window.location.pathname = "/"); 
         }        
     });  
     return model;

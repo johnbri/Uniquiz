@@ -6,6 +6,7 @@ import useModelProp from './useModelProp.js';
 import {setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
 import { Redirect } from 'react-router-dom'; 
 import PlayersSidebar from './playersSidebar.js';
+import allowedAccess from "./withAuth.js";
 
 function QuizAnswers (props) {
     const displayName = useModelProp(userModel, "displayName");
