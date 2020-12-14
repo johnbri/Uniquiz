@@ -105,6 +105,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName);
           roomModel.setRoomName(roomName);
+          props.history.push('/quiz/room')
           /*roomModel.setRoomName(roomName);
           userModel.setCurrentRoom(roomName);
           roomModel.addPlayers(userModel.uid); */
@@ -113,6 +114,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           addPlayerToFB(roomName);
           roomModel.setRoomName(roomName);
           roomModel.setCreator(true);
+          props.history.push('/quiz/room')
           /*roomModel.addPlayers(userModel.uid);
           roomModel.setRoomName(roomName);
           userModel.setCurrentRoom(roomName);*/

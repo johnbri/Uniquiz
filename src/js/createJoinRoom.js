@@ -18,12 +18,8 @@ function CreateJoinRoom(props){
     return playlistReady ? React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {
-            if (playlist) {
-                createJoinRoomFB(props, roomName, createRoom).then(() => {props.history.push('/quiz/room')})
-                
-            } else{
-                setPlaylistReady(false)
-            } 
+            playlist ? createJoinRoomFB(props, roomName, createRoom)
+            : setPlaylistReady(false) 
         },
         onText: name => setRoomName(name),
         onBack: () => props.history.push("/home"),
