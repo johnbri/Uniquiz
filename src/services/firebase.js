@@ -107,7 +107,7 @@ function syncUserModelToFB(uid){
   }
 }
 
-function createJoinRoomFB(props, roomName, createRoom){
+async function createJoinRoomFB(props, roomName, createRoom){
   database.ref('rooms/' + roomName).once('value', (snapshot) => {
       try {
       if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
