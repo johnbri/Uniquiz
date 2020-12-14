@@ -117,9 +117,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    checkCorrectAnswer() {
+    checkCorrectAnswer(userAnswer=this.getAnswer()) {
         /** Check if user answer is correct. Strips the string of certain signs and skips parantheses etc. */
-        let userAnswer = this.getAnswer();
         let userAnswerOrig = userAnswer; // safety in case the split etc. does not work
         let correctAnswer = this.getCorrectAnswer();
         let correctAnswerOrig = correctAnswer; // safety in case the split etc. does not work
