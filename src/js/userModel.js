@@ -8,6 +8,8 @@ class UserModel {
         this.currentRoom = currentRoom;
         this.img = img;
         this.playlist = [];
+        this.inRoom = null;
+        this.loggedIn = null;
     }
 
     getDisplayName() {
@@ -63,6 +65,16 @@ class UserModel {
     setPlaylist(playlist) {
         this.playlist = playlist;
         this.notifyObservers();
+    }
+
+    setLoggedIn(status) {
+        this.loggedIn = status;
+        this.notifyObservers();
+    }
+
+    setInRoom(status) {
+        this.inRoom = status;
+        //this.notifyObservers();
     }
 
 }

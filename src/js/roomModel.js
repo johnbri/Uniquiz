@@ -12,6 +12,7 @@ class RoomModel {
         this.answers = [];
         this.score = 0;
         this.time=15;
+        this.tracks=0;
         this.creator = false;
         this.status = "inRoom";
         this.currentSongIndex = -1;
@@ -38,7 +39,11 @@ class RoomModel {
     }
 
     getAnswer() {
-        return this.answers[0];
+        return this.answers[0]?this.answers[0]:"";
+    }
+
+    getNumberOfTracks(){
+        return  this.tracks;
     }
 
     getPlayerInfo() {
@@ -68,8 +73,8 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    setCreator(boolean) {
-        this.creator = boolean;
+    setCreator(isCreator) {
+        this.creator = isCreator;
         this.notifyObservers();
     }
 
@@ -97,6 +102,11 @@ class RoomModel {
 
     setTime(time) {
         this.time = time;
+        this.notifyObservers();
+    }
+
+    setNumberOfTracks(tracks) {
+        this.tracks = tracks;
         this.notifyObservers();
     }
 

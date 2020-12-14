@@ -8,13 +8,14 @@ import {ReadRoomModel} from './js/readRoomModel.js';
 import RoomModel from './js/roomModel';
 
 let userModel = ReadUserModel();
-let roomModel = ReadRoomModel();
+let roomModel = new RoomModel();
 
 //Create a react DOM
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <App />
-  </React.StrictMode>,
+  </div> 
+  ,
   document.getElementById('root')
 );
 
@@ -28,6 +29,8 @@ function resetRoomModel() {
   roomModel = new RoomModel();
   userModel.setCurrentRoom("");
 }
+
+
 
 export {userModel, roomModel, resetRoomModel};
 
