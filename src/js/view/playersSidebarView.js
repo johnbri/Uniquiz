@@ -4,11 +4,11 @@ const PlayersSidebarView= ({players, inRoom}) =>
     /** Displays all the players connected to the room */
     <div className="playersSidebar">
         {Object.keys(players).map(playerUid => 
-            <div>
+            <div key={playerUid}>
                 {players[playerUid].answer !== "" && <img className="light" src={window.location.origin + '/lightbulb.svg'} alt ="Loading gif" />}
                 <div className="posistionbox">
                     <h1>1</h1>
-                    <div classsName="playerCard" key={playerUid}>
+                    <div className="playerCard" key={playerUid}>
                         <div className="userImage">
                         {players[playerUid].profileImg === 'defaultProfilePic.jpg' ?
                             <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />

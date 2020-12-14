@@ -17,9 +17,10 @@ import {
 
 function App() {
   /**Renders different components depeding on path */
-  return <div className="app">
+  return <div className="app"> 
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
     <Router>
-      <div> 
+      <div>
           <Route exact path="/" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/spotifyConnect" component={SpotifyConnect} />

@@ -79,6 +79,10 @@ function syncRoomModelToFB(roomName){
         roomModel.setTime(snapshot.val())
       })
 
+      ref.child("tracks").on('value', (snapshot) => {
+        roomModel.setNumberOfTracks(snapshot.val())
+      })
+
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
       })
@@ -115,22 +119,18 @@ async function createJoinRoomFB(props, roomName, createRoom){
       } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName, createRoom);
-          //setUserRoomStatusToFB(true);
           setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
-          /*roomModel.setRoomName(roomName);
-          userModel.setCurrentRoom(roomName);
-          roomModel.addPlayers(userModel.uid); */
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
       } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName, createRoom);
-          //userModel.setInRoom(false);
           setUserRoomStatusToFB(true);
-          //setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
-          /*roomModel.addPlayers(userModel.uid);
-          roomModel.setRoomName(roomName);
-          userModel.setCurrentRoom(roomName);*/
+          roomModel.setCreator(true);
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
       } else { //If room does not exist and user wants to join
               throw new Error("Room does not exist!");
       }
@@ -196,7 +196,6 @@ function addUserPlaylistToFB(playlist) {
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
-  console.log("fb answer", answer);
   ref.set(answer);
 }
 
@@ -225,6 +224,11 @@ function setTimeFB(time) {
   ref.set(time);
 }
 
+function setNumberOfTracksFB(tracks) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/tracks');
+  ref.set(tracks);
+}
+
 function removeUserFromRoomFB() {
   /** Stops syncing roommodel, removes the user from room and assigns a new host if needed */
   let ref = database.ref('rooms/' + roomModel.roomName);
@@ -245,7 +249,7 @@ function stopSyncRoomModelToFB() {
   ref.child("currentSongIndex").off();
 }
 
-export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
+export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB
+  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB
 };

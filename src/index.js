@@ -12,9 +12,10 @@ let roomModel = new RoomModel();
 
 //Create a react DOM
 ReactDOM.render(
-  <React.StrictMode>
+  <div>
     <App />
-  </React.StrictMode>,
+  </div> 
+  ,
   document.getElementById('root')
 );
 
@@ -28,6 +29,8 @@ function resetRoomModel() {
   roomModel = new RoomModel();
   userModel.setCurrentRoom("");
 }
+
+
 
 export {userModel, roomModel, resetRoomModel};
 

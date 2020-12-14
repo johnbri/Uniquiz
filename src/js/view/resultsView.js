@@ -1,26 +1,36 @@
+import '../../css/Results.css';
+import React, {ScriptTag} from 'react';
+
 const ResultsView = ({players, roomName, onExit}) =>
     /** Page that displays the results after a quiz */
-    <div>
+    <div className="results">
+        <h1 className="winnertext">Winner </h1>
+        <h1 className="winnername">
+            {(players[Object.keys(players).sort((a,b) =>
+                    compareScores(players[a],players[b])[0])].displayName)}
+        </h1>
+    
+        <div className="resultsContainer">
+            <h3>Results</h3>
+            <table className="resultsTable">
+                <thead>
+                    <tr>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {Object.keys(players).sort((a,b) => compareScores(players[a],players[b])).map(uid => 
+                    <tr key={uid}>
+                        {console.log(players[uid].score)}
+                        <td>{players[uid].displayName}</td>
+                        <td>{players[uid].score}</td>
+                    </tr>
+                )} 
+                </tbody>   
+            </table>
+        </div>
         <button onClick={() => onExit()}>Exit room</button>
-        <h1>{roomName}</h1>
-        <h2>Results</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Player</th>
-                    <th>Score</th>
-                </tr>
-            </thead>
-            <tbody>
-            {Object.keys(players).sort((a,b) => compareScores(players[a],players[b])).map(uid => 
-                <tr key={uid}>
-                    {console.log(players[uid].score)}
-                    <td>{players[uid].displayName}</td>
-                    <td>{players[uid].score}</td>
-                </tr>
-            )} 
-            </tbody>   
-        </table>
         
     </div>
 

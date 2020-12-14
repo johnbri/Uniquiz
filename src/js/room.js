@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
@@ -7,13 +7,16 @@ import {getUserPlaylists} from './spotify.js';
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
-import {addRoomPlaylistToFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
+import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
     const creator = useModelProp(roomModel, "creator");
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
+    const time = useModelProp(roomModel, "time");
+    const tracks = useModelProp(roomModel, "tracks")
+
     const data = [combinedPlaylist, creator, status];
     let history = useHistory();
 
@@ -26,9 +29,10 @@ function Room(props){
             roomName: roomName,
             playerNames: userModel.players,
             time: time,
+            tracks: tracks,
             onExit: () => {
                 removeUserFromRoomFB();
-                setUserRoomStatusToFB(false);
+                //setUserRoomStatusToFB(false);
                 resetRoomModel();
                 history.push("/home");
             },
@@ -39,8 +43,8 @@ function Room(props){
                 }
                 setCurrentSongIndexFB();
                 setQuizStatusFB("inGame")},
-            setTimer: input => {setTimeFB(input);
-                setTime(input)}
+            setTime: input => setTimeFB(parseInt(input)),
+            setNumberOfTracks: input=> setNumberOfTracksFB(parseInt(input))
             });
 }
 
@@ -76,15 +80,16 @@ async function quizPlaylist () {
             let trackAdd = combinedPlaylistHolderRemove[randomIndex];
             if (trackAdd.length === 5 && trackAdd[3] !== undefined) { //om tracket inte har en url osv...
                 combinedPlaylistUnique.push(trackAdd);
+                console.log(roomModel.getNumberOfTracks())
             }
-            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
+            if (combinedPlaylistUnique.length === roomModel.getNumberOfTracks()) { // så fort vi har 10 låtar breakar vi
                 break;
             }
             combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
             }
             i++;
         }
-    while (combinedPlaylistUnique.length < 10 && i < numPlayers);
+    while (combinedPlaylistUnique.length < roomModel.getNumberOfTracks() && i < numPlayers);
     
     combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
     combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt

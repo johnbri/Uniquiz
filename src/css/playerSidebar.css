@@ -38,13 +38,9 @@
     border-radius: 15px;
     width: 200px;
     height: 130px;
-    box-shadow:
-    0 2.8px 4.5px rgba(0, 0, 0, 0.014),
-    0 6.7px 10.8px rgba(0, 0, 0, 0.02),
-    0 12.5px 20.3px rgba(0, 0, 0, 0.025),
-    0 22.3px 36.2px rgba(0, 0, 0, 0.03),
-    0 41.8px 67.7px rgba(0, 0, 0, 0.036),
-    0 100px 162px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 0px 10px #000000;
+    -moz-box-shadow: 0px 0px 10px #000000;
+    -webkit-box-shadow: 0px 0px 10px #000000;  
   }
   
   .playerCard > .userInfo {
