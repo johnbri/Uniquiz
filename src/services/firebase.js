@@ -35,21 +35,21 @@ function loginFB (props, email, password) {
 
 function signupFB(props, email, name, password) {
   /**signs up the user in firebase*/
-    return auth().createUserWithEmailAndPassword(email, password)
-    .then(userRecord => console.log("Successfully created new user"))
+    if (name) {
+     auth().createUserWithEmailAndPassword(email, password)
     .then(() =>  {
-      database.ref('users/' + auth().currentUser.uid).set({
-      displayName: name
-      })
-    }).catch((error) => {
+        database.ref('users/' + auth().currentUser.uid).set({
+          displayName: name
+        })   
+    }).then(() => {props.history.push("/spotifyConnect")}).catch((error) => props.history.push({
+      pathname: "/signup",
+      errorMessage: error.message
+    }) ) 
+    } else {
       props.history.push({
-        pathname: '/signup',
-        errorMessage: error.code.includes("weak-password") ? "Password has to be at least 6 characters" :
-                      error.code.includes("email-already-in-use") ? "Email is already in use." :
-                      error.code.includes("invalid-email") ? "Invald email" : "Unexpected error. Please try again."
-      })
-
-    });
+        pathname: "/signup",
+        errorMessage: "Invalid display name."
+    }) }
 }
 
 function syncRoomModelToFB(roomName){

@@ -15,7 +15,12 @@ function Room(props){
     const roomName = useModelProp(roomModel, "roomName");
     const status = useModelProp(roomModel, "status");
     const [time, setTime] = useState(15)
+<<<<<<< HEAD
     const data = [combinedPlaylist, creator, status];
+=======
+
+    const data = [combinedPlaylist];
+>>>>>>> 75ab32f2483d89559992249876795a267668daa7
     let history = useHistory();
     console.log("hej i room");
     //console.log("creator", creator)
@@ -32,7 +37,11 @@ function Room(props){
             onExit: () => {
                 removeUserFromRoomFB();
                 resetRoomModel();
+<<<<<<< HEAD
                 history.push("/home");
+=======
+                history.push("/home")
+>>>>>>> 75ab32f2483d89559992249876795a267668daa7
             },
             onStart: () => {
                 if (creator) {
