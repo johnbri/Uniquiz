@@ -80,14 +80,14 @@ async function quizPlaylist () {
             if (trackAdd.length === 5 && trackAdd[3] !== undefined) { //om tracket inte har en url osv...
                 combinedPlaylistUnique.push(trackAdd);
             }
-            if (combinedPlaylistUnique.length === 4) { // så fort vi har 10 låtar breakar vi
+            if (combinedPlaylistUnique.length === 10) { // så fort vi har 10 låtar breakar vi
                 break;
             }
             combinedPlaylistHolderRemove.splice(randomIndex, 1); // tar bort låten vi lade till så att vi inte råkar lägga in dubbelt
             }
             i++;
         }
-    while (combinedPlaylistUnique.length < 4 && i < numPlayers);
+    while (combinedPlaylistUnique.length < 10 && i < numPlayers);
     
     combinedPlaylistUnique = listWithObj(combinedPlaylistUnique);
     combinedPlaylistUnique = combinedPlaylistUnique.sort(() => Math.random() - 0.5); // shufflar allt

@@ -8,15 +8,28 @@ import PlayersSidebar from './playersSidebar.js';
 import CreateJoinRoom from "./createJoinRoom.js";
 import QuizPlaying from "./quizPlaying.js";
 import Results from "./results.js";
-import SpotifyConnect from "./spotifyConnect";
+import SpotifyConnect from "./spotifyConnect";import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
+import {auth} from '../services/firebase.js';
 
 function App() {
   /**Renders different components depeding on path */
+  const [user, setUser] = useState();
+
+  user = () => {
+      auth().onAuthStateChanged((userObject) => {
+      if (userObject) {
+        setUser(true);
+      } else {
+        setUser(false);
+      }
+    });
+  }
+  console.log("user", user);
   return <div className="app">
     <Router>
       <div> 
@@ -32,7 +45,7 @@ function App() {
           <Route exact path="/results" component={Results} />
       </div> 
     </Router>
-  </div>;
+  </div>
 }
 
 export default App;
