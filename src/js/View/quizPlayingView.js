@@ -1,4 +1,4 @@
-import '../../css/quiz.css';
+import '../../css/Quiz.css';
 import React from "react"
 
 const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime}) => 

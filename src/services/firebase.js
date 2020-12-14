@@ -73,6 +73,10 @@ function syncRoomModelToFB(roomName){
         roomModel.setTime(snapshot.val())
       })
 
+      ref.child("tracks").on('value', (snapshot) => {
+        roomModel.setNumberOfTracks(snapshot.val())
+      })
+
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
       })
@@ -105,6 +109,8 @@ async function createJoinRoomFB(props, roomName, createRoom){
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName);
           roomModel.setRoomName(roomName);
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
           /*roomModel.setRoomName(roomName);
           userModel.setCurrentRoom(roomName);
           roomModel.addPlayers(userModel.uid); */
@@ -113,6 +119,8 @@ async function createJoinRoomFB(props, roomName, createRoom){
           addPlayerToFB(roomName);
           roomModel.setRoomName(roomName);
           roomModel.setCreator(true);
+          setTimeFB(15);
+          setNumberOfTracksFB(10);
           /*roomModel.addPlayers(userModel.uid);
           roomModel.setRoomName(roomName);
           userModel.setCurrentRoom(roomName);*/
@@ -171,7 +179,6 @@ function addUserPlaylistToFB(playlist) {
 function setPlayerAnswerFB(answer) {
   /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
-  console.log("fb answer", answer);
   ref.set(answer);
 }
 
@@ -200,12 +207,17 @@ function setTimeFB(time) {
   ref.set(time);
 }
 
+function setNumberOfTracksFB(tracks) {
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/tracks');
+  ref.set(tracks);
+}
+
 function removeUserFromRoomFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid);
   ref.set(null);
 }
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB, 
-  addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
+  addRoomPlaylistToFB, setNumberOfTracksFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
   clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB
 };

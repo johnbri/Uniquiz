@@ -1,4 +1,4 @@
-import '../../css/quiz.css';
+import '../../css/Answers.css';
 
 const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnText, onPlay}) =>
     <div className="quizAnswers">
