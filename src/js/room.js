@@ -3,7 +3,7 @@ import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import NoDataView from './view/noDataView.js';
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router";
 import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
 
 function Room(props){
@@ -13,36 +13,34 @@ function Room(props){
     const status = useModelProp(roomModel, "status");
     const time = useModelProp(roomModel, "time");
     const tracks = useModelProp(roomModel, "tracks")
-
     const data = [combinedPlaylist, creator, status];
-    let history = useHistory();
 
-    if (combinedPlaylist.length > 0) {
-        history.push('/quiz/playing');//props.history.push('/quiz/playing')
+    if (combinedPlaylist.length !== 0 && creator) {
+        setQuizStatusFB("inGame");
     }
-    return status === "inRoom" ? NoDataView(data, "Creating room") // om man inte klickat på start så renderas vanliga viewn, annars renderas NoDataView tills .then nedan anropas när combined playlist är klart
-    : React.createElement(RoomView,{
-            creator: creator,
-            roomName: roomName,
-            playerNames: userModel.players,
-            time: time,
-            tracks: tracks,
-            onExit: () => {
-                removeUserFromRoomFB();
-                setUserRoomStatusToFB(false);
-                resetRoomModel();
-                props.history.push("/home");
-            },
-            onStart: () => {
-                if (creator) {
-                    let combinedPlaylist = quizPlaylist();
-                    combinedPlaylist.then(tracks => addRoomPlaylistToFB(tracks, roomName));
-                }
-                setCurrentSongIndexFB();
-                setQuizStatusFB("inGame")},
-            setTime: input => setTimeFB(parseInt(input)),
-            setNumberOfTracks: input=> setNumberOfTracksFB(parseInt(input))
-            });
+
+    return status === "inRoom" ? React.createElement(RoomView,{
+        creator: creator,
+        roomName: roomName,
+        playerNames: userModel.players,
+        time: time,
+        tracks: tracks,
+        onExit: () => {
+            removeUserFromRoomFB();
+            setUserRoomStatusToFB(false);
+            resetRoomModel();
+            props.history.push("/home");
+        },
+        onStart: () => {
+            let combinedPlaylist = quizPlaylist();
+            combinedPlaylist.then(tracks => addRoomPlaylistToFB(tracks, roomName));
+            setCurrentSongIndexFB();
+            setQuizStatusFB("inRoomGenerating")},
+        setTime: input => setTimeFB(parseInt(input)),
+        setNumberOfTracks: input=> setNumberOfTracksFB(parseInt(input))
+        })
+    : (status === "inRoomGenerating" && combinedPlaylist.length === 0 ) ? NoDataView(data, "Creating Quiz")
+    : <Redirect to="/quiz/playing" />;
 }
 
 

@@ -129,6 +129,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
           roomModel.setCreator(true);
+          setQuizStatusFB("inRoom");
           setTimeFB(15);
           setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
