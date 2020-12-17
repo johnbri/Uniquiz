@@ -9,7 +9,7 @@ class RoomModel {
         this.subscribers = [];
         this.playlist = [];
         this.playedSongs = [];
-        this.answers = [];
+        this.answer = "";
         this.score = 0;
         this.time=15;
         this.tracks=0;
@@ -39,7 +39,7 @@ class RoomModel {
     }
 
     getAnswer() {
-        return this.answers[0]?this.answers[0]:"";
+        return this.answer ? this.answer : "";
     }
 
     getNumberOfTracks(){
@@ -91,7 +91,7 @@ class RoomModel {
     }
 
     setAnswer(answer) {
-        this.answers = [answer, ...this.answers];
+        this.answer = answer;
         this.notifyObservers();
     }
 
