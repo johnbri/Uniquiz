@@ -8,8 +8,7 @@ import useModelProp from "./useModelProp.js";
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(100)
     const [answer, setAnswer]= useState("");
-    const finalAnswer = useModelProp(roomModel, "answer")
-
+    const finalAnswer = useModelProp(roomModel, "answer");
     let history = useHistory();
     useEffect(() => {
         removeAnswerFB();

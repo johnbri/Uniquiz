@@ -14,8 +14,8 @@ const PlayersSidebarView= ({players, inRoom}) =>
                             <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />
                             : <img src={players[playerUid].profileImg} alt ="playerImg" />}
                         </div>
-                        {window.location == (window.location.origin + "/quiz/answers") 
-                        && roomModel.checkCorrectAnswer(players[playerUid].answer) && <img className="light" src={window.location.origin + '/correct.svg'} alt ="Loading gif" />}
+                        {(window.location == (window.location.origin + "/quiz/answers") 
+                        && roomModel.checkCorrectAnswer(players[playerUid].answer)) && <img className="light" src={window.location.origin + '/correct.svg'} alt ="Loading gif" />}
                         <div className="userInfo">
                             <h2>{players[playerUid].displayName}</h2>
                             {!inRoom && <h3>{players[playerUid].score} points</h3>}
