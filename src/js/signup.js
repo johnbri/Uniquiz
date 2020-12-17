@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { SignupView } from "./view/signupView";
+import React, {useState} from "react";
+import {SignupView} from "./view/signupView";
 import {signupFB} from '../services/firebase.js';
-import { userModel } from "../index"
 
 function Signup(props) {
   const [email, setEmail] = useState("");

@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useRef} from "react";
-import { roomModel } from "../index.js";
+import React, {useState, useEffect} from "react";
+import {roomModel} from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import { setPlayerScoreFB, setPlayerAnswerFB } from '../services/firebase.js';
-import { useHistory } from "react-router-dom";
+import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB} from '../services/firebase.js';
+import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
 
 function QuizPlayingSong(props) {
-    const [timeLeft, setTimeLeft] = useState(0)
+    const [timeLeft, setTimeLeft] = useState(100)
     const [answer, setAnswer]= useState("");
-    const answers = useModelProp(roomModel, "answers")
-
+    const finalAnswer = useModelProp(roomModel, "answer");
     let history = useHistory();
     useEffect(() => {
-        setTimeout(() => setTimeLeft(100), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
+        removeAnswerFB();
+        setTimeout(() => setTimeLeft(0), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
         let currentSong = playSong();
         const timeout = setTimeout(() => {
             currentSong.pause();
             setTimeLeft(0);
-            setPlayerAnswerFB(roomModel.getAnswer());
+            //setPlayerAnswerFB(roomModel.getAnswer());
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
             history.push('/quiz/answers');
         }, (roomModel.time*1000));
@@ -27,11 +27,10 @@ function QuizPlayingSong(props) {
             timeLeft: timeLeft,
             loadTime: roomModel.time,
             onSubmit: () => {
-                roomModel.setAnswer(answer);
-
+                setPlayerAnswerFB(answer);
             },
             onText: name => setAnswer(name),
-            submittedAnswer: answers[0]?answers[0]:""
+            submittedAnswer: finalAnswer ? finalAnswer : ""
         })
 }
 

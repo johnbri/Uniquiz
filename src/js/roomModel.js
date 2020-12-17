@@ -1,6 +1,5 @@
+import {userModel} from "../index";
 
-import { userModel } from "../index";
-import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
     constructor(roomName = "", players=[]){
@@ -9,7 +8,7 @@ class RoomModel {
         this.subscribers = [];
         this.playlist = [];
         this.playedSongs = [];
-        this.answers = [];
+        this.answer = "";
         this.score = 0;
         this.time=15;
         this.tracks=0;
@@ -39,7 +38,7 @@ class RoomModel {
     }
 
     getAnswer() {
-        return this.answers[0]?this.answers[0]:"";
+        return this.answer ? this.answer : "";
     }
 
     getNumberOfTracks(){
@@ -91,7 +90,7 @@ class RoomModel {
     }
 
     setAnswer(answer) {
-        this.answers = [answer, ...this.answers];
+        this.answer = answer;
         this.notifyObservers();
     }
 
@@ -117,7 +116,7 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    checkCorrectAnswer(userAnswer=this.getAnswer()) {
+    checkCorrectAnswer(userAnswer = this.getAnswer()) {
         /** Check if user answer is correct. Strips the string of certain signs and skips parantheses etc. */
         let userAnswerOrig = userAnswer; // safety in case the split etc. does not work
         let correctAnswer = this.getCorrectAnswer();

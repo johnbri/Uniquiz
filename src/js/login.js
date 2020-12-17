@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { LoginView } from "./view/loginView";
+import React, {useState} from "react";
+import {LoginView} from "./view/loginView";
 import {loginFB} from '../services/firebase.js';
 
 function Login(props) {

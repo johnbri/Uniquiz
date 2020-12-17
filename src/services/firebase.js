@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import {roomModel, userModel, resetRoomModel} from '../index.js';
+import {getUserImg} from "../js/spotify";
 
 
   var firebaseConfig = {
@@ -58,12 +59,16 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.child("players").on('value', (snapshot) => { 
         roomModel.setPlayers(snapshot.val());
-        roomModel.setCreator(roomModel.getPlayerInfo().host);
+        roomModel.setCreator(roomModel.getPlayerInfo().host);    
 
         if (roomModel.creator) {
           let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
           nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
         }
+      })
+
+      ref.child("players").child(userModel.uid).on(('value'), (snapshot) => {
+        roomModel.setAnswer(snapshot.val().answer) 
       })
 
       ref.child("playlist").on('value', (snapshot) => {
@@ -127,6 +132,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
           roomModel.setCreator(true);
+          setQuizStatusFB("inRoom");
           setTimeFB(15);
           setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
@@ -146,7 +152,6 @@ async function createJoinRoomFB(props, roomName, createRoom){
   }
   });
 }
-
 
 function addPlayerToFB(roomName, createRoom) {
   /** creates a playerObject for player in room in firebase*/
@@ -178,6 +183,31 @@ function addRoomPlaylistToFB(playlist, roomName) {
   });
 }
 
+async function addImgDB(token) {
+  let imgURL = await getUserImg(token);
+  userModel.setImg(imgURL);
+  auth().onAuthStateChanged(function(userObj) {
+    if (userObj) {
+      let user = auth().currentUser;
+      database.ref('users/' + user.uid).update({
+        token: token,
+        img: imgURL
+      })
+    }
+  });
+}
+
+function addTokenDB(token) {
+  /** Add token retrieved from spotify to firebase */
+  auth().onAuthStateChanged(function(userObj) {
+    if (userObj) {
+      let user = auth().currentUser;
+      database.ref('users/' + user.uid).update({
+        token: token
+      })
+    }
+  });
+}
 function addUserPlaylistToFB(playlist) {
   /** creates a playerObject for player in room in firebase*/
   auth().onAuthStateChanged(function(userObj) {
@@ -185,9 +215,7 @@ function addUserPlaylistToFB(playlist) {
       let user = auth().currentUser;
       database.ref('users/' + user.uid).update({
         playlist
-      }).then( res => console.log("successfully added playlist to user in database")).catch(console.log("Error adding token to firebase DB"));
-    } else {
-      console.log("There is no user logged in");
+      })
     }
   });
 }
@@ -201,11 +229,6 @@ function setPlayerAnswerFB(answer) {
 function setPlayerScoreFB() {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/score');
   ref.set(roomModel.getPlayerInfo().score+1);
-}
-
-function clearPlayerAnswersFB() {
-  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
-  ref.set("");
 }
 
 function setQuizStatusFB(status) {
@@ -226,6 +249,12 @@ function setTimeFB(time) {
 function setNumberOfTracksFB(tracks) {
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/tracks');
   ref.set(tracks);
+}
+
+function removeAnswerFB() {
+  /** Removes answer from all players in room */
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer')
+  ref.set("")
 }
 
 function removeUserFromRoomFB() {
@@ -250,5 +279,5 @@ function stopSyncRoomModelToFB() {
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB
+  removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB, removeAnswerFB
 };
