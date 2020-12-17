@@ -31,11 +31,9 @@ const ResultsView = ({players, roomName, onExit}) =>
                 <thead>
                     <tr>
                         <th className="trackheader">Tracks</th>
-                        
                     </tr>
                 </thead>
                 <tbody className="tracks">
-                {console.log(roomModel.playlist)}
                 {roomModel.playlist.map(track=>
                     <tr key={track.uid}>
                         <td>{track.name} - {track.artists.map((artist, index, array) =>

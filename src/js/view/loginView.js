@@ -5,7 +5,7 @@ const LoginView = ({onEmail, onPassword, onLogin, onSignUp, errorMessage}) =>
     <div className="login">
         <img src = "logo.png" alt="UniQuiz logo"/> <br/>
         <h1>
-        Challenge you friends with songs you have in common. Who is the better fan of your favourite aritsts?
+        Challenge your friends with songs you have in common. Who is the better fan of your favourite aritsts?
         </h1>
         <p>Email</p>
         <input type="text" onChange={(event) => onEmail(event.target.value)}></input>
