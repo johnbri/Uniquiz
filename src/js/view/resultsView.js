@@ -30,19 +30,16 @@ const ResultsView = ({players, roomName, onExit}) =>
                 </tbody>
                 <thead>
                     <tr>
-                        <th>Track</th>
-                        <th>Artist</th>
+                        <th className="trackheader">Track</th>
+                        
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="tracks">
                 {console.log(roomModel.playlist)}
                 {roomModel.playlist.map(track=>
-                    <tr key={track}>
-                        {console.log(track)}
-                        <td>{track.name}</td>
-                        {track.artists.map(artist=> 
-                             <td>{artist}</td>)}
-                        
+                    <tr key={track.uid}>
+                        <td>{track.name} - {track.artists.map(artist=>
+                         (artist + ", "))}</td>
                     </tr>
                 )
                 } 

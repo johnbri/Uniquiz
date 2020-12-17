@@ -120,6 +120,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           roomModel.setRoomName(roomName);
           setTimeFB(15);
           setNumberOfTracksFB(10);
+          props.history.push('/quiz/room')
       } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName, createRoom);
@@ -128,6 +129,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           roomModel.setCreator(true);
           setTimeFB(15);
           setNumberOfTracksFB(10);
+          props.history.push('/quiz/room')
       } else { //If room does not exist and user wants to join
               throw new Error("Room does not exist!");
       }

@@ -38,18 +38,21 @@
 }
 
 @keyframes stretch {
-
     100% {
         transform: scale(1);
     }
 }
 
 
-.resultsTable > tr{
-    margin-left: 20px;
+
+.trackheader{
+    padding-top: 30px;
+    text-align: left;
 }
 
-
+.tracks{
+    text-align: left;
+}
 
 .results > button {
     margin-top: 10px;
