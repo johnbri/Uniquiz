@@ -4,7 +4,6 @@ import './css/index.css';
 import App from './js/App';
 import reportWebVitals from './reportWebVitals';
 import ReadUserModel from './js/readUserModel.js';
-import {ReadRoomModel} from './js/readRoomModel.js';
 import RoomModel from './js/roomModel';
 
 let userModel = ReadUserModel();

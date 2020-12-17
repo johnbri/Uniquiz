@@ -1,11 +1,7 @@
 import {database, auth} from '../services/firebase.js';
 import UserModel from './userModel.js';
-import { Route } from "react-router-dom";
-import Login from "./login.js";
-
-
-
 import {syncUserModelToFB} from '../services/firebase.js';
+
 function ReadUserModel() {
     /** Checks for data connected to logged in user in firebase to put in the user model on refresh  */
     let dbDataObject = {}; 

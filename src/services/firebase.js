@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import {roomModel, userModel, resetRoomModel} from '../index.js';
-import { getUserImg } from "../js/spotify";
+import {getUserImg} from "../js/spotify";
 
 
   var firebaseConfig = {

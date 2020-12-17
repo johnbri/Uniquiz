@@ -2,9 +2,6 @@ import React from "react";
 import ResultsView from './view/resultsView.js';
 import {roomModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js";
-import { Redirect } from 'react-router-dom'; 
-import RoomModel from "./roomModel.js";
-import allowedAccess from "./withAuth.js";
 
 function Results(props){
     /** Results and the end of a quiz */

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef} from "react";
-import { roomModel } from "../index.js";
+import React, {useState, useEffect} from "react";
+import {roomModel} from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import { setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB } from '../services/firebase.js';
-import { useHistory } from "react-router-dom";
+import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB} from '../services/firebase.js';
+import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
 
 function QuizPlayingSong(props) {

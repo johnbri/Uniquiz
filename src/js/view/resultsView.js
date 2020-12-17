@@ -30,7 +30,7 @@ const ResultsView = ({players, roomName, onExit}) =>
                 </tbody>
                 <thead>
                     <tr>
-                        <th className="trackheader">Track</th>
+                        <th className="trackheader">Tracks</th>
                         
                     </tr>
                 </thead>

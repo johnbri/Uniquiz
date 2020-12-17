@@ -1,12 +1,11 @@
 import QuizAnswersView from './view/quizAnswersView.js';
-import React, { useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {roomModel} from '../index.js';
 import {userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
-import { removeAnswerFB, setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
-import { Redirect } from 'react-router-dom'; 
-import PlayersSidebar from './playersSidebar.js';
-import allowedAccess from "./withAuth.js";
+import {setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
+import {Redirect} from 'react-router-dom'; 
+
 
 function QuizAnswers (props) {
     const displayName = useModelProp(userModel, "displayName");
@@ -16,7 +15,6 @@ function QuizAnswers (props) {
     const currentSongIndex = useModelProp(roomModel, "currentSongIndex");
     const playlist = useModelProp(roomModel, "playlist");
     const status = useModelProp(roomModel, "status");
-    const answer = useModelProp(roomModel, "answer")
 
     let lastSong = false;
     //Check if we are currently on the last song

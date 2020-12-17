@@ -1,6 +1,6 @@
-import {auth, database, syncRoomModelToFB, addPlayerToFB, setPlayerAnswerFB} from '../services/firebase.js';
+import {auth} from '../services/firebase.js';
 import RoomModel from './roomModel.js';
-import {roomModel, userModel} from "../index.js";
+import {userModel} from "../index.js";
 
 function ReadRoomModel(props) {
     let model = new RoomModel();
