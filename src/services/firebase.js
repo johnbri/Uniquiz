@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
 import {roomModel, userModel, resetRoomModel} from '../index.js';
+import { getUserImg } from "../js/spotify";
 
 
   var firebaseConfig = {
@@ -178,6 +179,31 @@ function addRoomPlaylistToFB(playlist, roomName) {
   });
 }
 
+async function addImgDB(token) {
+  let imgURL = await getUserImg(token);
+  userModel.setImg(imgURL);
+  auth().onAuthStateChanged(function(userObj) {
+    if (userObj) {
+      let user = auth().currentUser;
+      database.ref('users/' + user.uid).update({
+        token: token,
+        img: imgURL
+      })
+    }
+  });
+}
+
+function addTokenDB(token) {
+  /** Add token retrieved from spotify to firebase */
+  auth().onAuthStateChanged(function(userObj) {
+    if (userObj) {
+      let user = auth().currentUser;
+      database.ref('users/' + user.uid).update({
+        token: token
+      })
+    }
+  });
+}
 function addUserPlaylistToFB(playlist) {
   /** creates a playerObject for player in room in firebase*/
   auth().onAuthStateChanged(function(userObj) {
@@ -185,9 +211,7 @@ function addUserPlaylistToFB(playlist) {
       let user = auth().currentUser;
       database.ref('users/' + user.uid).update({
         playlist
-      }).then( res => console.log("successfully added playlist to user in database")).catch(console.log("Error adding token to firebase DB"));
-    } else {
-      console.log("There is no user logged in");
+      })
     }
   });
 }
@@ -250,5 +274,5 @@ function stopSyncRoomModelToFB() {
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB
+  clearPlayerAnswersFB, removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB
 };
