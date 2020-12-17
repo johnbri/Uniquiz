@@ -70,7 +70,6 @@ function syncRoomModelToFB(roomName){
       ref.child("players").child(userModel.uid).on(('value'), (snapshot) => {
         roomModel.setAnswer(snapshot.val().answer) 
       })
-
       ref.child("playlist").on('value', (snapshot) => {
         roomModel.setPlaylist(snapshot.val())
       })
@@ -94,6 +93,17 @@ function syncRoomModelToFB(roomName){
   } catch (error) {
       console.log("Unable to correctly sync RoomModel to FB");
   }
+}
+
+function unSyncRoomModelToFB(roomName){
+  /** Syncs the model on firebase updates */
+      let ref = database.ref('rooms/' + roomName);
+      ref.child("players").child(userModel.uid).off();
+      ref.child("playlist").off();
+      ref.child("status").off();
+      ref.child("time").off();
+      ref.child("tracks").off();
+      ref.child("currentSongIndex").off();
 }
 
 function syncUserModelToFB(uid){
@@ -279,5 +289,5 @@ function stopSyncRoomModelToFB() {
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB, removeAnswerFB
+  removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB, removeAnswerFB, unSyncRoomModelToFB
 };

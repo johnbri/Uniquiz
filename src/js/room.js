@@ -4,7 +4,7 @@ import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
-import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB} from '../services/firebase.js';
+import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB, unSyncRoomModelToFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -26,6 +26,7 @@ function Room(props){
         time: time,
         tracks: tracks,
         onExit: () => {
+            unSyncRoomModelToFB(roomName);
             removeUserFromRoomFB();
             setUserRoomStatusToFB(false);
             resetRoomModel();
