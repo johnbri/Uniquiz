@@ -7,10 +7,8 @@ const ResultsView = ({players, roomName, onExit}) =>
     <div className="results">
         <h1 className="winnertext">Winner</h1>
         <h1 className="winnername">
-            {(players[Object.keys(players).sort((a,b) =>
-                    compareScores(players[a],players[b])[0])].displayName)}
-            {players[Object.keys(players).sort((a,b) =>
-                compareScores(players[a],players[b])[0])].img}
+            {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].displayName}
+            {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].img}
         </h1>
     
         <div className="resultsContainer">
