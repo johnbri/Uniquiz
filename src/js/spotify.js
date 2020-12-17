@@ -1,13 +1,9 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize";
-const redirectUri = "http://localhost:3000/spotifyConnect";//"http://uniquiz-e9d1f.web.app/spotifyConnect";
+const redirectUri = "http://localhost:3000/spotifyConnect";
 const clientId = "41ee13f3c2d945ddb590fd2a99e1167e";
 
 const scopes = [
-  "user-read-currently-playing",
-  "user-read-recently-played",
-  "user-read-playback-state",
   "user-top-read",
-  "user-modify-playback-state",
   "playlist-read-private"
 ];
 
@@ -62,7 +58,8 @@ export async function getUserPlaylists(token) {
   for (let i = 0; i < apiObj.items.length; i++) {
     const playListsObj = await spotifyApiCall(token, apiObj.items[i].tracks.href) // får ned alla tracks
     playListsObj.items.forEach(trackObj => { // skulle kunna skriva om den här funktionen till en for loop så vi slipper errors...
-        if (trackObj.track!=null) {
+        if (trackObj.track!=null && trackObj.track.id && trackObj.track.album.images[0]) {
+          console.log(trackObj.track)
           let artists = [];
           trackObj.track.artists.forEach(artist => artists.push(artist.name));
           allTracks.push([trackObj.track.name, artists, trackObj.track.id, trackObj.track.preview_url, trackObj.track.album.images[0].url])

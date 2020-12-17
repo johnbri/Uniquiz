@@ -1,4 +1,4 @@
-import '../../css/quiz.css';
+import '../../css/Quiz.css';
 import React from "react"
 import { roomModel } from '../..';
 
