@@ -7,7 +7,7 @@ const PlayersSidebarView= ({players, inRoom}) =>
         {Object.keys(players).map(playerUid => 
             <div key={playerUid} className="boxContainer">
                 <div className="posistionbox">
-                {players[playerUid].answer && <h3 className="answerText">"{players[playerUid].answer}"</h3>}
+                {(window.location == (window.location.origin + "/quiz/answers") && players[playerUid].answer ) && <h3 className="answerText">"{players[playerUid].answer}"</h3>}
                     <div className="playerCard" key={playerUid}>
                         <div className="userImage">
                         {players[playerUid].profileImg === 'defaultProfilePic.jpg' ?

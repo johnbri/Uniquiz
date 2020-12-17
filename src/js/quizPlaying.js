@@ -18,7 +18,7 @@ function QuizPlayingSong(props) {
         const timeout = setTimeout(() => {
             currentSong.pause();
             setTimeLeft(0);
-            setPlayerAnswerFB(roomModel.getAnswer());
+            //setPlayerAnswerFB(roomModel.getAnswer());
             roomModel.checkCorrectAnswer() && setPlayerScoreFB();
             history.push('/quiz/answers');
         }, (roomModel.time*1000));
@@ -28,7 +28,7 @@ function QuizPlayingSong(props) {
             timeLeft: timeLeft,
             loadTime: roomModel.time,
             onSubmit: () => {
-                roomModel.setAnswer(answer);
+                setPlayerAnswerFB(answer);
             },
             onText: name => setAnswer(name),
             submittedAnswer: finalAnswer ? finalAnswer : ""

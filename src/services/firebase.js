@@ -59,12 +59,16 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.child("players").on('value', (snapshot) => { 
         roomModel.setPlayers(snapshot.val());
-        roomModel.setCreator(roomModel.getPlayerInfo().host);
+        roomModel.setCreator(roomModel.getPlayerInfo().host);    
 
         if (roomModel.creator) {
           let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
           nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
         }
+      })
+
+      ref.child("players").child(userModel.uid).on(('value'), (snapshot) => {
+        roomModel.setAnswer(snapshot.val().answer) 
       })
 
       ref.child("playlist").on('value', (snapshot) => {
