@@ -3,7 +3,7 @@ import React, { useState, useEffect} from "react";
 import {roomModel} from '../index.js';
 import {userModel} from '../index.js';
 import useModelProp from './useModelProp.js';
-import { removeAnswerFB, clearPlayerAnswersFB, setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
+import { removeAnswerFB, setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
 import { Redirect } from 'react-router-dom'; 
 import PlayersSidebar from './playersSidebar.js';
 import allowedAccess from "./withAuth.js";
@@ -16,6 +16,7 @@ function QuizAnswers (props) {
     const currentSongIndex = useModelProp(roomModel, "currentSongIndex");
     const playlist = useModelProp(roomModel, "playlist");
     const status = useModelProp(roomModel, "status");
+    const answer = useModelProp(roomModel, "answer")
 
     let lastSong = false;
     //Check if we are currently on the last song
@@ -27,6 +28,7 @@ function QuizAnswers (props) {
         setNextSong(currentSongIndex);
         (nextSong != null) && props.history.push('/quiz/playing')
     }, [currentSongIndex]); 
+
     let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
 
     if (status === "inGame") {
@@ -38,7 +40,6 @@ function QuizAnswers (props) {
                     score: score,
                     displayName: displayName,
                     onPlay: () => {
-                        removeAnswerFB()
                         lastSong ? setQuizStatusFB("inResults") : setCurrentSongIndexFB();
                     },
                     creator: creator

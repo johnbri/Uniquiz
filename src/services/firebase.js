@@ -59,13 +59,16 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.child("players").on('value', (snapshot) => { 
         roomModel.setPlayers(snapshot.val());
-        roomModel.setCreator(roomModel.getPlayerInfo().host);
-        roomModel.setAnswer(snapshot.val().answer)
+        roomModel.setCreator(roomModel.getPlayerInfo().host);    
 
         if (roomModel.creator) {
           let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
           nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
         }
+      })
+
+      ref.child("players").child(userModel.uid).on(('value'), (snapshot) => {
+        roomModel.setAnswer(snapshot.val().answer) 
       })
 
       ref.child("playlist").on('value', (snapshot) => {
@@ -149,7 +152,6 @@ async function createJoinRoomFB(props, roomName, createRoom){
   }
   });
 }
-
 
 function addPlayerToFB(roomName, createRoom) {
   /** creates a playerObject for player in room in firebase*/
@@ -251,9 +253,8 @@ function setNumberOfTracksFB(tracks) {
 
 function removeAnswerFB() {
   /** Removes answer from all players in room */
-  roomModel.getPlayersUid().map((playerUID) => { console.log("playerUID ", playerUID)
-    let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + playerUID + '/answer');
-    ref.set("")})
+  let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer')
+  ref.set("")
 }
 
 function removeUserFromRoomFB() {
