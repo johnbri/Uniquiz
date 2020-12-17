@@ -25,7 +25,7 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) =>
         <button className="submitButton" 
         onClick={() => onSubmit()}>Submit Answer!</button>
 
-        <h2>{submittedAnswer}</h2>
+        <h2>Your submitted answer: {submittedAnswer}</h2>
     </div>;
 
 export default QuizPlaying;
