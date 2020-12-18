@@ -278,6 +278,15 @@ function removeUserFromRoomFB() {
   ref.child("players").child(userModel.uid).remove().then(resetRoomModel());
 }
 
+function removeRoomFB(roomName) {
+  /** Remove room if no one is in it */
+  let ref = database.ref('rooms/' + roomModel.roomName + '/players');
+  ref.once('value').then((snapshot) => {
+    snapshot.numChildren() === 1 && database.ref('rooms/' + roomName).remove()
+    console.log("child ", snapshot.numChildren(), "roooom ", roomName)
+  }) 
+}
+
 function stopSyncRoomModelToFB() {
   let ref = database.ref('rooms/' + roomModel.roomName);
   ref.child("players").off(); // stops syncing room
@@ -289,5 +298,5 @@ function stopSyncRoomModelToFB() {
 
 export {database, auth, loginFB, signupFB, syncRoomModelToFB, syncUserModelToFB, addPlayerToFB,
   addRoomPlaylistToFB, setPlayerAnswerFB, setPlayerScoreFB, setQuizStatusFB, setTimeFB, setCurrentSongIndexFB, addUserPlaylistToFB, 
-  removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB, removeAnswerFB, unSyncRoomModelToFB
+  removeUserFromRoomFB, createJoinRoomFB, setUserRoomStatusToFB, setNumberOfTracksFB, addImgDB, addTokenDB, removeAnswerFB, removeRoomFB, unSyncRoomModelToFB
 };
