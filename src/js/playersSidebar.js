@@ -11,6 +11,8 @@ function PlayersSidebar (props) {
 
     let inRoom = props.location.pathname === "/room";
 
+    console.log("Creator: ", creator)
+
     return players ? React.createElement(PlayersSidebarView, {
         players: players,
         inRoom: inRoom,

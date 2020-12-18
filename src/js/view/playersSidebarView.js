@@ -13,7 +13,7 @@ const PlayersSidebarView= ({creator, players, inRoom}) =>
                         {players[playerUid].profileImg === 'defaultProfilePic.jpg' ?
                             <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />
                             : <img src={players[playerUid].profileImg} alt ="playerImg" />}
-                        {creator && <img className="creatorimg" src={window.location.origin + '/creator.png'} alt ="creatorImg" />}
+                        {players[playerUid].host && <img className="creatorimg" src={window.location.origin + '/creator.png'} alt ="creatorImg" />}
                         </div>
                         {(window.location == (window.location.origin + "/quiz/answers") 
                         && roomModel.checkCorrectAnswer(players[playerUid].answer)) && <img className="correct" src={window.location.origin + '/correct.svg'} alt ="Loading gif" />}
@@ -23,8 +23,7 @@ const PlayersSidebarView= ({creator, players, inRoom}) =>
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </div>          
         )}
     </div>;
 export default PlayersSidebarView;
