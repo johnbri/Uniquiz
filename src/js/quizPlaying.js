@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {roomModel} from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB} from '../services/firebase.js';
+import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB, database} from '../services/firebase.js';
 import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
 
@@ -27,8 +27,13 @@ function QuizPlayingSong(props) {
             timeLeft: timeLeft,
             loadTime: roomModel.time,
             onSubmit: () => {
+<<<<<<< HEAD
                 document.getElementById("inputBar").value = ""
                 setPlayerAnswerFB(answer);
+=======
+                setPlayerAnswerFB(answer)
+                document.getElementById("inputBar").value = ""
+>>>>>>> a9675a1043e1402792b3e02537530b1bb3c467d9
             },
             onText: name => setAnswer(name),
             submittedAnswer: finalAnswer ? finalAnswer : ""

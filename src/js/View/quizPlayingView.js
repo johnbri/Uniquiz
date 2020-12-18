@@ -2,7 +2,7 @@ import '../../css/quiz.css';
 import React from "react"
 import { roomModel } from '../..';
 
-const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) => 
+const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onClear}) => 
     /** donno */
 
     <div className="quizPlaying">
@@ -14,8 +14,13 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) =>
                                                     transition: `width ${loadTime}s linear`}}/>
             </div>
         </div>
+<<<<<<< HEAD
         <input 
         id="inputBar" type="text" placeholder="Type trackname..." autoComplete="off" 
+=======
+        <input className="input" id="inputBar"
+        type="text" placeholder="Type trackname..." autoComplete="off" contentEditable="true"
+>>>>>>> a9675a1043e1402792b3e02537530b1bb3c467d9
             onChange={(event)=> onText(event.target.value)}
             onKeyDown={(e) => {
                 e.key === 'Enter' && onSubmit(); 
@@ -27,8 +32,12 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) =>
             />
         <button className="submitButton" 
         onClick={() => onSubmit()}>Submit Answer!</button>
+        <div className="submittedanswer">
+            <h2>Your submitted answer:</h2><br/>
+            <h2>{submittedAnswer}</h2> 
+        </div>
+        
 
-        <h2>Your submitted answer: {submittedAnswer}</h2>
     </div>;
 
 export default QuizPlaying;
