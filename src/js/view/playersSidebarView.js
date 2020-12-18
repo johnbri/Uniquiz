@@ -1,7 +1,7 @@
 import '../../css/playerSidebar.css';
 import { roomModel } from '../..';
 
-const PlayersSidebarView= ({players, inRoom}) =>
+const PlayersSidebarView= ({creator, players, inRoom}) =>
     /** Displays all the players connected to the room */
     <div className="playersSidebar">
         {Object.keys(players).map(playerUid => 
@@ -13,9 +13,10 @@ const PlayersSidebarView= ({players, inRoom}) =>
                         {players[playerUid].profileImg === 'defaultProfilePic.jpg' ?
                             <img src={window.location.origin + '/' + players[playerUid].profileImg} alt ="playerImg" />
                             : <img src={players[playerUid].profileImg} alt ="playerImg" />}
+                        {creator && <img className="creatorimg" src={window.location.origin + '/creator.png'} alt ="creatorImg" />}
                         </div>
                         {(window.location == (window.location.origin + "/quiz/answers") 
-                        && roomModel.checkCorrectAnswer(players[playerUid].answer)) && <img className="light" src={window.location.origin + '/correct.svg'} alt ="Loading gif" />}
+                        && roomModel.checkCorrectAnswer(players[playerUid].answer)) && <img className="correct" src={window.location.origin + '/correct.svg'} alt ="Loading gif" />}
                         <div className="userInfo">
                             <h2>{players[playerUid].displayName}</h2>
                             {!inRoom && <h3>{players[playerUid].score} points</h3>}
