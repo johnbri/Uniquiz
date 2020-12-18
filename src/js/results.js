@@ -2,7 +2,7 @@ import React from "react";
 import ResultsView from './view/resultsView.js';
 import {roomModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js";
-import {unSyncRoomModelToFB} from '../services/firebase.js';
+import {removeRoomFB, unSyncRoomModelToFB} from '../services/firebase.js';
 
 function Results(props){
     /** Results and the end of a quiz */
@@ -18,6 +18,7 @@ function Results(props){
 
         onExit: (roomModel) => {
             unSyncRoomModelToFB(roomName);
+            removeRoomFB(roomName);
             resetRoomModel(); //Den finns fortfarande kvar i home
             props.history.push('/home');
 

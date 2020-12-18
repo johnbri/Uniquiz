@@ -46,9 +46,10 @@ class RoomModel {
     }
 
     getPlayerInfo() {
-        const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
-        //const player = this.players.filter(player => player.uid === userModel.uid)
-        return this.players[playerUid];
+        if (this.players) {
+            const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
+            return this.players[playerUid];
+        } 
     }
 
     getStatus() {
