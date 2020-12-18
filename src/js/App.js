@@ -33,16 +33,19 @@ function App() {
 
   return <div className="app">
     <Router>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <AllowedAccess thePath="/home" isAuth={user} component={Home} />
-        <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
-        <AllowedAccess thePath="/createJoin" isAuth={user} component={CreateJoinRoom} />
-        <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
-        <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
-        <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
-        <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
-        <AllowedAccess thePath="/results" isAuth={user} component={Results} />
+      <div>
+          <Route exact path="/" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <AllowedAccess thePath="/home" isAuth={user} component={Home} />
+          <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
+          <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
+          <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
+          <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
+          <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
+          <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
+          <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
+          <AllowedAccess thePath="/results" isAuth={user} component={Results} />
+      </div> 
     </Router>
   </div>;
 }
