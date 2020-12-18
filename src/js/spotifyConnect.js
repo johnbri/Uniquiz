@@ -23,7 +23,8 @@ function SpotifyConnect(props) {
   }
 
   return !token ? React.createElement(SpotifyConnectView, {
-    onLogin: () => window.location.href = loginUrl
+    onLogin: () => window.location.href = loginUrl,
+    errorMessage: "Please accept connecting to Spotify before proceeding."
   })
   : <Redirect to="/home"/>
 }
