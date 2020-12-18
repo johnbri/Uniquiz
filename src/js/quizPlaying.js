@@ -4,24 +4,39 @@ import QuizPlayingView from './view/quizPlayingView.js'
 import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB} from '../services/firebase.js';
 import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
-
+import { useBeforeunload } from 'react-beforeunload';
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(100)
     const [answer, setAnswer]= useState("");
     const finalAnswer = useModelProp(roomModel, "answer");
     let history = useHistory();
+    useBeforeunload(() => "Are you sure you want to leave the quiz?");
+    
     useEffect(() => {
+        let currentSong;
+        let timeout;
+        window.addEventListener('popstate', () => {
+            window.alert("You will now leave the quiz");
+            props.history.push('/home');
+            window.location.reload();
+            return null;
+        });
         removeAnswerFB();
-        setTimeout(() => setTimeLeft(0), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
-        let currentSong = playSong();
-        const timeout = setTimeout(() => {
-            currentSong.pause();
-            setTimeLeft(0);
-            //setPlayerAnswerFB(roomModel.getAnswer());
-            roomModel.checkCorrectAnswer() && setPlayerScoreFB();
-            history.push('/quiz/answers');
-        }, (roomModel.time*1000));
-        return () => clearTimeout(timeout);
+        if (roomModel.playlist.length !== 0) {
+            setTimeout(() => setTimeLeft(0), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
+            currentSong = playSong()
+            timeout = setTimeout(() => {
+                currentSong.pause();
+                setTimeLeft(0);
+                roomModel.checkCorrectAnswer() && setPlayerScoreFB();
+                history.push('/quiz/answers');
+            }, (roomModel.time*1000));
+        } else {
+            props.history.push('/home');
+        }
+        return () => {
+            clearTimeout(timeout);
+        }
     }, []);
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,

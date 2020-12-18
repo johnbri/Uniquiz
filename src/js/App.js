@@ -22,7 +22,6 @@ function App() {
   /**Renders different components depeding on path */
   const [user, setUser] = useState(null);
   
-
   auth().onAuthStateChanged((userObject) => {
     if (userObject) {
       setUser(true);
