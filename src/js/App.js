@@ -38,7 +38,8 @@ function App() {
           <Route exact path="/signup" component={Signup} />
           <AllowedAccess thePath="/home" isAuth={user} component={Home} />
           <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
-          <AllowedAccess thePath="/createJoin" isAuth={user} component={CreateJoinRoom} />
+          <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
+          <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
           <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
           <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
           <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />

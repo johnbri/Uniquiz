@@ -13,18 +13,13 @@ function CreateJoinRoom(props){
     const [playlistReady, setPlaylistReady]= React.useState(true);
     const playlist = useModelProp(userModel, "playlist");
     const data = [userModel.playlist];
-    let createRoom = props.location.createRoom;
+    const createRoom = window.location == window.location.origin + '/quiz/create';
     
     return playlistReady ? React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {
             playlist ? createJoinRoomFB(props, roomName, createRoom)
             : setPlaylistReady(false) 
-            /* if (playlist) {
-                createJoinRoomFB(props, roomName, createRoom).then(() => {props.history.push('/quiz/room')}) // den här kraschar
-            } else{
-                setPlaylistReady(false)
-            } */
         },
         onText: name => setRoomName(name),
         onBack: () => props.history.push("/home"),

@@ -15,11 +15,11 @@ function Home(props) {
         userImg: userImg,
         userName: displayName,
         onCreate: () => props.history.push({
-            pathname: '/createJoin',
+            pathname: '/quiz/create',
             createRoom: true
         }),
         onJoin: () => props.history.push({
-            pathname: '/createJoin',
+            pathname: '/quiz/join',
             createRoom: false
         }),
         onLogOut: () => {

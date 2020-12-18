@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import RoomView from "./view/roomView.js";
 import {roomModel, userModel, resetRoomModel} from "../index.js";
 import useModelProp from "./useModelProp.js"
 import NoDataView from './view/noDataView.js';
 import { Redirect } from "react-router";
-import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB, unSyncRoomModelToFB, removeRoomFB} from '../services/firebase.js';
+import { useBeforeunload } from 'react-beforeunload';
+import {addRoomPlaylistToFB, setNumberOfTracksFB, setTimeFB, setQuizStatusFB, setCurrentSongIndexFB, removeUserFromRoomFB, setUserRoomStatusToFB, unSyncRoomModelToFB} from '../services/firebase.js';
 
 function Room(props){
     const combinedPlaylist = useModelProp(roomModel, "playlist");
@@ -14,10 +15,15 @@ function Room(props){
     const time = useModelProp(roomModel, "time");
     const tracks = useModelProp(roomModel, "tracks")
     const data = [combinedPlaylist, creator, status];
-
+    useBeforeunload(() => "Are you sure you want to leave the quiz?");
     if (combinedPlaylist.length !== 0 && creator) {
         setQuizStatusFB("inGame");
     }
+    useEffect(() => {
+        if(!roomModel.roomName) {
+            props.history.push('/home');
+        }
+    });
 
     return status === "inRoom" ? React.createElement(RoomView,{
         creator: creator,
@@ -26,7 +32,6 @@ function Room(props){
         time: time,
         tracks: tracks,
         onExit: () => {
-            removeRoomFB(roomName)
             unSyncRoomModelToFB(roomName);
             removeUserFromRoomFB();
             setUserRoomStatusToFB(false);

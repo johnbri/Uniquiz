@@ -135,8 +135,6 @@ async function createJoinRoomFB(props, roomName, createRoom){
           addPlayerToFB(roomName, createRoom);
           setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
-          setTimeFB(15);
-          setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
       } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
           syncRoomModelToFB(roomName);
@@ -153,11 +151,11 @@ async function createJoinRoomFB(props, roomName, createRoom){
       }
   } catch(error) {
       error.message.includes("already exists") ? props.history.push({
-        pathname: '/createJoin',
+        pathname: '/quiz/create',
         createRoom: true,
         errorMessage: error.message
       }) : props.history.push({
-        pathname: '/createJoin',
+        pathname: '/quiz/join',
         createRoom: false,
         errorMessage: error.message
       })
