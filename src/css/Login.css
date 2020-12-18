@@ -1,53 +1,68 @@
-
-.login > img {
-  width: auto;
-  padding-top: 50px;
-  height: 300px;
-  margin-bottom: 10px;
+/*----------------------Login view-----------------------------*/
+.login {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
 }
 
-.login > h1 {
-  margin:0 auto;
-  max-width: 550px;
-  font-size: 20px;
+.login > img {
+  align-self: center;
+  width: 350px;
+}
+
+.login > .info {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.login >  h2 {
+  align-self:center;
+  margin: 0 auto;
+  max-width: 650px;
+  font-size: 21px;
   color: #111111;
   font-style: italic;
-  padding-bottom: 40px;
-  font-weight: 200;
-
+  margin-bottom: 20px;
+  font-weight: 400;
+  text-align: center;
 }
 
 .login > p {
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 5px;
-  font-weight: 300;
+  font-weight: 200;
+  text-align: center;
+  margin-top: 20px;
 }
 
 .login > input {
-  margin-bottom: 30px;
-  padding-left: 10px;
-  border-radius: 15px;
-  height: 30px;
-  font-size: 15px;
-  border:black solid;
-  border-width: 1px;
+  width: 300px;
+  align-self:center;
+}
+
+.login input:-webkit-autofill {
+  font-size: 13px;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 .login > button {
-  margin: 10px;
-  padding: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
-  border-radius: 99px;
-  font-size: 16px;
-  color: rgb(255, 250, 250);
-  background-color: #383838;
-  border: 0px;
-  cursor: pointer
+  width: 200px;
 }
 
-.login > button:hover {
-  background-color: #111111;
+.login span {
+  text-align: center;
+}
+
+.login   a {
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+}
+.login  a:hover {
+  color: #d0167a;
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .description {
@@ -57,25 +72,58 @@
 .errorMessage {
   color: red
 }
+/*----------------------Sign up-----------------------------*/
+.login h1 {
+  font-size: 45px;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-.spotifyConnect > img {
-  margin-top: 300px;
-  height: 150px;
+.login .signupButton {
+  width: 270px;
+  margin-top: 30px;
+}
+
+.login .inputComment {
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 100;
+}
+
+
+
+/*----------------------Spotify connect-----------------------------*/
+.spotifyConnect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spotifyConnect > h1 {
+  font-weight: 1500;
+  font-size: 60px;
+  padding-bottom: 40px;
+  color: white;
+}
+
+.spotifyConnect >  h2 {
+  align-self:center;
+  margin: 0 auto;
+  max-width: 550px;
+  font-size: 20px;
+  color: #111111;
+  font-style: italic;
+  padding-bottom: 40px;
+  font-weight: 400;
+  margin-bottom: 50px;
+  text-align: center;
+}
+
+.spotifyConnect img {
+  height: 100px;
   padding-bottom: 10%;
 }
 
-.spotifyConnect > button  {
-  padding: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 99px;
-  font-weight: 400;
-  color: white;
-  text-decoration: none;
-  background-color: #383838;
-}
-
-.spotifyConnect > button:hover {
-  background-color: #111111;
-  cursor: pointer;
+.spotifyConnect button {
+  align-self: center;
 }

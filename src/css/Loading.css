@@ -1,4 +1,16 @@
 .loadingComponent {
-  color: white;
-  margin-top: 30%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loadingComponent .loadingGif{
+  display: flex;
+  justify-content: center;
+}
+
+.loadingComponent h1{
+  color: #fff;
+  text-align: center;
 }

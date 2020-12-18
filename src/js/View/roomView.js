@@ -8,6 +8,7 @@ const RoomView = ({creator, roomName, time, tracks, onStart, onExit, setTime, se
 
         </div>
         <h1 className="roomname">{roomName}</h1>
+       
         
         <div className="settings">
            <div className="range-slider">
