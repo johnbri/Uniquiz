@@ -31,7 +31,7 @@
 .login > p {
   font-size: 20px;
   margin-bottom: 5px;
-  font-weight: 100;
+  font-weight: 200;
   text-align: center;
   margin-top: 20px;
 }
@@ -39,6 +39,11 @@
 .login > input {
   width: 300px;
   align-self:center;
+}
+
+.login input:-webkit-autofill {
+  font-size: 13px;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
 .login > button {

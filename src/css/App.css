@@ -18,7 +18,6 @@
   background-color: #383838;
   border: 0px;
   cursor: pointer;
-  focus: transparent;
   outline: none;
 }
 
@@ -31,7 +30,7 @@
 }
 
 
-.app input {
+.app * input {
   font-size: 17px;
   color:#272727;
   font-weight: 100;
