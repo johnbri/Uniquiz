@@ -14,13 +14,8 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onC
                                                     transition: `width ${loadTime}s linear`}}/>
             </div>
         </div>
-<<<<<<< HEAD
-        <input 
-        id="inputBar" type="text" placeholder="Type trackname..." autoComplete="off" 
-=======
         <input className="input" id="inputBar"
         type="text" placeholder="Type trackname..." autoComplete="off" contentEditable="true"
->>>>>>> a9675a1043e1402792b3e02537530b1bb3c467d9
             onChange={(event)=> onText(event.target.value)}
             onKeyDown={(e) => {
                 e.key === 'Enter' && onSubmit(); 
