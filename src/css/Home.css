@@ -3,18 +3,18 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .home .logo {
   align-self: center;
   width: 350px;
+  margin-top: 150px;
 }
 
 .home > h1 {
   letter-spacing: 2px;
   font-weight: 1500;
-  font-size: 70px;
+  font-size: 80px;
   padding-bottom: 40px;
   color: white;
   text-align: center;
@@ -31,9 +31,10 @@
 /*----------------------Logout card-----------------------------*/
 .profile {
   position: fixed;
-  top: 40px;
-  right: 20px;
+  top: 20px;
+  right: 0px;
   display: flex;
+  justify-content: flex-start;
   flex-direction: column;
 }
 
@@ -47,7 +48,7 @@
   font-size: 25px;
   color: rgb(255, 250, 250);
   background-color: #383838;
-  border: 0px;
+  border: none;
   cursor: pointer;
 }
 
@@ -57,6 +58,7 @@
   width:80px;
   height:80px;
   border-radius: 50%;
+  border: 3px solid #fff;
 }
 
 /*----------------------Create/Join view-----------------------------*/
@@ -80,7 +82,7 @@
 
 .createjoin > h1 { 
   font-weight: 1500;
-  font-size: 70px;
+  font-size: 100px;
   padding-bottom: 40px;
   color: white;
   text-align: center;
@@ -104,6 +106,14 @@
 }
 
 .createjoin p {
+  align-self:center;
+  margin: 0 auto;
+  max-width: 750px;
+  font-size: 21px;
+  color: #111111;
+  font-style: italic;
+  font-weight: 400;
+  text-align: center;
   margin-top: 40px;
 }
 

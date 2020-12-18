@@ -10,7 +10,7 @@ const CreateJoinRoomView = ({onSubmit, onText, onBack, title, errorMessage}) =>
             <h1>{title} quiz</h1>
             <div className="buttons">
                 <input autoComplete="off" type="text" id="searchbar"
-                 placeholder="Room name" 
+                 placeholder="Quiz name" 
                  onChange={(event)=> onText(event.target.value)}
                  onKeyDown={(e) => {
                     e.key === 'Enter' && onSubmit(); 

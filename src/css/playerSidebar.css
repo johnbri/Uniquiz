@@ -3,8 +3,8 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    position: absolute;
-    bottom: 0;
+    align-self: flex-end;
+    margin-top: 40px;
 }
 
 .userImage{
@@ -52,14 +52,18 @@
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     background-color: #ffffff;
     border-radius: 15px;
     width: 200px;
     height: 130px;
-    box-shadow: 0px 0px 10px #000000;
-    -moz-box-shadow: 0px 0px 10px #000000;
-    -webkit-box-shadow: 0px 0px 10px #000000;  
+    box-shadow:
+    0 0px 1.8px rgba(0, 0, 0, 0.013),
+    0 0px 3.7px rgba(0, 0, 0, 0.014),
+    0 0px 6.2px rgba(0, 0, 0, 0.015),
+    0 0px 10.9px rgba(0, 0, 0, 0.017),
+    0 0px 22.7px rgba(0, 0, 0, 0.025),
+    0 0px 80px rgba(0, 0, 0, 0.07);
   }
 
 .answerText{
