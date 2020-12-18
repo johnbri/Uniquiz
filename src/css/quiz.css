@@ -1,16 +1,22 @@
-
+.quizPlaying {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 720px;
+}
 
 .loader {
     height: 30px;
-    width: 95%;
-    border:black solid;
-    border-width: 1px;
+    width: 90%;
+    border:4px #383838 solid;
     border-radius: 50px;
     margin-left: auto;
     margin-right: auto;
+    align-self: center;
   }
+
 .loader-bar {
-    background: rgb(255,0,157);
     background: linear-gradient(90deg, rgba(255,0,157,1) 0%, rgba(255,101,0,1) 43%, rgba(255,222,84,1) 100%);
     width: 100%;
     height: 30px;
@@ -18,26 +24,31 @@
     animation-fill-mode: forwards;
 }
 
-.quizPlaying > h2{
-  margin-top: 80px;
-  margin-bottom: 20px;
+.quizPlaying  h2{
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .quizPlaying > h1{
-  margin-top: 80px;
-  margin-bottom: 60px;
-
+  text-align: center;
+  margin-top: 100px;
+  font-size: 80px;
+  color: #fff;
+  margin-bottom: 50px;
 }
 
-.input{
-  border-radius: 6px;
-  height: 20px;
-  border:black solid;
-  border-width: 1px;
+.quizPlaying .submit {
+display: flex;
+align-self: center;
+margin-top: 40px;
+}
+
+.quizPlaying input{
+  width: 400px;
 }
 
 .submitButton {
-  margin-top: 30px;
+  margin-top: 0;
   margin-left: 10px;
   padding: 5px;
   padding-left: 20px;
@@ -47,7 +58,8 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
-  cursor: pointer
+  cursor: pointer;
+  align-self: center;
 }
 
 .submitButton:hover {
