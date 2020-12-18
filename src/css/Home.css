@@ -1,27 +1,45 @@
-.logo {
-  width: auto;
-  padding-top: 80px;
-  height: 200px;
-  padding-bottom: 100px;
+/*----------------------Home view-----------------------------*/
+.home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.home .logo {
+  align-self: center;
+  width: 350px;
 }
 
 .home > h1 {
   font-weight: 1500;
-  font-size: 60px;
+  font-size: 70px;
   padding-bottom: 40px;
   color: white;
+  text-align: center;
 }
 
+.home .homeButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.home button {
+  width: 200px;
+}
+/*----------------------Logout card-----------------------------*/
 .profile {
   position: fixed;
-  top: 20px;
+  top: 40px;
   right: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile > button{
+  align-self: center;
   transform: scale(0.6);
   margin: 10px;
-  padding: 10px;
   padding-left: 20px;
   padding-right: 20px;
   border-radius: 99px;
@@ -29,63 +47,45 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
-  cursor: pointer
-}
-
-.profile > button:hover {
-  background-color: #111111;
+  cursor: pointer;
 }
 
 .userImg {
+  align-self: center;
   object-fit: cover;
-  width:100px;
-  height:100px;
+  width:80px;
+  height:80px;
   border-radius: 50%;
-  border: 5px solid #272727;
 }
 
-.home > button {
-  margin: 10px;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 99px;
-  font-size: 25px;
-  color: rgb(255, 250, 250);
-  background-color: #383838;
-  border: 0px;
-  cursor: pointer
+/*----------------------Create/Join view-----------------------------*/
+
+.backButton {
+  position: fixed;
+  top: 30px;
+  left: 30px;
 }
 
-.home > button:hover {
-  background-color: #111111;
+.backButton button {
+  width: 100px;
 }
 
-.home > .logout {
-  position:absolute;
-  top: 10px;
-  right: 0px;
-  padding: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 99px;
-  font-size: 15px;
-  color: rgb(255, 250, 250);
-  background-color: #383838;
-  border: 0px;
-  cursor: pointer
+.createjoin {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .createjoin > h1 { 
-  padding-top: 250px;
   font-weight: 1500;
-  font-size: 60px;
+  font-size: 70px;
   padding-bottom: 40px;
   color: white;
+  text-align: center;
 }
 
 .createjoin > button {
-  margin: 10px;
   padding: 6px;
   padding-left: 15px;
   padding-right: 15px;
@@ -94,15 +94,19 @@
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
-  cursor: pointer
+  margin: 0px;
+  cursor: pointer;
 }
 
-.createjoin > input{
-  padding-left: 10px;
-  border-radius: 15px;
-  height: 30px;
-  font-size: 15px;
-  border:black solid;
-  border-width: 1px;
-  
+.createjoin input {
+  width: 250px;
+}
+
+.createjoin p {
+  margin-top: 40px;
+}
+
+.createjoin .buttons {
+  display: flex;
+  justify-content: center;
 }
