@@ -27,6 +27,7 @@ function QuizPlayingSong(props) {
             timeLeft: timeLeft,
             loadTime: roomModel.time,
             onSubmit: () => {
+                document.getElementById("inputBar").value = ""
                 setPlayerAnswerFB(answer);
             },
             onText: name => setAnswer(name),

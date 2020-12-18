@@ -15,9 +15,12 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer}) =>
             </div>
         </div>
         <input 
-        type="text" placeholder="Type trackname..." autoComplete="off" 
+        id="inputBar" type="text" placeholder="Type trackname..." autoComplete="off" 
             onChange={(event)=> onText(event.target.value)}
-            onKeyDown={(e) => {e.key === 'Enter' && onSubmit()}} 
+            onKeyDown={(e) => {
+                e.key === 'Enter' && onSubmit(); 
+                }
+            } 
             ref = {inputElement => {
                 if (inputElement) {
                   inputElement.focus()}}}

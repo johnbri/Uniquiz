@@ -17,8 +17,8 @@ function Results(props){
         players: players,
 
         onExit: (roomModel) => {
-            removeRoomFB(roomName);
             unSyncRoomModelToFB(roomName);
+            removeRoomFB(roomName);
             resetRoomModel(); //Den finns fortfarande kvar i home
             props.history.push('/home');
 

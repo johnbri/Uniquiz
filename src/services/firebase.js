@@ -59,11 +59,13 @@ function syncRoomModelToFB(roomName){
       let ref = database.ref('rooms/' + roomName);
       ref.child("players").on('value', (snapshot) => { 
         roomModel.setPlayers(snapshot.val());
-        roomModel.setCreator(roomModel.getPlayerInfo().host);    
+        roomModel.getPlayerInfo() && roomModel.setCreator(roomModel.getPlayerInfo().host);    
 
         if (roomModel.creator) {
-          let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
-          nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
+          if (roomModel.getPlayerInfo()) {
+            let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
+            nextCreator && ref.child("players").child(nextCreator).onDisconnect().update({host: true});
+          }   
         }
       })
 
@@ -283,7 +285,6 @@ function removeRoomFB(roomName) {
   let ref = database.ref('rooms/' + roomModel.roomName + '/players');
   ref.once('value').then((snapshot) => {
     snapshot.numChildren() === 1 && database.ref('rooms/' + roomName).remove()
-    console.log("child ", snapshot.numChildren(), "roooom ", roomName)
   }) 
 }
 
