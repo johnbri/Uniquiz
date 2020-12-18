@@ -1,6 +1,5 @@
 /*----------------------Login view-----------------------------*/
 .login {
-  margin-top: 30px;
   flex-direction: column;
   display: flex;
   justify-content: center;
@@ -20,27 +19,26 @@
 .login >  h2 {
   align-self:center;
   margin: 0 auto;
-  max-width: 550px;
-  font-size: 20px;
+  max-width: 650px;
+  font-size: 21px;
   color: #111111;
   font-style: italic;
-  padding-bottom: 40px;
+  margin-bottom: 20px;
   font-weight: 400;
-  margin-bottom: 50px;
   text-align: center;
 }
 
 .login > p {
-  font-size: 15px;
+  font-size: 20px;
   margin-bottom: 5px;
-  font-weight: 300;
+  font-weight: 100;
   text-align: center;
+  margin-top: 20px;
 }
 
 .login > input {
   width: 300px;
   align-self:center;
-  margin-bottom: 15px;
 }
 
 .login > button {
@@ -70,9 +68,21 @@
   color: red
 }
 /*----------------------Sign up-----------------------------*/
+.login h1 {
+  font-size: 45px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
 .login .signupButton {
   width: 270px;
   margin-top: 30px;
+}
+
+.login .inputComment {
+  font-style: italic;
+  font-size: 15px;
+  font-weight: 100;
 }
 
 

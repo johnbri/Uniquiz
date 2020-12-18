@@ -15,7 +15,7 @@ const ResultsView = ({players, roomName, onExit}) =>
             <h3>Results</h3>
             <table className="resultsTable">
                 <thead>
-                    <tr>
+                    <tr key="plyerscore">
                         <th>Player</th>
                         <th>Score</th>
                     </tr>
@@ -29,17 +29,16 @@ const ResultsView = ({players, roomName, onExit}) =>
                 )} 
                 </tbody>
                 <thead>
-                    <tr>
-                        <th className="trackheader">Track</th>
-                        
+                    <tr key="trackheader">
+                        <th className="trackheader">Tracks</th>
                     </tr>
                 </thead>
                 <tbody className="tracks">
-                {console.log(roomModel.playlist)}
-                {roomModel.playlist.map(track=>
-                    <tr key={track.uid}>
-                        <td>{track.name} - {track.artists.map(artist=>
-                         (artist + ", "))}</td>
+                {roomModel.playlist.map((track, index)=>
+                    <tr key={index}>
+                        <td>{track.name} - {track.artists.map((artist, index, array) =>
+                            artist === array[array.length - 1] ? artist : (artist + ", ")
+                         )}</td>
                     </tr>
                 )
                 } 

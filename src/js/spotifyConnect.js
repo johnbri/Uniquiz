@@ -21,9 +21,10 @@ function SpotifyConnect(props) {
     addImgDB(token);
     getUserPlaylists(token).then(playlist => addUserPlaylistToFB(playlist));
   }
-
+  let error = (window.location == (window.location.origin + "/spotifyConnect?error=access_denied"));
   return !token ? React.createElement(SpotifyConnectView, {
-    onLogin: () => window.location.href = loginUrl
+    onLogin: () => window.location.href = loginUrl,
+    error
   })
   : <Redirect to="/home"/>
 }

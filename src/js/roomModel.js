@@ -1,6 +1,5 @@
+import {userModel} from "../index";
 
-import { userModel } from "../index";
-import { database, syncRoomModelToFB, updateRoomPlayersFB } from "../services/firebase";
 class RoomModel {
     /** Model containing information for the room currently connected to the logged in user from firebase*/
     constructor(roomName = "", players=[]){
@@ -47,9 +46,10 @@ class RoomModel {
     }
 
     getPlayerInfo() {
-        const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
-        //const player = this.players.filter(player => player.uid === userModel.uid)
-        return this.players[playerUid];
+        if (this.players) {
+            const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
+            return this.players[playerUid];
+        } 
     }
 
     getStatus() {
@@ -117,7 +117,7 @@ class RoomModel {
         this.notifyObservers();
     }
 
-    checkCorrectAnswer(userAnswer=this.getAnswer()) {
+    checkCorrectAnswer(userAnswer = this.getAnswer()) {
         /** Check if user answer is correct. Strips the string of certain signs and skips parantheses etc. */
         let userAnswerOrig = userAnswer; // safety in case the split etc. does not work
         let correctAnswer = this.getCorrectAnswer();

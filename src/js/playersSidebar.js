@@ -1,23 +1,20 @@
 import PlayersSidebarView from './view/playersSidebarView.js';
 import NoDataView from './view/noDataView.js';
-import React, { useState, useEffect, useReducer} from "react";
-import {roomModel, userModel} from '../index.js';
+import React from "react";
+import {roomModel} from '../index.js';
 import useModelProp from './useModelProp.js';
-import { useHistory } from "react-router-dom";
-import allowedAccess from "./withAuth.js";
 
 function PlayersSidebar (props) {
     const players = useModelProp(roomModel, "players");
+    const creator = useModelProp(roomModel, "creator");
     let data = [players]
-    /* const displayName = useModelProp(userModel, "displayName");
-    const score = useModelProp(roomModel, "score");
-    const userImg = useModelProp(userModel, "img"); */
 
     let inRoom = props.location.pathname === "/room";
 
     return players ? React.createElement(PlayersSidebarView, {
         players: players,
-        inRoom: inRoom
+        inRoom: inRoom,
+        creator: creator,
         }) : NoDataView(data, "Loading for players")
 }
 

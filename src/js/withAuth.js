@@ -1,12 +1,12 @@
 import {auth, setUserRoomStatusToFB} from '../services/firebase.js';
-import { Redirect, Route } from 'react-router-dom'; 
-import { roomModel, userModel } from '../index.js';
-import { useState, useEffect} from "react";
+import {Redirect, Route} from 'react-router-dom'; 
+import {roomModel, userModel} from '../index.js';
+import {useState, useEffect} from "react";
 import useModelProp from "./useModelProp";
 import NoDataView from './view/noDataView.js';
-import { useHistory } from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
-const AllowedAccess = ({component: Component, isAuth,thePath, ...rest}) => (
+const AllowedAccess = ({component: Component, isAuth, thePath, ...rest}) => (
   isAuth ? <Route path={thePath} component={Component} /> : 
   (isAuth == false) ?  <Redirect to='/' /> : null
 );

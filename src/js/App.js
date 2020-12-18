@@ -11,20 +11,17 @@ import Results from "./results.js";
 import SpotifyConnect from "./spotifyConnect";
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
 } from "react-router-dom";
 import AllowedAccess from './withAuth.js'
 import { useState} from "react";
 import {auth} from '../services/firebase.js'
-import { CreateJoinRoomView } from './view/createJoinRoomView';
-import quizAnswers from './quizAnswers.js';
+
 
 function App() {
   /**Renders different components depeding on path */
   const [user, setUser] = useState(null);
   
-
   auth().onAuthStateChanged((userObject) => {
     if (userObject) {
       setUser(true);
