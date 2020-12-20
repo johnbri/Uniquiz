@@ -4,7 +4,12 @@
     width: 100%;
     justify-content: center;
     align-self: flex-end;
-    margin-top: 40px;
+    margin-bottom: 50px;
+    align-content: flex-end;
+}
+
+.boxContainer {
+  align-self: flex-end;
 }
 
 .userImage{
@@ -52,11 +57,11 @@
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 30px;
     background-color: #ffffff;
     border-radius: 15px;
     width: 200px;
     height: 130px;
+    text-align: center;
     box-shadow:
     0 0px 1.8px rgba(0, 0, 0, 0.013),
     0 0px 3.7px rgba(0, 0, 0, 0.014),
@@ -70,13 +75,17 @@
   word-wrap: break-word;
   font-size: 15px;
   font-style: italic; 
+  font-weight: bold;
   max-width: 160px;
+  margin-right: 0px;
+  margin-top: 10px;
   margin-bottom: 30px;
 }
 
 .playerCard > .userInfo {
   font-size: 14px;
-  padding-top: 10px;
+  padding-top: 27px;
+  text-align: left;
 }
   
 .posistionbox h1{

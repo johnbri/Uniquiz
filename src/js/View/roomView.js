@@ -11,7 +11,7 @@ const RoomView = ({creator, roomName, time, tracks, onStart, onExit, setTime, se
             <div className="settings">
             <div className="range-slider">
                     <label>Guess time:  {time}s</label><br/>
-                    {creator && <input className="range" value={time} type="range" step="5" id="time" min="10" max="30" onChange={(event)=> setTime(event.target.value) }/>}
+                    {creator && <input className="range" value={time} type="range" step="5" id="time" min="15" max="30" onChange={(event)=> setTime(event.target.value) }/>}
                 </div>
 
                 <div className="range-slider">

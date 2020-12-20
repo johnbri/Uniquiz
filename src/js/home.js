@@ -10,8 +10,11 @@ function Home(props) {
     const userImg = useModelProp(userModel, "img");
     const displayName = useModelProp(userModel, "displayName");
     const data = [userImg, displayName]
-    return NoDataView(data, "Loading homepage") 
-    || React.createElement(homeView, {
+
+    let dataRetrieved = data.some(dt => dt === null || dt.length === 0 );
+
+    return dataRetrieved ? NoDataView("Loading homepage") 
+    : React.createElement(homeView, {
         userImg: userImg,
         userName: displayName,
         onCreate: () => props.history.push({

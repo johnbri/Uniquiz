@@ -1,7 +1,7 @@
+/*----------------------Quizplaying view-----------------------------*/
 .quizPlaying {
   flex-direction: column;
   display: flex;
-  height: 720px;
   flex-grow: 3;
   margin-top: 80px;
 }

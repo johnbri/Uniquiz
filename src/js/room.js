@@ -46,7 +46,7 @@ function Room(props){
         setTime: input => setTimeFB(parseInt(input)),
         setNumberOfTracks: input=> setNumberOfTracksFB(parseInt(input))
         })
-    : (status === "inRoomGenerating" && combinedPlaylist.length === 0 ) ? NoDataView(data, "Creating Quiz")
+    : (status === "inRoomGenerating" && combinedPlaylist.length === 0 ) ? NoDataView("Creating Quiz")
     : <Redirect to="/quiz/playing" />;
 }
 

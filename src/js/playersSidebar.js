@@ -7,14 +7,15 @@ import useModelProp from './useModelProp.js';
 function PlayersSidebar (props) {
     const players = useModelProp(roomModel, "players");
 
-    let data = [players]
+    let data = [players];
 
     let inRoom = props.location.pathname === "/room";
 
     return players ? React.createElement(PlayersSidebarView, {
         players: players,
         inRoom: inRoom,
-        }) : NoDataView(data, "Loading for players")
+        correctAnswer: window.location == (window.location.origin + "/quiz/answers") && Object.keys(players).map(uid => roomModel.checkCorrectAnswer(players[uid].answer))
+        }) : NoDataView("Loading players")
 }
 
 export default PlayersSidebar;

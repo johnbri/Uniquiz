@@ -2,9 +2,9 @@
 .quizAnswers {
   flex-direction: column;
   display: flex;
-  height: 720px;
   flex-grow: 3;
   margin-top: 80px;
+  text-align: center;
 }
 
 .quizAnswers > h1{
@@ -59,4 +59,8 @@
   
   .quizAnswers > button:hover {
     background-color: #111111;
+  }
+
+  .quizAnswers span {
+    margin-top: 30px;
   }

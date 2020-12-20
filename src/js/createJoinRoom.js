@@ -14,7 +14,7 @@ function CreateJoinRoom(props){
     const playlist = useModelProp(userModel, "playlist");
     const data = [userModel.playlist];
     const createRoom = window.location == window.location.origin + '/quiz/create';
-    
+
     return playlistReady ? React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
         onSubmit: () => {
@@ -29,7 +29,7 @@ function CreateJoinRoom(props){
             },
         errorMessage: props.location.errorMessage
     })
-    : NoDataView(data) //|| createJoin(props, roomName, createRoom);
+    : NoDataView("Loading")
 }
 
 export default CreateJoinRoom;

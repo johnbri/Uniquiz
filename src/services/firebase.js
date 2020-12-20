@@ -174,7 +174,7 @@ function addPlayerToFB(roomName, createRoom) {
     playlist: userModel.playlist,
     host: createRoom
   });
-  ref.child(userModel.uid).onDisconnect().remove(); // removes player from room on disconnect
+  ref.child(userModel.uid).onDisconnect().remove().then(console.log("TA BBORT RUM ", roomName)); // removes player from room on disconnect
 }
 
 function setUserRoomStatusToFB(inRoom) {

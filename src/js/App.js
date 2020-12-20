@@ -13,7 +13,7 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import AllowedAccess from './withAuth.js'
+import AllowedAccess from './allowedAccess.js'
 import { useState} from "react";
 import {auth} from '../services/firebase.js'
 
@@ -33,19 +33,17 @@ function App() {
 
   return <div className="app">
     <Router>
-      <div>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <AllowedAccess thePath="/home" isAuth={user} component={Home} />
-          <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
-          <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
-          <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
-          <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
-          <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
-          <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
-          <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
-          <AllowedAccess thePath="/results" isAuth={user} component={Results} />
-      </div> 
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <AllowedAccess thePath="/home" isAuth={user} component={Home} />
+        <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
+        <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
+        <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
+        <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
+        <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
+        <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
+        <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
+        <AllowedAccess thePath="/results" isAuth={user} component={Results} /> 
     </Router>
   </div>;
 }
