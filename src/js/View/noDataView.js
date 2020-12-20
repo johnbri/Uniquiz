@@ -1,6 +1,7 @@
 import '../../css/Loading.css';
 
-function NoDataView(loadingstring=""){  
+function NoDataView(loadingstring=""){
+    /** Loading view */  
     return (
         <div className="loadingComponent">
             <div>

@@ -120,3 +120,24 @@
 .spotifyConnect button {
   align-self: center;
 }
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .login img {
+    width: 70%;
+  }
+
+  .login h2 {
+    margin: 10px;
+  }
+
+  .login input {
+      width: 80%;
+  }
+
+  .spotifyConnect img {
+    width: 60%;
+    height: auto;
+  }
+
+}

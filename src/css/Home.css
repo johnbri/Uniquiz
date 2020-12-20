@@ -121,3 +121,27 @@
   display: flex;
   justify-content: center;
 }
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .home .logo {
+    width: 70%;
+  }
+
+  .home .homeButtons {
+    flex-direction: column;
+  }
+
+  .home button {
+    margin-bottom: 20px;
+  }
+
+  .createjoin .buttons {
+    flex-direction: column;
+  }
+
+  .createjoin input {
+    align-self: center;
+    margin-bottom: 10px;
+  }
+}

@@ -103,3 +103,15 @@ input[type=range]::-webkit-slider-thumb:active {
   margin-top: 10px;
 }
 
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .room {
+    width: 100%;
+  }
+
+  .room .settings {
+    width:90%;
+  }
+
+}
+

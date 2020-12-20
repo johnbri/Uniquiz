@@ -69,3 +69,18 @@ margin-top: 40px;
 .submittedanswer{
   margin-top: 60px;
 }
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .quizPlaying {
+    width: 100%;
+  }
+
+  .quizPlaying .submit {
+    flex-direction: column;
+  }
+
+  .quizPlaying input {
+    width: 100%;
+  }
+}

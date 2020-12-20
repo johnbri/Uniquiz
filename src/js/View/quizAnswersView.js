@@ -2,6 +2,7 @@ import { roomModel } from '../..';
 import '../../css/Answers.css';
 
 const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnText, onPlay}) =>
+    /** Displaying the correct answer */
     <div className="quizWrapper">
         <div className="quizAnswers">
             <h1>The correct answer was</h1>
