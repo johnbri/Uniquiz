@@ -129,13 +129,17 @@ async function createJoinRoomFB(props, roomName, createRoom){
   database.ref('rooms/' + roomName).once('value', (snapshot) => {
       try {
       if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
-              throw new Error("A room with the name already exists");
+              throw new Error("A quiz with the name already exists");
       } else if (snapshot.val() !== null && !createRoom) { //If room exist and user wants to join
+          if (snapshot.val().status === "inGame"){
+            throw new Error("Quiz has already started.")
+          } else {
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName, createRoom);
           setUserRoomStatusToFB(true);
           roomModel.setRoomName(roomName);
           props.history.push('/quiz/room')
+          }
       } else if (snapshot.val() == null && createRoom){ //If room does not exist and user wants to create
           syncRoomModelToFB(roomName);
           addPlayerToFB(roomName, createRoom);
@@ -147,7 +151,7 @@ async function createJoinRoomFB(props, roomName, createRoom){
           setNumberOfTracksFB(10);
           props.history.push('/quiz/room')
       } else { //If room does not exist and user wants to join
-              throw new Error("Room does not exist!");
+              throw new Error("Quiz does not exist!");
       }
   } catch(error) {
       error.message.includes("already exists") ? props.history.push({
