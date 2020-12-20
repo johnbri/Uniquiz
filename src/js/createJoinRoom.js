@@ -8,12 +8,11 @@ import NoDataView from './view/noDataView.js';
 
 
 function CreateJoinRoom(props){
-    /** Create different view depending on if the user want to create or join room */
+    /** Presenter that creates different views depending on if the user want to create or join a quiz */
     const [roomName, setRoomName]= React.useState("");
     const [playlistReady, setPlaylistReady]= React.useState(true);
     const playlist = useModelProp(userModel, "playlist");
-    const data = [userModel.playlist];
-    const createRoom = window.location == window.location.origin + '/quiz/create';
+    const createRoom = window.location == window.location.origin + '/quiz/create'; 
 
     return playlistReady ? React.createElement(CreateJoinRoomView, {
         title: createRoom ? "Create" : "Join",
@@ -24,11 +23,11 @@ function CreateJoinRoom(props){
         onText: name => setRoomName(name),
         onBack: () => props.history.push("/home"),
         onLogOut: () => {
-            auth().signOut().then(()=> {
-                props.history.push('/')})
-            },
+                    auth().signOut().then(()=> {
+                    props.history.push('/')})
+                },
         errorMessage: props.location.errorMessage
-    })
+        })
     : NoDataView("Loading")
 }
 

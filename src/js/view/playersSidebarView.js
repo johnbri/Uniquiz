@@ -1,7 +1,7 @@
 import '../../css/playerSidebar.css';
 import { roomModel } from '../..';
 
-const PlayersSidebarView= ({creator, players, inRoom, correctAnswer}) =>
+const PlayersSidebarView= ({players, inRoom, correctAnswer}) =>
     /** Displays all the players connected to the room */
     <div className="playersSidebar">
         {Object.keys(players).map((playerUid, index) => 

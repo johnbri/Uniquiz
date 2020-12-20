@@ -7,6 +7,7 @@ import {setCurrentSongIndexFB, setQuizStatusFB} from '../services/firebase.js';
 import {Redirect} from 'react-router-dom'; 
 
 function QuizAnswers (props) {
+    /**Presenter for the quizAnswers view. Generates the correct answer and the next song or the results page. */
     const displayName = useModelProp(userModel, "displayName");
     const score = useModelProp(roomModel, "score");
     const creator = useModelProp(roomModel, "creator");
@@ -20,11 +21,12 @@ function QuizAnswers (props) {
     if (currentSongIndex >= playlist.length-1) {
         lastSong = true;
     }
+
     useEffect(function(){ 
         roomModel.playlist.length === 0 && props.history.push('/home'); // if user refreshes they will be redirected
         setNextSong(currentSongIndex);
         (nextSong != null) && props.history.push('/quiz/playing')
-    }, [currentSongIndex]); 
+    }, [currentSongIndex]); //Generates a warning that we cannot seem to eliminate without crashing our app
 
     let Song = roomModel.getPlaylist()[roomModel.getCurrentSongIndex()];
 

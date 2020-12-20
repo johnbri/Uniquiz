@@ -1,7 +1,6 @@
-import { roomModel } from '../..';
 import '../../css/Results.css';
 
-const ResultsView = ({players, roomName, onExit}) =>
+const ResultsView = ({players, playlist, onExit}) =>
     /** Page that displays the results after a quiz */
     <div className="wrapper">
         <div className="exitContainer">
@@ -36,7 +35,7 @@ const ResultsView = ({players, roomName, onExit}) =>
                 <h2>Tracks</h2>
                 <table>
                     <tbody className="tracks">
-                    {roomModel.playlist.map((track, index)=>
+                    {playlist.map((track, index)=>
                         <tr key={index}>
                             <td>{track.name} - {track.artists.map((artist, index, array) =>
                                 artist === array[array.length - 1] ? artist : (artist + ", ")
@@ -52,8 +51,6 @@ const ResultsView = ({players, roomName, onExit}) =>
 
 export default ResultsView;
 
-//Ska den här funktionen vara här???? Har för mig att de nämnde något i tutorialen att man kanske vill ha en sortering metod 
-//i viewn eftersom det bara handlar on hur man presternar data. Men den skulle passa bättre in modellen eftersom den används på flera ställen
 function compareScores(a,b){
     /** Compares the score of the players */
     if(a.score > b.score) {

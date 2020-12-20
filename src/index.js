@@ -25,6 +25,7 @@ ReactDOM.render(
 reportWebVitals();
 
 function resetRoomModel() {
+  /**Resets roomModel */
   roomModel = new RoomModel();
   userModel.setCurrentRoom("");
 }

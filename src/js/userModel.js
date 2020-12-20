@@ -74,9 +74,7 @@ class UserModel {
 
     setInRoom(status) {
         this.inRoom = status;
-        //this.notifyObservers();
     }
-
 }
 
 export default UserModel

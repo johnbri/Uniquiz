@@ -4,7 +4,6 @@ import { roomModel } from '../..';
 
 const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onClear}) => 
     /** View for playing song */
-
     <div className="quizWrapper">
         <div className="quizPlaying">
             <h1>Track {roomModel.currentSongIndex+1} of {roomModel.playlist.length}</h1>
@@ -12,8 +11,8 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onC
                 <div className="loader">
                     <div className="loader-bar" style={{width:`${timeLeft}%`,
                                                         transition: `width ${loadTime}s linear`}}/>
+                    </div>
                 </div>
-            </div>
             <h2>Guess the track before the time runs out!</h2>
             <div className="submit">
                 <input className="input" id="inputBar"

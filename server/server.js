@@ -1,3 +1,6 @@
+//NOT IN USE! Saved for future work
+
+
 /**
  * This is an example of a basic node.js script that performs
  * the Authorization Code oAuth2 flow to authenticate against
@@ -33,7 +36,7 @@ var generateRandomString = function(length) {
 var app = express();
 
 
-// Hämtar Code som vi kan byta ut mot access token och refresh token
+// Retrieves Code that can be exchanged with access token
 app.get('/login', function(req, res) {
   var state = generateRandomString(16);
   var scope = 'user-read-private user-read-email';
@@ -46,6 +49,7 @@ app.get('/login', function(req, res) {
       state: state
     }));
 });
+
 // Byter ut code mot vår access- och refresh token
 app.get('/callback', function(req, res) {
   var code = req.query.code;
@@ -120,3 +124,4 @@ app.get('/refresh_token', function(req, res) {
 });
 
 app.listen(3000);
+
