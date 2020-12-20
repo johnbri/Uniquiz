@@ -8,13 +8,13 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onC
     <div className="quizWrapper">
         <div className="quizPlaying">
             <h1>Track {roomModel.currentSongIndex+1} of {roomModel.playlist.length}</h1>
-            <h2>Submit track before the time runs out!</h2>
             <div className="loader-container">
                 <div className="loader">
                     <div className="loader-bar" style={{width:`${timeLeft}%`,
                                                         transition: `width ${loadTime}s linear`}}/>
                 </div>
             </div>
+            <h2>Guess the track before the time runs out!</h2>
             <div className="submit">
                 <input className="input" id="inputBar"
             type="text" placeholder="Type trackname..." autoComplete="off" contentEditable="true"
@@ -27,7 +27,7 @@ const QuizPlaying= ({ timeLeft, onText, onSubmit, loadTime, submittedAnswer, onC
                     if (inputElement) {
                     inputElement.focus()}}}
                 />
-                <button className="submitButton" onClick={() => onSubmit()}>Submit Answer!</button>
+                <button className="submitButton" onClick={() => onSubmit()}>Submit Answer</button>
             </div>
             
             <div className="submittedanswer">
