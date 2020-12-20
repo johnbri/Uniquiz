@@ -9,6 +9,7 @@ const RoomView = ({creator, roomName, time, tracks, onStart, onExit, setTime, se
         <div className= "room">
             <h1 className="roomname">{roomName}</h1>
             <div className="settings">
+                <h2>Settings</h2>
             <div className="range-slider">
                     <label>Guess time:  {time}s</label><br/>
                     {creator && <input className="range" value={time} type="range" step="5" id="time" min="15" max="30" onChange={(event)=> setTime(event.target.value) }/>}
@@ -20,7 +21,7 @@ const RoomView = ({creator, roomName, time, tracks, onStart, onExit, setTime, se
                 </div> 
             </div>
             <div className="start">
-                <button className="startButton" onClick={() => onStart()} disabled={!creator}>Start Quiz!</button><br/>
+                <button className="startButton" onClick={() => onStart()} disabled={!creator}>Start Quiz!</button>
                 {!creator && <span>The host starts the game.</span> }
             </div>
         </div>
