@@ -7,7 +7,7 @@ const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnTe
         <div className="quizAnswers">
             <h1>The correct answer was</h1>
             <div className="coverArtContainer">
-                <img className="coverArt" src = {correctImg} alt ="Track"></img>
+                <img className="coverArt" id="albumCover" src = {correctImg} alt ="Track"></img>
             </div>
             <div className="correctAnswer">
                 <h2>{correctName}</h2> by {correctArtists && correctArtists.map((element, index) => 

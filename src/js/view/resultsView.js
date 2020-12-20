@@ -4,15 +4,17 @@ import '../../css/Results.css';
 const ResultsView = ({players, roomName, onExit}) =>
     /** Page that displays the results after a quiz */
     <div className="wrapper">
+        <div className="exitContainer">
+            <button onClick={() => onExit()}>Exit room</button>
+        </div>
         <div className="results">
             <h1 className="winnertext">Winner</h1>
             <h1 className="winnername">
                 {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].displayName}
                 {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].img}
             </h1>
-        
             <div className="resultsContainer">
-                <h3>Results</h3>
+                <h2>Results</h2>
                 <table className="resultsTable">
                     <thead>
                         <tr key="plyerscore">
@@ -28,11 +30,11 @@ const ResultsView = ({players, roomName, onExit}) =>
                         </tr>
                     )} 
                     </tbody>
-                    <thead>
-                        <tr key="trackheader">
-                            <th className="trackheader">Tracks</th>
-                        </tr>
-                    </thead>
+                </table>
+            </div>
+            <div className="resultsContainer">
+                <h2>Tracks</h2>
+                <table>
                     <tbody className="tracks">
                     {roomModel.playlist.map((track, index)=>
                         <tr key={index}>
@@ -42,12 +44,8 @@ const ResultsView = ({players, roomName, onExit}) =>
                         </tr>
                     )
                     } 
-                    </tbody>   
-
+                    </tbody> 
                 </table>
-            </div>
-            <div className="exitContainer">
-                <button onClick={() => onExit()}>Exit room</button>
             </div>
         </div>
     </div>

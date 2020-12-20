@@ -1,6 +1,7 @@
 .results {
     flex-direction: column;
     display: flex;
+    text-align: center;
 }
 
 .winnertext{
@@ -8,12 +9,13 @@
     margin-top: 80px;
     margin-bottom: 30px;
     text-align: center;
+    color: #fff;
 }
 
 .winnername{
     font-size: 50px;
     margin-top: 20px;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
     animation: pop 1s ease-in-out;
     text-align: center;
 }
@@ -33,14 +35,29 @@
     width: 500px;
     padding: 20px;
     border-radius: 20px;
-    margin:0 auto;
     color: white;
     animation-delay: 1s;
     animation-name: stretch;
     animation-duration: 1s; 
     animation-timing-function: ease-out; 
     animation-fill-mode: forwards;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
+}
+
+.resultsContainer td {
+    text-align: center;
+}
+
+.resultsContainer table {
+    font-weight: 100;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.results h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
 @keyframes stretch {
@@ -48,8 +65,6 @@
         transform: scale(1);
     }
 }
-
-
 
 .trackheader{
     padding-top: 30px;
@@ -60,10 +75,27 @@
     text-align: left;
 }
 
-.results .exitContainer{
-    align-self: center;
+.exitContainer{
+    position: fixed;
+    top: 30px;
+    left: 30px;
+}
+
+.exitContainer button {
+    width: 150px;
 }
 
 .results button {
     width: 160px;
+}
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+    .results {
+        width: 100%;
+    }
+
+    .resultsContainer {
+        width:80%;
+    }
 }

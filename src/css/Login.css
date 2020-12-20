@@ -119,6 +119,7 @@
 
 .spotifyConnect button {
   align-self: center;
+  width: 300px;
 }
 
 /* Media Queries: Tabled Portrait */

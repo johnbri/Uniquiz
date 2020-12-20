@@ -56,6 +56,7 @@ button[disabled]{
   justify-content: center;
   color: white;
   font-size: 20px;
+  font-weight: 100;
 }
 
 *.range-slider{
@@ -91,7 +92,7 @@ input[type=range]::-webkit-slider-thumb {
   max-width: 80px;
   position: relative;
   bottom: 6px;
-  background-color: #383838;
+  background-color: pink;
   cursor: grab;
 }
 
