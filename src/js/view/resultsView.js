@@ -2,52 +2,54 @@ import { roomModel } from '../..';
 import '../../css/Results.css';
 
 const ResultsView = ({players, roomName, onExit}) =>
-
     /** Page that displays the results after a quiz */
-    <div className="results">
-        <h1 className="winnertext">Winner</h1>
-        <h1 className="winnername">
-            {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].displayName}
-            {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].img}
-        </h1>
-    
-        <div className="resultsContainer">
-            <h3>Results</h3>
-            <table className="resultsTable">
-                <thead>
-                    <tr key="plyerscore">
-                        <th>Player</th>
-                        <th>Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {Object.keys(players).sort((a,b) => compareScores(players[a],players[b])).map(uid => 
-                    <tr key={uid}>
-                        <td>{players[uid].displayName}</td>
-                        <td>{players[uid].score}</td>
-                    </tr>
-                )} 
-                </tbody>
-                <thead>
-                    <tr key="trackheader">
-                        <th className="trackheader">Tracks</th>
-                    </tr>
-                </thead>
-                <tbody className="tracks">
-                {roomModel.playlist.map((track, index)=>
-                    <tr key={index}>
-                        <td>{track.name} - {track.artists.map((artist, index, array) =>
-                            artist === array[array.length - 1] ? artist : (artist + ", ")
-                         )}</td>
-                    </tr>
-                )
-                } 
-                </tbody>   
-
-            </table>
-        </div>
-        <button onClick={() => onExit()}>Exit room</button>
+    <div className="wrapper">
+        <div className="results">
+            <h1 className="winnertext">Winner</h1>
+            <h1 className="winnername">
+                {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].displayName}
+                {players[Object.keys(players).sort((a,b) => compareScores(players[a],players[b]))[0]].img}
+            </h1>
         
+            <div className="resultsContainer">
+                <h3>Results</h3>
+                <table className="resultsTable">
+                    <thead>
+                        <tr key="plyerscore">
+                            <th>Player</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {Object.keys(players).sort((a,b) => compareScores(players[a],players[b])).map(uid => 
+                        <tr key={uid}>
+                            <td>{players[uid].displayName}</td>
+                            <td>{players[uid].score}</td>
+                        </tr>
+                    )} 
+                    </tbody>
+                    <thead>
+                        <tr key="trackheader">
+                            <th className="trackheader">Tracks</th>
+                        </tr>
+                    </thead>
+                    <tbody className="tracks">
+                    {roomModel.playlist.map((track, index)=>
+                        <tr key={index}>
+                            <td>{track.name} - {track.artists.map((artist, index, array) =>
+                                artist === array[array.length - 1] ? artist : (artist + ", ")
+                            )}</td>
+                        </tr>
+                    )
+                    } 
+                    </tbody>   
+
+                </table>
+            </div>
+            <div className="exitContainer">
+                <button onClick={() => onExit()}>Exit room</button>
+            </div>
+        </div>
     </div>
 
 export default ResultsView;
