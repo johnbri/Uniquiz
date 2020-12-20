@@ -5,10 +5,9 @@ import {roomModel} from '../index.js';
 import useModelProp from './useModelProp.js';
 
 function PlayersSidebar (props) {
+    /**Sidebar presenter that generates the players in the quiz. 
+     * It also shows name, score, profile image and if you're host. */
     const players = useModelProp(roomModel, "players");
-
-    let data = [players];
-
     let inRoom = props.location.pathname === "/room";
 
     return players ? React.createElement(PlayersSidebarView, {

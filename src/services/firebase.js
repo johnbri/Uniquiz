@@ -5,7 +5,7 @@ import {roomModel, userModel, resetRoomModel} from '../index.js';
 import {getUserImg} from "../js/spotify";
 
 
-  var firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyALuzAm03buerT-oxeALHaQ37KJ3-mlWwU",
     authDomain: "uniquiz-e9d1f.firebaseapp.com",
     databaseURL: "https://uniquiz-e9d1f.firebaseio.com/",
@@ -14,13 +14,12 @@ import {getUserImg} from "../js/spotify";
     messagingSenderId: "686495982031",
     appId: "1:686495982031:web:d547762be1611f7d42b2ba",
     measurementId: "G-XQ99NH3C47"
-  };
-firebase.initializeApp(firebaseConfig);
+};
 
+firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth;
 
-//Functions
 function loginFB (props, email, password) {
   /**Log in to a user in firebase*/
   auth().signInWithEmailAndPassword(email, password)
@@ -35,7 +34,7 @@ function loginFB (props, email, password) {
 }
 
 function signupFB(props, email, name, password) {
-  /**signs up the user in firebase*/
+  /**Signs up the user in firebase*/
     if (name) {
      auth().createUserWithEmailAndPassword(email, password)
     .then(() =>  {
@@ -60,7 +59,6 @@ function syncRoomModelToFB(roomName){
       ref.child("players").on('value', (snapshot) => { 
         roomModel.setPlayers(snapshot.val());
         roomModel.getPlayerInfo() && roomModel.setCreator(roomModel.getPlayerInfo().host); 
-
         if (roomModel.creator) {
           if (roomModel.getPlayerInfo()) {
             let nextCreator = Object.keys(roomModel.players).find(uid => userModel.uid !== uid);
@@ -91,7 +89,6 @@ function syncRoomModelToFB(roomName){
       ref.child("currentSongIndex").on('value', (snapshot) => {
         roomModel.setCurrentSongIndex(snapshot.val());
       })
-
   } catch (error) {
       console.log("Unable to correctly sync RoomModel to FB");
   }
@@ -125,7 +122,8 @@ function syncUserModelToFB(uid){
   }
 }
 
-async function createJoinRoomFB(props, roomName, createRoom){
+async function createJoinRoomFB(props, roomName, createRoom) {
+  /**Creates a room in firebase or adds a user to the room they want to join. */
   database.ref('rooms/' + roomName).once('value', (snapshot) => {
       try {
       if (snapshot.val() !== null && createRoom) { //If room exist and user wants to create
@@ -178,7 +176,7 @@ function addPlayerToFB(roomName, createRoom) {
     playlist: userModel.playlist,
     host: createRoom
   });
-  ref.child(userModel.uid).onDisconnect().remove().then(console.log("TA BBORT RUM ", roomName)); // removes player from room on disconnect
+  ref.child(userModel.uid).onDisconnect().remove(); // removes player from room on disconnect
 }
 
 function setUserRoomStatusToFB(inRoom) {
@@ -186,7 +184,7 @@ function setUserRoomStatusToFB(inRoom) {
   let ref = database.ref('users/' + userModel.uid);
   ref.update({
     inRoom: inRoom
-  }); // removes player from room on disconnect
+  });
 }
 
 function addRoomPlaylistToFB(playlist, roomName) {
@@ -198,6 +196,7 @@ function addRoomPlaylistToFB(playlist, roomName) {
 }
 
 async function addImgDB(token) {
+  /**Adds users profile image to firebase */
   let imgURL = await getUserImg(token);
   userModel.setImg(imgURL);
   auth().onAuthStateChanged(function(userObj) {
@@ -235,7 +234,6 @@ function addUserPlaylistToFB(playlist) {
 }
 
 function setPlayerAnswerFB(answer) {
-  /** Sets the players answer in Firebase */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer');
   ref.set(answer);
 }
@@ -266,7 +264,6 @@ function setNumberOfTracksFB(tracks) {
 }
 
 function removeAnswerFB() {
-  /** Removes answer from all players in room */
   let ref = database.ref('rooms/' + roomModel.getRoomName() + '/players/' + userModel.uid + '/answer')
   ref.set("")
 }

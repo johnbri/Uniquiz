@@ -16,7 +16,8 @@ const SignupView = ({onEmail, onName, onPassword, onSignup, onLogin, errorMessag
             <button className="signupButton" onClick={() => onSignup()}>CREATE ACCOUNT</button><br/>
             <span>Already have an account? <a href="" onClick={(event) => {
                 event.preventDefault();
-                onLogin()}}>Login here!</a></span>
+                onLogin()
+                }}>Login here!</a></span>
         </div>
     </div>;
 

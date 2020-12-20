@@ -14,8 +14,7 @@ const CreateJoinRoomView = ({onSubmit, onText, onBack, title, errorMessage}) =>
                  onChange={(event)=> onText(event.target.value)}
                  onKeyDown={(e) => {
                     e.key === 'Enter' && onSubmit(); 
-                    }
-                } />
+                    }}/>
                 <button onClick={() => onSubmit()}>{title} quiz</button>
             </div>
             <span className="errorMessage">{errorMessage}</span>

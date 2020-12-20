@@ -19,18 +19,17 @@ import {auth} from '../services/firebase.js'
 
 
 function App() {
-  /**Renders different components depeding on path */
+  /**Renders different components depending on path */
   const [user, setUser] = useState(null);
   
   auth().onAuthStateChanged((userObject) => {
     if (userObject) {
       setUser(true);
-
     } else {
       setUser(false);
     }
   });
-
+  
   return <div className="app">
     <Router>
         <Route exact path="/" component={Login} />
