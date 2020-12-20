@@ -70,11 +70,11 @@
   margin-bottom: 30px;
 }
 
-  .playerCard > .userInfo {
-    font-size: 14px;
-    padding-top: 10px;
-  }
-  
-  .posistionbox h1{
-    font-size: 30px;
-  }
+.playerCard > .userInfo {
+  font-size: 14px;
+  padding-top: 10px;
+}
+
+.posistionbox h1{
+  font-size: 30px;
+}
