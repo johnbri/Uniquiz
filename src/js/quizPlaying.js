@@ -1,22 +1,20 @@
 import React, {useState, useEffect} from "react";
-import {roomModel} from "../index.js";
+import {roomModel, userModel} from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
 import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB, database} from '../services/firebase.js';
 import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
-import { useBeforeunload } from 'react-beforeunload';
 function QuizPlayingSong(props) {
     const [timeLeft, setTimeLeft] = useState(100)
     const [answer, setAnswer]= useState("");
     const finalAnswer = useModelProp(roomModel, "answer");
     let history = useHistory();
-    useBeforeunload(() => "Are you sure you want to leave the quiz?");
+    //useBeforeunload(() => "Are you sure you want to leave the quiz?");
     
     useEffect(() => {
         let currentSong;
         let timeout;
         window.addEventListener('popstate', () => {
-            window.alert("You will now leave the quiz");
             props.history.push('/home');
             window.location.reload();
             return null;

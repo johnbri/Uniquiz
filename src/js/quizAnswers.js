@@ -20,16 +20,8 @@ function QuizAnswers (props) {
     if (currentSongIndex >= playlist.length-1) {
         lastSong = true;
     }
-    useBeforeunload(() => "Are you sure you want to leave the quiz?");
-    //Listens for update from firebase on which song index is next
     useEffect(function(){ 
-        roomModel.playlist.length === 0 && props.history.push('/home');
-        window.addEventListener('popstate', () => {
-            window.alert("You will now leave the quiz");
-            props.history.push('/home');
-            window.location.reload();
-            return null;
-        });
+        roomModel.playlist.length === 0 && props.history.push('/home'); // if user refreshes they will be redirected
         setNextSong(currentSongIndex);
         (nextSong != null) && props.history.push('/quiz/playing')
     }, [currentSongIndex]); 
