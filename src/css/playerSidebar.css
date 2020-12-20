@@ -3,8 +3,13 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    position: absolute;
-    bottom: 0;
+    align-self: flex-end;
+    margin-bottom: 50px;
+    align-content: flex-end;
+}
+
+.boxContainer {
+  align-self: flex-end;
 }
 
 .userImage{
@@ -18,11 +23,11 @@
   border-radius: 50%;
 }
 
-.userImage .creatorimg{
+.displayName .creatorimg{
   margin-top: 0px;
-  height: 40px;
-  width: 40px;
-  
+  height: 20px;
+  width: 18px;
+  padding-left: 5px;
 }
 
 .playerCard  .userImage {
@@ -52,29 +57,56 @@
     padding: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    margin-bottom: 10px;
     background-color: #ffffff;
     border-radius: 15px;
     width: 200px;
     height: 130px;
-    box-shadow: 0px 0px 10px #000000;
-    -moz-box-shadow: 0px 0px 10px #000000;
-    -webkit-box-shadow: 0px 0px 10px #000000;  
+    text-align: center;
+    box-shadow:
+    0 0px 1.8px rgba(0, 0, 0, 0.013),
+    0 0px 3.7px rgba(0, 0, 0, 0.014),
+    0 0px 6.2px rgba(0, 0, 0, 0.015),
+    0 0px 10.9px rgba(0, 0, 0, 0.017),
+    0 0px 22.7px rgba(0, 0, 0, 0.025),
+    0 0px 80px rgba(0, 0, 0, 0.07);
   }
 
 .answerText{
   word-wrap: break-word;
   font-size: 15px;
   font-style: italic; 
+  font-weight: bold;
   max-width: 160px;
+  margin-right: 0px;
+  margin-top: 10px;
   margin-bottom: 30px;
 }
 
 .playerCard > .userInfo {
   font-size: 14px;
-  padding-top: 10px;
+  padding-top: 27px;
+  text-align: left;
 }
-
+  
 .posistionbox h1{
   font-size: 30px;
+}
+
+.displayName {
+  display: flex
+}
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .playersSidebar {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .boxContainer {
+    align-self: center;
+    margin-bottom: 10px;;
+  }
 }

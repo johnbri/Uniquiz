@@ -11,7 +11,7 @@ const LoginView = ({onEmail, onPassword, onLogin, onSignUp, errorMessage}) =>
             <p>Password</p>
             <input type="password" onChange={(event) => onPassword(event.target.value)}></input><br/>
             <p className="errorMessage">{errorMessage}</p>
-            <button onClick={() => onLogin()}>LOGIN</button> <br/>
+            <button onClick={() => onLogin()}>Login</button> <br/>
             <span>Don't have an account? <a href="" onClick={(event) => {
                 event.preventDefault();
                 onSignUp()

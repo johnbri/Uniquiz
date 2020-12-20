@@ -14,7 +14,7 @@ function ReadUserModel() {
                     dbDataObject[child.key] = child.val() || "";
                 });
                 syncUserModelToFB(dbDataObject.uid);
-                if (dbDataObject.playlist) { // behövs detta?
+                if (dbDataObject.playlist) {
                     model.setPlaylist(dbDataObject.playlist);
                 }
                 model.setUid(dbDataObject.uid);

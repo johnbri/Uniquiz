@@ -46,6 +46,7 @@ class RoomModel {
     }
 
     getPlayerInfo() {
+        /**Returns the current player as an object */
         if (this.players) {
             const playerUid = Object.keys(this.players).filter(uid => uid===userModel.uid)
             return this.players[playerUid];
@@ -158,21 +159,23 @@ class RoomModel {
     }
 
     addObserver(obs){
-        this.subscribers= this.subscribers.concat(obs);   
-        return ()=> this.removeObserver(obs);                                                   
+        this.subscribers = this.subscribers.concat(obs);   
+        return () => this.removeObserver(obs);                                                   
     }
 
     removeObserver(obs){
-        this.subscribers= this.subscribers.filter(o=> o!== obs); 
+        this.subscribers= this.subscribers.filter(o => o!== obs); 
     }
 
     notifyObservers(){
-        this.subscribers.forEach(callback=> {
-            try{callback()}catch(err){
+        this.subscribers.forEach(callback => {
+            try {
+                callback()
+            } catch(err) {
                   console.error("Error ", err, callback);}
-        })
+            }
+        )
     }
-
 }
 
 export default RoomModel;

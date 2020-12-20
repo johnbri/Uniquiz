@@ -1,29 +1,29 @@
 import React, {useState, useEffect} from "react";
 import {roomModel} from "../index.js";
 import QuizPlayingView from './view/quizPlayingView.js'
-import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB, database} from '../services/firebase.js';
+import {setPlayerScoreFB, setPlayerAnswerFB, removeAnswerFB} from '../services/firebase.js';
 import {useHistory} from "react-router-dom";
 import useModelProp from "./useModelProp.js";
-import { useBeforeunload } from 'react-beforeunload';
 function QuizPlayingSong(props) {
+    /**Presenter for when the quiz is playing a song. Generates the time bar and the song playing. */
     const [timeLeft, setTimeLeft] = useState(100)
     const [answer, setAnswer]= useState("");
     const finalAnswer = useModelProp(roomModel, "answer");
     let history = useHistory();
-    useBeforeunload(() => "Are you sure you want to leave the quiz?");
-    
+
     useEffect(() => {
         let currentSong;
         let timeout;
         window.addEventListener('popstate', () => {
-            window.alert("You will now leave the quiz");
             props.history.push('/home');
             window.location.reload();
             return null;
         });
         removeAnswerFB();
         if (roomModel.playlist.length !== 0) {
-            setTimeout(() => setTimeLeft(0), 50); // väntar med att laddningsbaren börjar för att animationen avbryts om inte allt på sidan laddat klart
+            //waits for everything on the page to be loaded and ready, 
+            //otherwise, the animation to the time bar will be disrupted 
+            setTimeout(() => setTimeLeft(0), 50); 
             currentSong = playSong()
             timeout = setTimeout(() => {
                 currentSong.pause();
@@ -38,6 +38,7 @@ function QuizPlayingSong(props) {
             clearTimeout(timeout);
         }
     }, []);
+
     return React.createElement(QuizPlayingView, {
             timeLeft: timeLeft,
             loadTime: roomModel.time,
@@ -49,7 +50,6 @@ function QuizPlayingSong(props) {
             submittedAnswer: finalAnswer ? finalAnswer : ""
         })
 }
-
 
 function playSong () {
     const currentSong = new Audio(roomModel.getPlaylist()[roomModel.getCurrentSongIndex()].url);

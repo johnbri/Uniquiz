@@ -10,17 +10,16 @@ const CreateJoinRoomView = ({onSubmit, onText, onBack, title, errorMessage}) =>
             <h1>{title} quiz</h1>
             <div className="buttons">
                 <input autoComplete="off" type="text" id="searchbar"
-                 placeholder="Room name" 
+                 placeholder="Quiz name" 
                  onChange={(event)=> onText(event.target.value)}
                  onKeyDown={(e) => {
                     e.key === 'Enter' && onSubmit(); 
-                    }
-                } />
+                    }}/>
                 <button onClick={() => onSubmit()}>{title} quiz</button>
             </div>
+            <span className="errorMessage">{errorMessage}</span>
             {title === "Create" ? <p>Want to play with your friends? Share the room name and ask them to join you!</p>
                                 : <p>Write the name of an already existing room.</p>}
-            <p className="errorMessage">{errorMessage}</p>
         </div>
     </div>;
 

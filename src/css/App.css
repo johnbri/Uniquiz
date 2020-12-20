@@ -4,6 +4,13 @@
   padding: 0;
  }
 
+ .app {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+   justify-content: space-between;
+ }
+
 .app button {
   align-self:center;
   height: 50px;
@@ -12,8 +19,9 @@
   padding-left: 15px;
   padding-right: 15px;
   border-radius: 99px;
-  font-size: 16px;
+  font-size: 20px;
   letter-spacing: 2px;
+  font-weight: 100;
   color: rgb(255, 250, 250);
   background-color: #383838;
   border: 0px;
@@ -30,7 +38,7 @@
 }
 
 
-.app * input {
+.app input {
   font-size: 17px;
   color:#272727;
   font-weight: 100;
@@ -44,7 +52,16 @@
 .wrapper {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
+.quizWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.errorMessage {
+  margin-top: 10px;
+  color: red;
+  text-align: center;
+}

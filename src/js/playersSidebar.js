@@ -5,17 +5,16 @@ import {roomModel} from '../index.js';
 import useModelProp from './useModelProp.js';
 
 function PlayersSidebar (props) {
+    /**Sidebar presenter that generates the players in the quiz. 
+     * It also shows name, score, profile image and if you're host. */
     const players = useModelProp(roomModel, "players");
-    const creator = useModelProp(roomModel, "creator");
-    let data = [players]
-
     let inRoom = props.location.pathname === "/room";
 
     return players ? React.createElement(PlayersSidebarView, {
         players: players,
         inRoom: inRoom,
-        creator: creator,
-        }) : NoDataView(data, "Loading for players")
+        correctAnswer: window.location == (window.location.origin + "/quiz/answers") && Object.keys(players).map(uid => roomModel.checkCorrectAnswer(players[uid].answer))
+        }) : NoDataView("Loading players")
 }
 
 export default PlayersSidebar;

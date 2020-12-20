@@ -1,53 +1,50 @@
-
+/*----------------------Quizplaying view-----------------------------*/
+.quizPlaying {
+  flex-direction: column;
+  display: flex;
+  flex-grow: 3;
+  margin-top: 80px;
+}
 
 .loader {
-    height: 30px;
-    width: 95%;
-    border:black solid;
-    border-width: 1px;
+    height: 40px;
+    width: 85%;
+    background:rgba(255, 255, 255, 0.5);
     border-radius: 50px;
     margin-left: auto;
     margin-right: auto;
+    align-self: center;
   }
+
 .loader-bar {
-    background: rgb(255,0,157);
     background: linear-gradient(90deg, rgba(255,0,157,1) 0%, rgba(255,101,0,1) 43%, rgba(255,222,84,1) 100%);
     width: 100%;
-    height: 30px;
+    height: 40px;
     border-radius: 100px;
     animation-fill-mode: forwards;
 }
 
-.quizPlaying > h2{
+.quizPlaying  h2{
+  text-align: center;
   margin-top: 80px;
-  margin-bottom: 20px;
 }
 
 .quizPlaying > h1{
-  margin-top: 80px;
-  margin-bottom: 60px;
-
+  text-align: center;
+  margin-top: 0px;
+  font-size: 80px;
+  color: #fff;
+  margin-bottom: 20px;
 }
 
-.input{
-  border-radius: 6px;
-  height: 20px;
-  border:black solid;
-  border-width: 1px;
+.quizPlaying .submit {
+  display: flex;
+  align-self: center;
+  margin-top: 40px;
 }
 
-.submitButton {
-  margin-top: 30px;
-  margin-left: 10px;
-  padding: 5px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 10px;
-  font-size: 15px;
-  color: rgb(255, 250, 250);
-  background-color: #383838;
-  border: 0px;
-  cursor: pointer
+.quizPlaying input{
+  width: 600px;
 }
 
 .submitButton:hover {
@@ -56,4 +53,28 @@
 
 .submittedanswer{
   margin-top: 60px;
+  border-radius: 30px;
+  width: 300px;
+  color: #fff;
+  align-self: center;
+  height: 200px;
+
+}
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .quizPlaying {
+    width: 100%;
+  }
+
+  .quizPlaying .submit {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quizPlaying input {
+    align-self: center;
+    width: 90%;
+    margin-bottom: 10px;
+  }
 }

@@ -13,36 +13,36 @@ import {
   BrowserRouter as Router,
   Route,
 } from "react-router-dom";
-import AllowedAccess from './withAuth.js'
+import AllowedAccess from './allowedAccess.js'
 import { useState} from "react";
 import {auth} from '../services/firebase.js'
 
 
 function App() {
-  /**Renders different components depeding on path */
+  /**Renders different components depending on path */
   const [user, setUser] = useState(null);
   
   auth().onAuthStateChanged((userObject) => {
     if (userObject) {
       setUser(true);
-
     } else {
       setUser(false);
     }
   });
-
+  
   return <div className="app">
     <Router>
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={Signup} />
         <AllowedAccess thePath="/home" isAuth={user} component={Home} />
         <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
-        <AllowedAccess thePath="/createJoin" isAuth={user} component={CreateJoinRoom} />
-        <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
+        <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
+        <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
         <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
         <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
         <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
-        <AllowedAccess thePath="/results" isAuth={user} component={Results} />
+        <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
+        <AllowedAccess thePath="/results" isAuth={user} component={Results} /> 
     </Router>
   </div>;
 }

@@ -42,6 +42,7 @@
 }
 
 .login input:-webkit-autofill {
+  font-size: 17px;
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
 }
 
@@ -67,10 +68,6 @@
 .description {
   margin: 10px;
 }
-
-.errorMessage {
-  color: red
-}
 /*----------------------Sign up-----------------------------*/
 .login h1 {
   font-size: 45px;
@@ -89,8 +86,6 @@
   font-weight: 100;
 }
 
-
-
 /*----------------------Spotify connect-----------------------------*/
 .spotifyConnect {
   display: flex;
@@ -101,7 +96,6 @@
 .spotifyConnect > h1 {
   font-weight: 1500;
   font-size: 60px;
-  padding-bottom: 40px;
   color: white;
 }
 
@@ -109,20 +103,42 @@
   align-self:center;
   margin: 0 auto;
   max-width: 550px;
-  font-size: 20px;
+  font-size: 21px;
   color: #111111;
   font-style: italic;
-  padding-bottom: 40px;
+  margin-bottom: 40px;
   font-weight: 400;
-  margin-bottom: 50px;
   text-align: center;
 }
 
 .spotifyConnect img {
-  height: 100px;
-  padding-bottom: 10%;
+  margin-top: 220px;
+  margin-bottom: 20px;
+  height: 200px;
 }
 
 .spotifyConnect button {
   align-self: center;
+  width: 300px;
+}
+
+/* Media Queries: Tabled Portrait */
+@media screen and (max-width: 768px) {
+  .login img {
+    width: 70%;
+  }
+
+  .login h2 {
+    margin: 10px;
+  }
+
+  .login input {
+      width: 80%;
+  }
+
+  .spotifyConnect img {
+    width: 60%;
+    height: auto;
+  }
+
 }
