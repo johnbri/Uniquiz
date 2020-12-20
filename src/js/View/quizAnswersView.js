@@ -1,4 +1,3 @@
-import { roomModel } from '../..';
 import '../../css/Answers.css';
 
 const QuizAnswersView= ({correctName, correctArtists, correctImg, creator, btnText, onPlay}) =>
