@@ -2,7 +2,7 @@ import '../../css/Room.css';
 
 const RoomView = ({creator, roomName, time, tracks, onStart, onExit, setTime, setNumberOfTracks}) =>
     /** Page that works as a lobby before game */
-    <div>
+    <div className="quizWrapper">
          <div className="exit">
             <button className="exitButton" onClick={() => onExit()}>Exit Quiz</button>
         </div>

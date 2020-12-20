@@ -40,10 +40,10 @@ function App() {
           <AllowedAccess thePath="/spotifyConnect" isAuth={user}  component={SpotifyConnect} />
           <AllowedAccess thePath="/quiz/create" isAuth={user} component={CreateJoinRoom} />
           <AllowedAccess thePath="/quiz/join" isAuth={user} component={CreateJoinRoom} />
-          <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
           <AllowedAccess thePath="/quiz/room" isAuth={user} component={Room} />
           <AllowedAccess thePath="/quiz/playing" isAuth={user} component={QuizPlaying} />
           <AllowedAccess thePath="/quiz/answers" isAuth={user} component={QuizAnswers} />
+          <AllowedAccess thePath="/quiz" isAuth={user} component={PlayersSidebar} />
           <AllowedAccess thePath="/results" isAuth={user} component={Results} />
       </div> 
     </Router>
