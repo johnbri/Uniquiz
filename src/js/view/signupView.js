@@ -13,7 +13,7 @@ const SignupView = ({onEmail, onName, onPassword, onSignup, onLogin, errorMessag
             <p>Password</p>
             <input type="password" onChange={(event) => onPassword(event.target.value)}></input>
             <p className="errorMessage">{errorMessage}</p>
-            <button className="signupButton" onClick={() => onSignup()}>reate account</button><br/>
+            <button className="signupButton" onClick={() => onSignup()}>Create account</button><br/>
             <span>Already have an account? <a href="" onClick={(event) => {
                 event.preventDefault();
                 onLogin()
